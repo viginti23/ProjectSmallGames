@@ -1,7 +1,6 @@
 import sys
 
 
-
 class Node:
     def __init__(self, name, content, children=None, parent=None):
         self.content = content
@@ -18,7 +17,7 @@ class Node:
 
     def add_options(self, *new_node):
         for node in new_node:
-            self.children[len(self.children)+1] = node
+            self.children[len(self.children) + 1] = node
             node.parent = self
 
     def get_parent(self):
@@ -46,7 +45,7 @@ class Node:
                     print(view.get(option))
                 user_choice = input("\nEnter characters to choose an option:\n")
                 if user_choice.lower() == "q":
-                    ans = input("\nAre you sure you are leaving?\nEnter Y or N.")
+                    ans = input("\nAre you sure you are leaving?\nEnter Y or N.\n")
                     if ans.lower() == "y":
                         sys.exit()
                     else:
@@ -57,12 +56,12 @@ class Node:
                 next_view = children[user_choice]
                 current_node = next_view
                 return next_view.show_menu_view_and_go_next()
-            # except ValueError:
-            #     # if view[0]:
-            #     #     print('You must input a valid number according to the menu displayed above')
-            #     #     continue
-            #     print('You must input a valid number according to the menu displayed above')
-            #     continue
+            except ValueError:
+                # if view[0]:
+                #     print('You must input a valid number according to the menu displayed above')
+                #     continue
+                print('You must input a valid number according to the menu displayed above')
+                continue
 
             except KeyError:
                 # if view[0]:
