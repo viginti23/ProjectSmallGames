@@ -4,9 +4,9 @@ from RegisterMenu import RegisterMenu
 from LoginMenu import LoginMenu
 
 main_menu = {
-    1: '|1| Start game',
-    2: '|2| Register',
-    3: '|3| Log in',
+    1: '|1| Play as guest',
+    2: '|2| Log in',
+    3: '|3| Register',
 }
 
 MainMenu = Node("MainMenu", main_menu)
