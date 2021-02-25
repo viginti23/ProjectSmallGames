@@ -32,30 +32,36 @@ class Node:
         return self.content
 
     def show_menu_view_and_go_next(self):
-        view = self.get_content()
+        content = self.get_content()
         children = self.children
-        current_node = self
+        current_menu = self
         while True:
             try:
+
+                # Add "Back" module to given menu, if there is a path to go back to, by choosing "0".
                 if self.parent is not None:
-                    view[0] = "|0| Back"
+                    content[0] = "|0| Back"
                     children[0] = self.parent
-                view['Q'] = '|Q| Exit'
-                for option in view:
-                    print(view.get(option))
+
+                # Add "Exit" module to every menu, by choosing "Q" or "q".
+                content['Q'] = '|Q| Exit'
+                for option in content:
+                    print(content.get(option))
+
                 user_choice = input("\nEnter characters to choose an option:\n")
+
                 if user_choice.lower() == "q":
                     ans = input("\nAre you sure you are leaving?\nEnter Y or N.\n")
                     if ans.lower() == "y":
                         sys.exit()
                     else:
-                        current_node.show_menu_view_and_go_next()
+                        current_menu.show_menu_view_and_go_next()
                 else:
                     user_choice = int(user_choice)
 
-                next_view = children[user_choice]
-                current_node = next_view
-                return next_view.show_menu_view_and_go_next()
+                next_node_content = children[user_choice]
+                current_menu = next_node_content
+                return next_node_content.show_menu_view_and_go_next()
             except ValueError:
                 # if view[0]:
                 #     print('You must input a valid number according to the menu displayed above')
