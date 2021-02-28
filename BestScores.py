@@ -1,8 +1,8 @@
-from Node import Node
+from MenuNode import MenuNode
 
 best_scores = {}
 
-BestScores = Node("Best Scores", best_scores)
+BestScores = MenuNode("Best Scores", best_scores)
 
 
 # w start_game można mieć inne skrypty (gra, dalsze menu, formularz)

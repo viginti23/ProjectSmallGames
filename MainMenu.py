@@ -1,19 +1,17 @@
-from Node import Node
-from StartGameMenu import StartGameMenu
+from MenuNode import MenuNode
 from RegisterMenu import RegisterMenu
 from LoginMenu import LoginMenu
 from BestScores import BestScores
+from PlayAsAGuest import PlayAsAGuest
 
 
-main_menu = {
-    1: '|1| Play as guest',
-    2: '|2| Log in',
-    3: '|3| Register',
-    4: '|4| Best scores',
-}
+main_menu = {}
 
-MainMenu = Node("MainMenu", main_menu)
+MainMenu = MenuNode("MainMenu", main_menu)
 
-MainMenu.add_options(StartGameMenu, RegisterMenu, LoginMenu, BestScores
-                     ) #wymieniamy które z modułów chcemy mieć dostępne w danym view
+MainMenu.add_options(PlayAsAGuest, LoginMenu, RegisterMenu, BestScores)
+
+MenuNode.default_node = MainMenu
+
+MainMenu.show_menu_view_and_go_next()
 

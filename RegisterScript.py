@@ -1,26 +1,34 @@
-from LoginMenu import LoginMenu
-from User import User
-import time
-import re
-import json
 import hashlib
+import json
 import os
+import re
+import time
 
-with open('database/users.json') as data:
-    db = data.read()
+from LoginMenu import LoginMenu
+from MenuNode import MenuNode
+from User import User
+from json.decoder import JSONDecodeError
 
-database_dict = json.loads(db)
+with open('database/users.json', 'w+') as in_data:  # writing and reading mode
+    if len(str(in_data)) > 0:
+        try:
+            data = json.load(in_data)
+        except JSONDecodeError:
+            users = {'users': []}
+    if len(str(in_data)) == 0:
+        users = {'users': []}
+        # data = users
 
 
 # Helper functions
-# Checks if entered password is acceptable.
-def is_acceptable_password(username, a):
+def is_acceptable_password(password, a):
+    # Checks if entered password is acceptable.
     b = "password"
     if b.lower() in a.lower():
         print("Your password can't contain the word 'password' in any case!")
         return False
     diff_chars = []
-    if username.lower() in a.lower():
+    if password.lower() in a.lower():
         print("Your password can't contain your username in any case!")
         return False
     for x in a:
@@ -47,21 +55,22 @@ def is_acceptable_password(username, a):
 
 def email_is_valid(email_address):
     # Validating given email address with regex.
-    pattern = '^[\w!#$%&\'*+/=?`{|}~^-]+(?:\.[\w!#$%&\'*+/=?`{|}~^-]+)*@(?:[A-Z0-9-]+\.)+[A-Z]{2,6}$'
+    pattern = r'^[\w!#$%&-]+(?:\.[\w!#$%-]+)*@(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,6}$'
     valid = re.match(pattern, email_address)
     return valid
 
 
 def email_in_database(email_address):
     # Checking the database for existing user with this email address.
-    for user in database_dict['users']:
+    for user in users['users']:
         if email_address.lower() == user['email']:
             return True
     return False
 
 
 def username_is_valid(username):
-    for user in database_dict['users']:
+    # Checking the database for existing user with this username.
+    for user in users['users']:
         if user.username == username:
             print("User associated with this e-mail address already exists!")
             print("Try logging in instead or recovering your password.")
@@ -70,6 +79,7 @@ def username_is_valid(username):
 
 
 def hash_pw(pw):
+    # Hashing function.
     salt = os.urandom(32)
     key = hashlib.pbkdf2_hmac('sha256', pw.encode('utf-8'), salt, 100000)
     return salt, key
@@ -112,6 +122,9 @@ def username_prompt():
             continue
 
 
+# def map_input_with_right_node(input):
+
+
 def password_prompt(valid_username):
     while True:
         print('''Your password:
@@ -124,9 +137,9 @@ def password_prompt(valid_username):
 
         password1 = input("Please enter your password:\n")
         if is_acceptable_password(valid_username, password1):
-            password2 = input("Please enter your password once again.")
+            password2 = input("Please enter your password once again.\n")
             if password2 != password1:
-                print("The passwords are different, please type them again!")
+                print("The passwords are different, please type them again!\n")
                 continue
             else:
                 # returns pair (salt, key)
@@ -143,7 +156,14 @@ def register_script():
     valid_hashed_password = password_prompt(valid_username)
     time.sleep(0.5)
     new_user = User(valid_email, valid_username, valid_hashed_password)
-    new_user_json = json.dumps(new_user.__dict__)
-
-    with open('database/users.json', 'a') as datab:
-        json.dump(new_user_json, datab)
+    new_user_dictionary = new_user.__dict__
+    new_user_dictionary['password'] = str(new_user_dictionary['password'])
+    users['users'].append(new_user_dictionary)
+    with open('database/users.json', 'w') as usr_file:
+        json.dump(users, usr_file, indent=4)
+    User.n += 1
+    # TODO sending email to confirm the account
+    print("You can now log in.")
+    time.sleep(1)
+    print("Returning the the pain page.")
+    MenuNode.default_node.show_menu_view_and_go_next()

@@ -1,5 +1,3 @@
-
-
 class GuestUser:
     n = 0
 
@@ -11,9 +9,11 @@ class GuestUser:
 
 
 class User:
-    def __init__(self, email, username,password, wallet=0):
+    n = 0
+
+    def __init__(self, email, username, password, wallet=0):
         self.username = username
         self.password = password
         self.email = email
         self.my_wallet = wallet
-
+        self.user_id = User.n
