@@ -10,6 +10,7 @@ class GuestUser:
 
 class User:
     n = 0
+    user_logged = None
 
     def __init__(self, email, username, password, wallet=0):
         self.username = username
@@ -17,3 +18,5 @@ class User:
         self.email = email
         self.my_wallet = wallet
         self.user_id = User.n
+        User.n += 1
+        self.records = {}

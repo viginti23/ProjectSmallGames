@@ -153,17 +153,18 @@ def register_script():
     valid_username = username_prompt()
     print(f'Welcome {valid_username}!')
     time.sleep(1)
-    valid_hashed_password = password_prompt(valid_username)
+    valid_salt, valid_key = password_prompt(valid_username)
+    valid_hashed_password = valid_key+valid_salt
     time.sleep(0.5)
     new_user = User(valid_email, valid_username, valid_hashed_password)
     new_user_dictionary = new_user.__dict__
     new_user_dictionary['password'] = str(new_user_dictionary['password'])
     users['users'].append(new_user_dictionary)
-    with open('database/users.json', 'w') as usr_file:
+    with open('database/users.json', 'a') as usr_file:
         json.dump(users, usr_file, indent=4)
     User.n += 1
     # TODO sending email to confirm the account
     print("You can now log in.")
     time.sleep(1)
-    print("Returning the the pain page.")
+    print("Returning the the main menu.")
     MenuNode.default_node.show_menu_view_and_go_next()

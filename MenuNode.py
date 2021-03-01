@@ -1,5 +1,6 @@
 import sys
 import time
+from User import User
 
 
 class MenuNode:
@@ -19,6 +20,9 @@ class MenuNode:
 
     def __repr__(self):
         return self.name
+
+    def __call__(self):
+        return self.show_menu_view_and_go_next()
 
     def get_children(self):
         return self.options
@@ -78,6 +82,8 @@ class MenuNode:
     def show_menu_view_and_go_next(self):
         # Content is a dictionary of key:value pairs, paired <int from 0>:<str> e.g. for displaying views to users.
         # Other menu-nodes (views or functions) that we want to display on given <self> menu, we add to self.options.
+        if User.user_logged:
+            print(f'User: {User.user_logged}')
 
         # Getting user's choice
         choice = self.get_users_choice_prompt()

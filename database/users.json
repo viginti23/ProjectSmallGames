@@ -2,10 +2,11 @@
     "users": [
         {
             "username": "viginti",
-            "password": "(b'>\\xcfx\\xcd\\x9bO\\xeb\\xf9\\x12+$b\\xc6\\xed:C\\x1a\\x1epA\\xd9z>\\xaa\\xb9U\\x7f\\xb0T\\x01\\xa8L', b\"\\x83:n\\x89>\\xe9\\xb3\\xe6H6\\x8a\\xc6\\x8a:rW\\xb3;&rf\\xf2\\x1c\\xe5'\\xd72\\xf3\\xf6s\\xd8x\")",
-            "email": "zarodm2@gasd.pl",
+            "password": "b'\\xb1Y3\\xb5\\x13]\\x15\\xc1Y\\xcf*\\xa3\\xcc\\xba\\xd4t s\\x06\\x14\\x16Al\\xc9\\x18\\xc3\\xf9$\\xcax\\xb0\\xba\\xd3\\x0b\\x11p\\xbe.6\\x1ab+,\\x050\\xca\\xa8\\xfa\\xcf\\xd5`\\xb7;\\x92@\\xc2\\x80=\\x96\\r\\x95%#n'",
+            "email": "zarodm@gmail.com",
             "my_wallet": 0,
-            "user_id": 0
+            "user_id": 0,
+            "records": {}
         }
     ]
 }
