@@ -2,10 +2,29 @@
     "users": [
         {
             "username": "viginti",
-            "password": "b'\\xb1Y3\\xb5\\x13]\\x15\\xc1Y\\xcf*\\xa3\\xcc\\xba\\xd4t s\\x06\\x14\\x16Al\\xc9\\x18\\xc3\\xf9$\\xcax\\xb0\\xba\\xd3\\x0b\\x11p\\xbe.6\\x1ab+,\\x050\\xca\\xa8\\xfa\\xcf\\xd5`\\xb7;\\x92@\\xc2\\x80=\\x96\\r\\x95%#n'",
+            "id": 0,
+            "key": "b95e3c5b25edbde82be90c907e3c21ee6631c65b7d2f64fe794459919b22437b",
+            "salt": "20be931c5b1b75d5b08ec17f47e0674a22dac966a0513625da61889481e29dc1",
             "email": "zarodm@gmail.com",
             "my_wallet": 0,
-            "user_id": 0,
+            "records": {}
+        },
+        {
+            "username": "popo",
+            "id": 0,
+            "key": "2ea7e7e350fa913baff4d0db9e38a356192b9ac7e389695cf61b55e838c67c47",
+            "salt": "7e403350ef1fc0c29441dea006dca14ca5296aea2766518cdfda820f6fb8dafc",
+            "email": "zarodm@wp.pl",
+            "my_wallet": 0,
+            "records": {}
+        },
+        {
+            "username": "q",
+            "id": 0,
+            "key": "0e030a61a7d0f0ce3f50e06380334d627920dbc4b144bb1406e6c4197a86009b",
+            "salt": "a1b284a6458c561d216f825c9a64f2f872187f480184d30802755419434d19b3",
+            "email": "zarodm@gmal.co",
+            "my_wallet": 0,
             "records": {}
         }
     ]

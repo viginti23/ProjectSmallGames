@@ -3,24 +3,119 @@ import json
 import os
 import re
 import time
-
-from LoginMenu import LoginMenu
+import io
 from MenuNode import MenuNode
 from User import User
 from json.decoder import JSONDecodeError
+import base64
 
-with open('database/users.json', 'w+') as in_data:  # writing and reading mode
-    if len(str(in_data)) > 0:
-        try:
-            data = json.load(in_data)
-        except JSONDecodeError:
+with open('database/users.json') as data:
+    try:
+        if os.stat('database/users.json').st_size != 0:
+            users = json.load(data)
+        else:
+            print("User database is empty.\nCreating new JSON users database template...")
             users = {'users': []}
-    if len(str(in_data)) == 0:
-        users = {'users': []}
-        # data = users
+    except JSONDecodeError:
+        print("User database is invalid!\nCreating new JSON users database template...")
+        # users = {'users': []}
+        exit()
 
 
 # Helper functions
+def email_prompt():
+    # Email prompt
+    while True:
+        email_input = input("Enter your e-mail:\n")
+        if email_is_valid(email_input):
+            if email_in_database(email_input):
+                print("\nUser associated with this e-mail address already exists!\n")
+                print("Try logging in instead or recovering your password.")
+                decision = input("""
+
+                        Enter M to return to Main Menu
+
+                        Enter E to try with a different e-mail.
+                        """)
+
+                if decision.lower() == "m":
+                    MenuNode.default_node()
+                elif decision.lower() == "e":
+                    continue
+            else:
+                return email_input
+        else:
+            print("\nPlease enter valid e-mail address!\n")
+            continue
+
+
+def username_prompt():
+    # Username prompt
+    while True:
+        username = input("\nEnter your username:\n")
+        if username_is_valid(username):
+            return username
+        else:
+            print("Please enter a new username.\n")
+            continue
+
+
+def email_is_valid(email_address):
+    # Validating given email address with regex.
+    pattern = r'^[\w!#$%&-]+(?:\.[\w!#$%-]+)*@(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,6}$'
+    valid = re.match(pattern, email_address)
+    return valid
+
+
+def email_in_database(email_address):
+    # Checking the database for existing user with this email address.
+    for user in users['users']:
+        if email_address.lower() == user['email']:
+            return True
+    return False
+
+
+def username_is_valid(username):
+    # Checking the database for existing user with this username.
+    for user in users['users']:
+        if user['username'] == username:
+            print("\nUser with this username already exists!\n")
+            print("Try logging in instead or recovering your password.\n")
+            return False
+    return True
+
+
+def password_prompt(valid_username):
+    while True:
+        print('''Your password:
+                                    - should be longer than 6 characters;
+                                    - should contain at least one digit;
+                                    - should not contain the word "password" in any case;
+                                    - should not be the same as your username;
+                                    - should contain at least 3 different characters.
+    ''')
+
+        password1 = input("Please enter your password:\n")
+        if is_acceptable_password(valid_username, password1):
+            password2 = input("Please enter your password once again.\n")
+            if password2 != password1:
+                print("The passwords are different, please type them again!\n")
+                continue
+            else:
+                # returns pair (salt, key)
+                return hash_pw(password1)
+
+
+def stop_watch_to_main_menu(sec):
+    while sec:
+        minn, secc = divmod(sec, 60)
+        timer = '{:02d}:{:02d}'.format(minn, secc)
+        print(timer, end='\r')
+        time.sleep(1)
+        sec -= 1
+    # MenuNode.current_node()
+
+
 def is_acceptable_password(password, a):
     # Checks if entered password is acceptable.
     b = "password"
@@ -53,118 +148,44 @@ def is_acceptable_password(password, a):
     return True
 
 
-def email_is_valid(email_address):
-    # Validating given email address with regex.
-    pattern = r'^[\w!#$%&-]+(?:\.[\w!#$%-]+)*@(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,6}$'
-    valid = re.match(pattern, email_address)
-    return valid
-
-
-def email_in_database(email_address):
-    # Checking the database for existing user with this email address.
-    for user in users['users']:
-        if email_address.lower() == user['email']:
-            return True
-    return False
-
-
-def username_is_valid(username):
-    # Checking the database for existing user with this username.
-    for user in users['users']:
-        if user.username == username:
-            print("User associated with this e-mail address already exists!")
-            print("Try logging in instead or recovering your password.")
-            return False
-    return True
-
-
 def hash_pw(pw):
     # Hashing function.
     salt = os.urandom(32)
-    key = hashlib.pbkdf2_hmac('sha256', pw.encode('utf-8'), salt, 100000)
-    return salt, key
-
-
-def email_prompt():
-    # Email prompt
-    while True:
-        email_input = input("Enter your e-mail:\n")
-        if email_is_valid(email_input):
-            if email_in_database(email_input):
-                print("User associated with this e-mail address already exists!")
-                print("Try logging in instead or recovering your password.")
-                decision = input("""
-
-                        Enter L to log in.
-
-                        Enter E to try with a different e-mail.
-                        """)
-
-                if decision.lower() == "l":
-                    LoginMenu.show_menu_view_and_go_next()
-                elif decision.lower() == "e":
-                    continue
-            else:
-                return email_input
-        else:
-            print("Please enter valid e-mail address!")
-            continue
-
-
-def username_prompt():
-    # Username prompt
-    while True:
-        username = input("Enter your username:\n")
-        if username_is_valid(username):
-            return username
-        else:
-            print("Please enter a valid e-mail:\n")
-            continue
-
-
-# def map_input_with_right_node(input):
-
-
-def password_prompt(valid_username):
-    while True:
-        print('''Your password:
-                                    - should be longer than 6 characters;
-                                    - should contain at least one digit;
-                                    - should not contain the word "password" in any case;
-                                    - should not be the same as your username;
-                                    - should contain at least 3 different characters.
-    ''')
-
-        password1 = input("Please enter your password:\n")
-        if is_acceptable_password(valid_username, password1):
-            password2 = input("Please enter your password once again.\n")
-            if password2 != password1:
-                print("The passwords are different, please type them again!\n")
-                continue
-            else:
-                # returns pair (salt, key)
-                return hash_pw(password1)
+    key = hashlib.pbkdf2_hmac('sha256',
+                              pw.encode('utf-8'),  # converts given password to bytes
+                              salt,
+                              100000)
+    return salt, key  # both bytes type
 
 
 def register_script():
-    print("Thank you for registering!")
-    time.sleep(1)
+    print("\nThank you for registering!\n")
+    # time.sleep(1)
     valid_email = email_prompt()
     valid_username = username_prompt()
-    print(f'Welcome {valid_username}!')
-    time.sleep(1)
+    print(f'''
+                        \nWelcome {valid_username}!\n
+    ''')
+    # time.sleep(1)
     valid_salt, valid_key = password_prompt(valid_username)
-    valid_hashed_password = valid_key+valid_salt
-    time.sleep(0.5)
-    new_user = User(valid_email, valid_username, valid_hashed_password)
+    # valid_salt = base64.b64decode(valid_salt)
+    # valid_key = base64.b64decode(valid_key)
+    # print(valid_key, valid_salt)
+    # time.sleep(0.5)
+    new_user = User(email=valid_email,
+                    username=valid_username, key=valid_key.hex(),
+                    salt=valid_salt.hex())
+
     new_user_dictionary = new_user.__dict__
-    new_user_dictionary['password'] = str(new_user_dictionary['password'])
+    # print(new_user_dictionary)
     users['users'].append(new_user_dictionary)
-    with open('database/users.json', 'a') as usr_file:
+    with open('database/users.json', 'w', encoding='utf8') as usr_file:
         json.dump(users, usr_file, indent=4)
     User.n += 1
-    # TODO sending email to confirm the account
+    # # TODO sending email to confirm the account
     print("You can now log in.")
-    time.sleep(1)
-    print("Returning the the main menu.")
-    MenuNode.default_node.show_menu_view_and_go_next()
+    # time.sleep(1)
+    print(f"Returning the the main menu in:")
+    stop_watch_to_main_menu(5)
+    print('\n')
+    MenuNode.default_node()

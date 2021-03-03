@@ -1,3 +1,3 @@
-from MainMenu import MainMenu
+from mainMenu import MainMenu
 
 
