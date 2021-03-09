@@ -1,4 +1,4 @@
-from MenuNode import MenuNode
+from menuNode import MenuNode
 
 
 # FuncNode don't change MenuNode.current_node value, MenuNodes do.
@@ -12,3 +12,5 @@ class FuncNode(MenuNode):
 
     def __call__(self):
         return self.func()
+
+

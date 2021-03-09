@@ -9,11 +9,18 @@ from datetime import datetime
 class Game:
     games_list = []
 
-    # a każda gra będzie miała swoje game_id
-    def __init__(self, name, user, dat):
+    def __init__(self, name, user):
         self.name = name
         self.user = user
+        Game.games_list.append(self)
+
+    def __repr__(self):
+        return self.name
+
+    def __call__(self):
+        return self
 
     def run_game(self):
         date_played = datetime.now()
         game_id = None
+

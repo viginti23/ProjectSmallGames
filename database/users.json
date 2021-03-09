@@ -1,31 +1,57 @@
 {
     "users": [
-        {
-            "username": "viginti",
-            "id": 0,
-            "key": "b95e3c5b25edbde82be90c907e3c21ee6631c65b7d2f64fe794459919b22437b",
-            "salt": "20be931c5b1b75d5b08ec17f47e0674a22dac966a0513625da61889481e29dc1",
+        {"username": "viginti",
+            "key": "3ac083fef8e090ebf774e52b09b1b4bd99b2d840374598f19368cfc2817e7524",
+            "salt": "5dda0b38dcd9f8d9922d7feb06dcc8cf1c4fb6adc08b384b3a73b2db42b8882a",
             "email": "zarodm@gmail.com",
-            "my_wallet": 0,
-            "records": {}
+            "id": 0,
+            "wallet": 100,
+            "games_history": {}
         },
         {
             "username": "popo",
-            "id": 0,
-            "key": "2ea7e7e350fa913baff4d0db9e38a356192b9ac7e389695cf61b55e838c67c47",
-            "salt": "7e403350ef1fc0c29441dea006dca14ca5296aea2766518cdfda820f6fb8dafc",
-            "email": "zarodm@wp.pl",
-            "my_wallet": 0,
-            "records": {}
+            "key": "d2f9f9c6002334bfc1ed857433ee98c3a5dcb189a1394be585b1852eb171b0c3",
+            "salt": "6ae8a1cf87423d0e1461d5b8679c6d887eee8f6bc3409381aea1b4812d0b47b7",
+            "email": "popo@gmail.com",
+            "id": 2,
+            "wallet": 0,
+            "games_history": {}
         },
         {
-            "username": "q",
-            "id": 0,
-            "key": "0e030a61a7d0f0ce3f50e06380334d627920dbc4b144bb1406e6c4197a86009b",
-            "salt": "a1b284a6458c561d216f825c9a64f2f872187f480184d30802755419434d19b3",
-            "email": "zarodm@gmal.co",
-            "my_wallet": 0,
-            "records": {}
+            "username": "bobo",
+            "key": "9e444e9387475e7c39475fdaa6320c24545d765d211967432aba86086ca25072",
+            "salt": "4b781a29b93ace8549ab40b034872dce4b65615d07949d69815216046ea4d933",
+            "email": "bobo@wp.pl",
+            "id": 4,
+            "wallet": 50,
+            "games_history": {}
+        },
+        {
+            "username": "rara",
+            "key": "3d0bd319ad1ce46a030df76906e43190cb860a5ee6ca67a28333179d445e96e7",
+            "salt": "e3ed6d9b6bed9f04410512c25fcf68bfad4a5f51d0979380d7d4df6c84e97257",
+            "email": "popo@wp.pl",
+            "wallet": 0,
+            "games_history": {},
+            "id": 0
+        },
+        {
+            "username": "pipi",
+            "key": "7f0a3ae6d8db8f38d08c41b2ed22b1624e7047d28fb9ad152c5059eeb4be84cc",
+            "salt": "e862ecf4ae30c88ecfdbc2f62dec56915067c07490f8b45d350e0315073074fa",
+            "email": "pipi@pi.pi",
+            "wallet": 0,
+            "games_history": {},
+            "id": 0
+        },
+        {
+            "username": "ppp",
+            "key": "43b1842fa02e6ec8cbee6c1a430841c6c4701c62e3e3ad4da952737332316471",
+            "salt": "c42194666db0097a31faf057745373c78e3b3cf3c4e2509cb8876e52c3a68685",
+            "email": "ppp@pp.pp",
+            "wallet": 0,
+            "games_history": {},
+            "id": 0
         }
     ]
 }

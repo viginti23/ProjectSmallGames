@@ -5,8 +5,8 @@ import re
 import time
 import codecs
 import io
-from MenuNode import MenuNode
-from User import User
+from menuNode import MenuNode
+from user import User
 from json.decoder import JSONDecodeError
 import base64
 

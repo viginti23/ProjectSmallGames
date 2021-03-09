@@ -1,4 +1,4 @@
-from MenuNode import MenuNode
+from menuNode import MenuNode
 
 best_scores = {}
 

@@ -1,31 +1,19 @@
 import json
 from json.decoder import JSONDecodeError
-from MenuNode import MenuNode
-from User import User
-from MainMenuForLoggedIn import MainMenuForLoggedIn
+from menuNode import MenuNode
+from user import User
+from mainMenu_forUsers import MainMenuForUsers
 import time
 import os
 import hashlib
 import random
-
-# if __name__ == '__main__':
-with open('database/users.json') as data:
-    try:
-        if os.stat('database/users.json').st_size != 0:
-            users = json.load(data)
-        # else:
-        #     print("Database is empty.\nCreating new JSON users database template...")
-        #     users = {'users': []}
-    except JSONDecodeError:
-        print("The JSON database is invalid!\nCreating new JSON users database template...")
-        users = {'users': []}
+from database.json_users_funcs import read_data_from_users_database, write_data_to_users_database
 
 
 def stop_watch_to_default_node(sec):
     while sec:
         minn, secc = divmod(sec, 60)
         timer = '{:02d}:{:02d}'.format(minn, secc)
-        # print(f'\nReturning to {MenuNode.default_node.name} in:')
         print(timer, end='\r')
         time.sleep(1)
         sec -= 1
@@ -48,30 +36,43 @@ def password_reset(usr):
                                   new_password.encode('utf8'),
                                   salt,
                                   100000)
+    users = read_data_from_users_database()
     for u in users['users']:
         if u['username'] == usr.username:
             u['key'] = new_key.hex()
-    with open('database/users.json', 'w') as reset_pw_users:
-        json.dump(users, reset_pw_users, indent=4)
-    return
+    write_data_to_users_database(users)
+    print('Password has been reset!')
 
 
 def login_script():
-    # Searching user in database
+    # Searching for user in database
+    users = read_data_from_users_database()
     identified_user = None
-    while identified_user is None:
-        username_input = input('Enter your username or e-mail:\n')
+    while not identified_user:
+        print('\n\nEnter R to return to main menu.')
+        username_input = input('\nEnter your username or e-mail:\n')
+        if username_input.lower() == 'r':
+            MenuNode.current_node()
         for user in users['users']:
-            if user['username'] == username_input or user['email'] == username_input:
-                identified_user = User(dictionary=user)
+            if username_input == user['username'] or username_input == user['email']:
+                identified_user = User(dictionary=user)  # Our currently most used user is in Python class type.
+                # if not dict_: ---> ---> identified_user.dictionary
+                #     dict_ = user
+                print(type(user))
                 print("\nUser found!")
                 break
-            # print("This user does not exist. Try different username or register instead.")
+        if not identified_user:
+            print("\nThis user does not exist. Try different username or register instead.")
+            time.sleep(2)
+            login_script()
 
     # Verifying password
     count = 0
     while count < 4:
+        print('\n\nEnter R to return to main menu.')
         password_to_check = input("\nEnter your password:\n")
+        if password_to_check.lower() == 'r':
+            MenuNode.current_node()
         salt = bytes.fromhex(identified_user.salt)
         new_key = hashlib.pbkdf2_hmac('sha256',
                                       password_to_check.encode('utf-8'),
@@ -86,7 +87,11 @@ def login_script():
             count += 1
     if count >= 3:
         print("\nToo many tries. Please use 'Forget password' to regain access to your account.\n")
-        password_reset(identified_user)
-    MenuNode.default_node = MainMenuForLoggedIn
-    print(f'Returning to {MenuNode.default_node.name} in:')
-    stop_watch_to_default_node(5)
+        print("\nResetting password...\n")
+        # password_reset(identified_user)
+        print(f'Returning to {MenuNode.default_node.name} in:')
+        stop_watch_to_default_node(3)
+    else:
+        MenuNode.default_node = MainMenuForUsers
+        MenuNode.current_node = MainMenuForUsers
+        MenuNode.current_node()

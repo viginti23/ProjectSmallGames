@@ -1,7 +1,7 @@
 # if user.logged_in to zawartość i view Play są dopasowane do zalogowanego użytkownika (np. Witaj X!), plus moduły Moje
 # Konto, a w nim: my high scores, my wallet, change password
 
-from MenuNode import MenuNode
+from menuNode import MenuNode
 
 play_as_a_guest = {}
 

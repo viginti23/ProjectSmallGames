@@ -1,6 +1,6 @@
 import sys
 import time
-from User import User
+from user import User
 
 
 class MenuNode:
@@ -15,7 +15,8 @@ class MenuNode:
         self.options = options
         if options is None:
             self.options = {}
-        self.parent = parent
+        if not parent:
+            self.parent = MenuNode.current_node
 
     def __repr__(self):
         return self.name
@@ -23,14 +24,8 @@ class MenuNode:
     def __call__(self):
         return self.run()
 
-    def get_children(self):
+    def get_options(self):
         return self.options
-
-    def add_options(self, *new_func_or_node):
-        for func_or_node in new_func_or_node:
-            self.options[str(len(self.options) + 1)] = func_or_node
-            self.content[str(len(self.content) + 1)] = f'|{str(len(self.content) + 1)}| {func_or_node.name}\n'
-            func_or_node.parent = self
 
     def get_parent(self):
         return self.parent
@@ -39,25 +34,15 @@ class MenuNode:
         self.parent = node
 
     def get_content(self):
-        if self.parent is not None:
-            self.options[0] = self.parent
         return self.content
 
-    def printing_menu_view(self):
-        # If any user is logged in, we are displaying their username on the top of each menu view.
-        if User.user_logged:
-            print(f'\n\n\nUser: {User.user_logged}\n')
-            print(f"{MenuNode.current_node.name}")
-        # Current's node name
-        else:
-            print(f'\n\t{MenuNode.current_node.name}\n{25*"-"}')
+    def add_options(self, *new_func_or_node):
+        for func_or_menu_node in new_func_or_node:
+            self.options[str(len(self.options) + 1)] = func_or_menu_node
+            self.content[str(len(self.content) + 1)] = f'|{str(len(self.content) + 1)}| {func_or_menu_node.name}\n'
+            func_or_menu_node.parent = self
 
-        print(f"{25*'-'}")
-        for key in self.content.keys():
-            print(self.content[key])
-        print(f"{25*'-'}")
-
-    def adding_back_module_to_parent_menu(self):
+    def adding_back_module_leading_to_parent_menu(self):
         # Adding "Back" module to given menu, if there is a path to go back to, by choosing "0".
         if self.parent:
             self.content['0'] = "|0| Back"
@@ -68,9 +53,23 @@ class MenuNode:
         self.content['Q'] = '|Q| Exit'
         self.options['Q'] = sys.exit
 
+    def printing_menu_view(self):
+        # If any user is logged in, we are displaying their username on the top of each menu view.
+        if User.user_logged:
+            print(f'\n\n\nUser: {User.user_logged}\n')
+            print(f"{MenuNode.current_node.name}")
+        # Current's node name
+        else:
+            print(f'\n\t{MenuNode.current_node.name}\n{25 * "-"}')
+
+        print(f"{25 * '-'}")
+        for key in self.content.keys():
+            print(self.content[key])
+        print(f"{25 * '-'}")
+
     def get_users_choice_prompt(self):
         current = MenuNode.current_node
-        current.adding_back_module_to_parent_menu()
+        current.adding_back_module_leading_to_parent_menu()
         current.adding_exit_module()
         current.printing_menu_view()
 

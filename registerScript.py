@@ -3,11 +3,9 @@ import json
 import os
 import re
 import time
-import io
-from MenuNode import MenuNode
-from User import User
+from menuNode import MenuNode
+from user import User
 from json.decoder import JSONDecodeError
-import base64
 
 with open('database/users.json') as data:
     try:
@@ -166,26 +164,20 @@ def register_script():
     print(f'''
                         \nWelcome {valid_username}!\n
     ''')
-    # time.sleep(1)
     valid_salt, valid_key = password_prompt(valid_username)
-    # valid_salt = base64.b64decode(valid_salt)
-    # valid_key = base64.b64decode(valid_key)
-    # print(valid_key, valid_salt)
-    # time.sleep(0.5)
+
     new_user = User(email=valid_email,
                     username=valid_username, key=valid_key.hex(),
                     salt=valid_salt.hex())
 
     new_user_dictionary = new_user.__dict__
-    # print(new_user_dictionary)
     users['users'].append(new_user_dictionary)
     with open('database/users.json', 'w', encoding='utf8') as usr_file:
         json.dump(users, usr_file, indent=4)
     User.n += 1
     # # TODO sending email to confirm the account
     print("You can now log in.")
-    # time.sleep(1)
     print(f"Returning the the main menu in:")
-    stop_watch_to_main_menu(5)
+    stop_watch_to_main_menu(3)
     print('\n')
     MenuNode.default_node()
