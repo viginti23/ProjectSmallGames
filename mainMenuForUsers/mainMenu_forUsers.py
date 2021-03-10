@@ -1,5 +1,5 @@
-from Structures.menuNode import MenuNode
-from mainMenuForUsers.chooseGame.chooseGameMenu import chooseGameMenu
+from structures.menu_Node import MenuNode
+from mainMenuForUsers.chooseGame.chooseGameMenu import ChooseGameMenu
 # from MyAccount import MyAccount
 # from LogOut import LogOut
 # from MyBest import MyBest
@@ -8,4 +8,4 @@ from mainMenuForUsers.chooseGame.chooseGameMenu import chooseGameMenu
 main_menu_for_logged_in = {}
 
 MainMenuForUsers = MenuNode("Main mainMenuForUsers For Users", main_menu_for_logged_in)
-MainMenuForUsers.add_options(chooseGameMenu)
+MainMenuForUsers.add_options(ChooseGameMenu)

@@ -62,6 +62,15 @@
             "wallet": 0,
             "games_history": {},
             "id": 0
+        },
+        {
+            "username": "jason",
+            "key": "cdc4a60deb8d7f6cb79a8860ccaa308a9550eb9f1679a1f713a412b246ba49a7",
+            "salt": "d6699e6495d6a97a07111f77a357c408f12d4c806d184e18d826e6f1f8421a38",
+            "email": "jason@gmail.com",
+            "wallet": 0,
+            "games_history": {},
+            "id": 0
         }
     ]
 }

@@ -2,10 +2,10 @@ import random
 import time
 import os
 from datetime import datetime
-from database.json_users_funcs import read_data_from_users_database, write_data_to_users_database
-from Structures.user import User
-from Structures.game import Game
-from Structures.menuNode import MenuNode
+from guestMenu.Register.json_users_funcs import read_data_from_users_database, write_data_to_users_database
+from structures.user_class import User
+from structures.game_class import Game
+from structures.menu_Node import MenuNode
 
 
 # Checking for player's history of this game

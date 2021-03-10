@@ -5,4 +5,13 @@
     <orderEntry type="jdk" jdkName="Pipenv (ProjectSmallGames)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
+  <component name="PyNamespacePackagesService">
+    <option name="namespacePackageFolders">
+      <list>
+        <option value="$MODULE_DIR$/guestMenu" />
+        <option value="$MODULE_DIR$/mainMenuForUsers" />
+        <option value="$MODULE_DIR$/Games" />
+      </list>
+    </option>
+  </component>
 </module>

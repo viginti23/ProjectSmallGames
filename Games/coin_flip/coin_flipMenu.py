@@ -1,4 +1,5 @@
-from Structures.menuNode import MenuNode
+from structures.menu_Node import MenuNode
+
 from Games.coin_flip.coin_flipFuncNode import CoinFlipFunc
 
 content = {}
