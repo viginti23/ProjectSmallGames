@@ -1,10 +1,7 @@
-import json
-from json.decoder import JSONDecodeError
-from menuNode import MenuNode
-from user import User
-from mainMenu_forUsers import MainMenuForUsers
+from Structures.menuNode import MenuNode
+from Structures.user import User
+from mainMenuForUsers.mainMenu_forUsers import MainMenuForUsers
 import time
-import os
 import hashlib
 import random
 from database.json_users_funcs import read_data_from_users_database, write_data_to_users_database

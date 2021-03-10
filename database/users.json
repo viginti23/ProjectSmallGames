@@ -1,6 +1,7 @@
 {
     "users": [
-        {"username": "viginti",
+        {
+            "username": "viginti",
             "key": "3ac083fef8e090ebf774e52b09b1b4bd99b2d840374598f19368cfc2817e7524",
             "salt": "5dda0b38dcd9f8d9922d7feb06dcc8cf1c4fb6adc08b384b3a73b2db42b8882a",
             "email": "zarodm@gmail.com",
@@ -49,6 +50,15 @@
             "key": "43b1842fa02e6ec8cbee6c1a430841c6c4701c62e3e3ad4da952737332316471",
             "salt": "c42194666db0097a31faf057745373c78e3b3cf3c4e2509cb8876e52c3a68685",
             "email": "ppp@pp.pp",
+            "wallet": 0,
+            "games_history": {},
+            "id": 0
+        },
+        {
+            "username": "borys",
+            "key": "5be3b0fedaf72d4779168db92e8cfefc0897a30b72d07cce84cf267132ca0fd4",
+            "salt": "da6f71e13415ea9441036102d43af5dea1e48918b49babfb52852e62ee503040",
+            "email": "borys@gmail.com",
             "wallet": 0,
             "games_history": {},
             "id": 0

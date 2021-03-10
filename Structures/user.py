@@ -13,6 +13,8 @@ class GuestUser:
         self.wallet = wallet
 
 # OPRÓĆZ IMPORTU Z JAKIEGOS PLIKU RÓB: USer.n += 1, Z WYJĄTKIEM TEGO PLIKU, GDZIE TEGO NIE ROBIMY
+
+
 class User:
     n = 0
     user_logged = None
@@ -36,6 +38,6 @@ class User:
     def __repr__(self):
         return self.username
 
-    def adding_user(self):
-        User.n += 1
+    # def adding_user(self):
+    #     User.n += 1
 

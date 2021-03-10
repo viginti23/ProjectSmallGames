@@ -4,19 +4,28 @@ from user import User
 
 
 class MenuNode:
-    current_node = None
+
     default_node = None
 
-    def __init__(self, name, content=None, options=None, parent=None):
+    current_node = None
+    previous_node = None
+
+    def __init__(self, name, parent_up_menu=None, content=None, options=None):
         self.name = name
+
         self.content = content
-        if self.content is None:
+        if not self.content:
             self.content = {}
+
         self.options = options
-        if options is None:
+        if not options:
             self.options = {}
-        if not parent:
-            self.parent = MenuNode.current_node
+
+        # if MenuNode.current_node:
+        #
+        # self.parent_up_menu = parent_up_menu
+        # if self.parent_up_menu is None:
+        self.parent_up_menu = parent_up_menu
 
     def __repr__(self):
         return self.name
@@ -27,12 +36,6 @@ class MenuNode:
     def get_options(self):
         return self.options
 
-    def get_parent(self):
-        return self.parent
-
-    def set_parent(self, node):
-        self.parent = node
-
     def get_content(self):
         return self.content
 
@@ -40,18 +43,32 @@ class MenuNode:
         for func_or_menu_node in new_func_or_node:
             self.options[str(len(self.options) + 1)] = func_or_menu_node
             self.content[str(len(self.content) + 1)] = f'|{str(len(self.content) + 1)}| {func_or_menu_node.name}\n'
-            func_or_menu_node.parent = self
+            func_or_menu_node.parent_up_menu = self
 
-    def adding_back_module_leading_to_parent_menu(self):
+    def adding_up_module_leading_to_parent_menu(self):
         # Adding "Back" module to given menu, if there is a path to go back to, by choosing "0".
-        if self.parent:
-            self.content['0'] = "|0| Back"
-            self.options['0'] = self.parent  # Always the first menu-node in self.options is a parent
+        self.content['0'] = "|0| Up"
+        # The very first menu-node in self.options is always a parent_up_menu.
+        self.options['0'] = self.parent_up_menu
+        # Back (previous) menu is more structural, general state of the system just as current_node and
+        # default_node are, and might be needed in global scope use. Also every node's mandatory argument
+        # for instantiation is parent_node argument, except for MainMenu and MainMenuForUsers
+        # (there is no menu over them). In that case we pass None for parent's node for MainMenu and MainMenuForUsers.
 
     def adding_exit_module(self):
         # Adding "Exit" module to every menu. Action by choosing "Q" or "q".
         self.content['Q'] = '|Q| Exit'
         self.options['Q'] = sys.exit
+
+    def adding_back_module_leading_to_previously_visited_menu(self):
+
+        self.content['B'] = '|B| Back'
+        self.options['B'] = MenuNode.previous_node
+        # Back menu is a temporary state, it alters after each change of nodes (going through the menu).
+
+    def setting_previous_node_and_updating_current_node(self):
+        MenuNode.previous_node = MenuNode.current_node
+        MenuNode.current_node = self
 
     def printing_menu_view(self):
         # If any user is logged in, we are displaying their username on the top of each menu view.
@@ -68,8 +85,12 @@ class MenuNode:
         print(f"{25 * '-'}")
 
     def get_users_choice_prompt(self):
+
         current = MenuNode.current_node
-        current.adding_back_module_leading_to_parent_menu()
+
+        current.setting_previous_node_and_updating_current_node()
+        current.adding_back_module_leading_to_previously_visited_menu()
+        current.adding_up_module_leading_to_parent_menu()
         current.adding_exit_module()
         current.printing_menu_view()
 
@@ -92,12 +113,11 @@ class MenuNode:
         # Content is a dictionary of key:value pairs, paired <int from 0>:<str> e.g. for displaying views to users.
         # Other MenuNodes (views) or FuncNodes (scripts/functions) that we want to display on given <self> menu,
         # we add to self.options.
-        MenuNode.current_node = self
+
         # Getting user's choice
         choice = self.get_users_choice_prompt()
         try:
             chosen_option = self.options[choice]
-            self.options[choice].parent = self
             if callable(self.options[choice]):
                 self.options[choice]()
             chosen_option.run()  # recursive call to the next menu

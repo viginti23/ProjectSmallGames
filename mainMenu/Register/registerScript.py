@@ -3,13 +3,13 @@ import json
 import os
 import re
 import time
-from menuNode import MenuNode
-from user import User
+from Structures.menuNode import MenuNode
+from Structures.user import User
 from json.decoder import JSONDecodeError
 
-with open('database/users.json') as data:
+with open('../../database/users.json') as data:
     try:
-        if os.stat('database/users.json').st_size != 0:
+        if os.stat('../../database/users.json').st_size != 0:
             users = json.load(data)
         else:
             print("User database is empty.\nCreating new JSON users database template...")
@@ -31,7 +31,7 @@ def email_prompt():
                 print("Try logging in instead or recovering your password.")
                 decision = input("""
 
-                        Enter M to return to Main Menu
+                        Enter M to return to Main mainMenuForUsers
 
                         Enter E to try with a different e-mail.
                         """)
@@ -172,7 +172,7 @@ def register_script():
 
     new_user_dictionary = new_user.__dict__
     users['users'].append(new_user_dictionary)
-    with open('database/users.json', 'w', encoding='utf8') as usr_file:
+    with open('../../database/users.json', 'w', encoding='utf8') as usr_file:
         json.dump(users, usr_file, indent=4)
     User.n += 1
     # # TODO sending email to confirm the account

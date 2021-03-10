@@ -1,13 +1,11 @@
 import random
 import time
-import json
 import os
 from datetime import datetime
 from database.json_users_funcs import read_data_from_users_database, write_data_to_users_database
-from user import User
-from game import Game
-import sys
-from menuNode import MenuNode
+from Structures.user import User
+from Structures.game import Game
+from Structures.menuNode import MenuNode
 
 
 # Checking for player's history of this game
@@ -56,7 +54,7 @@ def start():
     while True:
         if playing_user.wallet == 0:
             for sec in range(n):
-                print("You have no money in your wallet. Please sit and watch.")
+                print("You have no money in your wallet. Please refill your wallet or sit and just watch the menu.")
                 time.sleep(n)
                 MenuNode.current_node()
 
