@@ -71,6 +71,30 @@
             "wallet": 0,
             "games_history": {},
             "id": 0
+        },
+        {
+            "username": "mihau",
+            "key": "6538eb4af85b70e56413fcfd9c547039507ea545fc2441b9fd66989228576eb4",
+            "salt": "6f82d917918d0e1d8c78e7c2778083b44298d1579bf1f787d82521d6d67715e1",
+            "email": "zarodm@onet.pl",
+            "wallet": 0,
+            "games_history": {},
+            "id": 0,
+            "is_admin": true,
+            "sent_request_box": [],
+            "notifications": []
+        },
+        {
+            "username": "karolina",
+            "key": "2e3fa7258b58d8605749479931ff3bc6618924f1af09ea971a72a2b2c1681bc5",
+            "salt": "5a813d10e41b458139f778d20015a5b667ccc6040e4d8d51c39585c32ef4305d",
+            "email": "karolina@hela.com",
+            "wallet": 0,
+            "games_history": {},
+            "id": 0,
+            "is_admin": true,
+            "sent_request_box": [],
+            "notifications": []
         }
     ]
 }

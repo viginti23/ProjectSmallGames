@@ -1,4 +1,4 @@
-from menuNode import MenuNode
+from structures.menu_Node import MenuNode
 
 
 # FuncNode don't change MenuNode.current_node value, MenuNodes do.
@@ -6,8 +6,8 @@ from menuNode import MenuNode
 # FuncNodes are callable and they return their function call.
 
 class FuncNode(MenuNode):
-    def __init__(self, name, func, parent_up_menu):
-        super().__init__(name, parent_up_menu)
+    def __init__(self, name, func):
+        super().__init__(name)
         self.func = func
 
     def __call__(self):

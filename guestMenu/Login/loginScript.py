@@ -2,6 +2,7 @@ from structures.menu_Node import MenuNode
 from structures.user_class import User
 from mainMenuForUsers.mainMenu_forUsers import MainMenuForUsers
 import time
+import getpass
 import hashlib
 import random
 from guestMenu.Register.json_users_funcs import read_data_from_users_database, write_data_to_users_database
@@ -68,7 +69,7 @@ def login_script():
     count = 0
     while count < 4:
         print('\n\nEnter R to return to main menu.')
-        password_to_check = input("\nEnter your password:\n")
+        password_to_check = getpass.getpass("\nEnter your password:\n")
         if password_to_check.lower() == 'r':
             MenuNode.current_node()
         salt = bytes.fromhex(identified_user.salt)
@@ -79,10 +80,14 @@ def login_script():
         if new_key.hex() == identified_user.key:
             print("\nPassword correct.\n")
             User.user_logged = identified_user
+            time.sleep(1)
+            if len(identified_user.notifications) > 0:
+                print(f"You have {len(identified_user.notifications)} new notifications!")
             break
         else:
             print('\nPassword incorrect. Try again.\n')
             count += 1
+
     if count >= 3:
         print("\nToo many tries. Please use 'Forget password' to regain access to your account.\n")
         print("\nResetting password...\n")

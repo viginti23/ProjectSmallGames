@@ -3,6 +3,7 @@ import json
 import os
 import re
 import time
+import getpass
 from structures.menu_Node import MenuNode
 from structures.user_class import User
 from guestMenu.Register.json_users_funcs import read_data_from_users_database
@@ -14,14 +15,17 @@ users = read_data_from_users_database()
 def email_prompt():
     # Email prompt
     while True:
+        print("Enter B to go back.")
         email_input = input("Enter your e-mail:\n")
+        if email_input.lower() == 'b':
+            MenuNode.previous_node()
         if email_is_valid(email_input):
             if email_in_database(email_input):
                 print("\nUser associated with this e-mail address already exists!\n")
                 print("Try logging in instead or recovering your password.")
                 decision = input("""
 
-                        Enter M to return to Main mainMenuForUsers
+                        Enter M to return to Main Menu.
 
                         Enter E to try with a different e-mail.
                         """)
@@ -83,9 +87,9 @@ def password_prompt(valid_username):
                                     - should contain at least 3 different characters.
     ''')
 
-        password1 = input("Please enter your password:\n")
+        password1 = getpass.getpass("Please enter your password:\n")
         if is_acceptable_password(valid_username, password1):
-            password2 = input("Please enter your password once again.\n")
+            password2 = getpass.getpass("Please enter your password once again.\n")
             if password2 != password1:
                 print("The passwords are different, please type them again!\n")
                 continue
@@ -154,11 +158,16 @@ def register_script():
     print(f'''
                         \nWelcome {valid_username}!\n
     ''')
+
     valid_salt, valid_key = password_prompt(valid_username)
 
     new_user = User(email=valid_email,
                     username=valid_username, key=valid_key.hex(),
                     salt=valid_salt.hex())
+
+    adm = input("Admin?")
+    if adm == 'adminadmin':  # TODO hash and database export/import
+        new_user.is_admin = True
 
     new_user_dictionary = new_user.__dict__
     users['users'].append(new_user_dictionary)
