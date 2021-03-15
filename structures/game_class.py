@@ -1,28 +1,33 @@
-import json
-from json.decoder import JSONDecodeError
-import os
-import sys
 import time
-from datetime import datetime
-from guestMenu.Register.json_users_funcs import read_data_from_users_database, write_data_to_users_database
-from structures.user_class import User, GuestUser, Admin
+from json_data_funcs import read_data_from_users_database, write_data_to_users_database
+from structures.user_class import User, GuestUser
+from json_data_funcs import read_data_from_games_database, write_data_to_games_database
 
 
 # Parent class for each game.
 class Game:
-    games_list = []
+    games_list = []  # TODO adding new games functionality
 
+    # Total system's register status.
     total_register = 0
-
     for game in games_list:
         total_register += game.game_register
 
-    def __init__(self, game, user):
-        self.game = game
+    game_id = len(games_list)
+
+    def __init__(self, name, user):
+        self.name = name
         self.user = user
+        Game.games_list.append(self) # TODO check if it appends all instances or just when we add new games
 
     def __repr__(self):
-        return self.game
+        return self.name
+
+    def show_best_scores(self):
+        games = read_data_from_games_database()
+        for game in games['games']:
+            if game['name'] == self.name:
+                return game['top5']
 
     @staticmethod
     def settingUser():

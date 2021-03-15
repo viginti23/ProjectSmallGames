@@ -3,6 +3,7 @@ from json.decoder import JSONDecodeError
 import os
 
 
+# User class functions
 def read_data_from_users_database():
     with open("database/users.json") as data:
         try:
@@ -21,16 +22,17 @@ def write_data_to_users_database(users_dictionary):
         json.dump(users_dictionary, data, indent=4)
 
 
+# Games class functions
 def read_data_from_games_database():
     with open("database/games.json") as data:
         try:
             if os.stat('database/games.json').st_size != 0:
                 return json.load(data)
-            # else:
-            #     print("Database is empty.\nCreating new JSON users database template...")
-            #     users = {'users': []}
+            else:
+                print("Database is empty.\nCreating new JSON games database template...")
+                return {'games': []}
         except JSONDecodeError:
-            print("The JSON database is invalid!\nCreating new JSON users database template...")
+            print("The JSON database is invalid!\nCreating new JSON games database template...")
             return {'games': []}
 
 

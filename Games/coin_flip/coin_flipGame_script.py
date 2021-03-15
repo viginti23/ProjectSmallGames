@@ -1,24 +1,21 @@
 import random
 import time
-import os
 from datetime import datetime
-from guestMenu.Register.json_users_funcs import read_data_from_users_database, write_data_to_users_database
-from structures.user_class import User, GuestUser
+from structures.user_class import User
 from structures.game_class import Game
 from structures.menu_Node import MenuNode
+import json_data_funcs
 
 
 class CoinF(Game):
     game_id = 0
     game_register = 0
+    name = 'Coin Flip'
 
-    def __init__(self, name, user):
+    def __init__(self):
         self.game_id = CoinF.game_id
         CoinF.game_id += 1
-        super().__init__(name, user)
-
-    def __call__(self, *args, **kwargs):
-        return self.start_game()
+        super().__init__(name=CoinF.name, user=User.user_logged)
 
     def start_game(self):
         # users_db_path = os.path.relpath("database/users.json")
@@ -75,8 +72,13 @@ class CoinF(Game):
                     print("TAILS!")
                 time.sleep(1)
 
+                wins_strike = 0
+                loses_strike = 0
+
             if players_choice.lower() == drawn_value.lower():
                 print("You won!!!")
+                loses_strike = 0
+                wins_strike += 1
                 time.sleep(1)
                 current_game_results.append(
                     ['W', f"Money bet: {players_money_bet}",
@@ -86,9 +88,10 @@ class CoinF(Game):
                     CoinF.game_register -= players_money_bet
                 score += players_money_bet
                 # winning animation
-
             else:
                 print("You lost! :( ")
+                loses_strike += 1
+                wins_strike = 0
                 time.sleep(1)
                 playing_user.wallet -= players_money_bet
                 if isinstance(playing_user, User):
@@ -98,6 +101,28 @@ class CoinF(Game):
                     ['L', f"Money bet: {players_money_bet}",
                      f"Date: {datetime.strftime(datetime.now(), '%d.%m.%Y, %H:%M')}"])
                 # money countdown animation
+
+            if User.user_logged:
+                top5 = []
+                games = json_data_funcs.read_data_from_games_database()
+                if games['games']:
+                    for g in games['games']:
+                        if g['name'] == f'{self.name}':
+                            top5 = g['top5']
+                else:
+                    top5 = []
+
+                top5.sort(key=lambda x: x['Wins strike'])
+
+                try:
+                    if wins_strike >= top5[-1]['Wins strike']:
+                        del top5[-1]
+                        top5.append({'Wins strike': wins_strike, 'score': score, 'player': playing_user.username, 'date': datetime.strftime(datetime.now(), '%d/%m/%Y %H:%M')})
+                except IndexError:
+                    top5.append({'Wins strike': wins_strike, 'score': score, 'player': playing_user.username,
+                                 'date': datetime.strftime(datetime.now(), '%d/%m/%Y %H:%M')})
+
+                json_data_funcs.write_data_to_games_database(games)
 
             print(f"\nSession's score: {score}.")
             print(f"\nCurrent's session results: {current_game_results}.")
@@ -111,13 +136,20 @@ class CoinF(Game):
                 if score >= 0:
                     print(f'\nYou won {abs(score)}'
                           f' points in this session.\nCurrently in your wallet:\n{playing_user.wallet}')
-                    break
+
+
                 else:
                     print(f'\nYou lost {abs(score)} '
                           f'points in this session.\nCurrently in your wallet:\n{playing_user.wallet}')
-                    break
-        if isinstance(playing_user, User):
-            self.saving_users_score(playing_user)
+
+                if isinstance(playing_user, User):
+
+                    self.saving_users_score(playing_user)
+
+        print("Coming back to the previous menu...")
+        time.sleep(5)
+
+        MenuNode.current_node()
 
     # In the database we are looking for playing_user.games_history['CoinFlip']
     # users['users']

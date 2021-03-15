@@ -5,7 +5,7 @@ import time
 import getpass
 import hashlib
 import random
-from guestMenu.Register.json_users_funcs import read_data_from_users_database, write_data_to_users_database
+from json_data_funcs import read_data_from_users_database, write_data_to_users_database
 
 
 def stop_watch_to_default_node(sec):

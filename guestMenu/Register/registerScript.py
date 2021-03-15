@@ -6,7 +6,7 @@ import time
 import getpass
 from structures.menu_Node import MenuNode
 from structures.user_class import User
-from guestMenu.Register.json_users_funcs import read_data_from_users_database
+from json_data_funcs import read_data_from_users_database
 
 users = read_data_from_users_database()
 
