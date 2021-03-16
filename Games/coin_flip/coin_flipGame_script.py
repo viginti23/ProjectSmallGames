@@ -40,7 +40,7 @@ class CoinF(Game):
             # Choosing randomly ("H", "T").
             drawn_value = random.choice(choices)
 
-            # Getting player's money bet
+            # Getting player's points bet
             players_money_bet = self.getting_players_bet(playing_user)
 
             # Getting player's choice input
@@ -102,53 +102,59 @@ class CoinF(Game):
                      f"Date: {datetime.strftime(datetime.now(), '%d.%m.%Y, %H:%M')}"])
                 # money countdown animation
 
-            if User.user_logged:
-                top5 = []
+            # Checks after each game if the wins strike is already good enough to be in best ones.
+            top5 = self.get_top5()
+            top5.sort(key=lambda x: x['Wins strike'])
+
+            if isinstance(playing_user, User):
+
+                users = json_data_funcs.read_data_from_users_database()
+                usr_dict = None
+                for u in users['users']:
+                    if u['username'] == playing_user.username:
+                        usr_dict = u
+                usr_dict['wallet'] = playing_user.wallet
+                json_data_funcs.write_data_to_users_database(users)
+
                 games = json_data_funcs.read_data_from_games_database()
-                if games['games']:
-                    for g in games['games']:
-                        if g['name'] == f'{self.name}':
-                            top5 = g['top5']
-                else:
-                    top5 = []
-
-                top5.sort(key=lambda x: x['Wins strike'])
-
                 try:
-                    if wins_strike >= top5[-1]['Wins strike']:
-                        del top5[-1]
-                        top5.append({'Wins strike': wins_strike, 'score': score, 'player': playing_user.username, 'date': datetime.strftime(datetime.now(), '%d/%m/%Y %H:%M')})
+                    if len(top5) <= 4:
+                        top5.append({'Wins strike': wins_strike, 'score': score, 'player': playing_user.username,
+                                     'date': datetime.strftime(datetime.now(), '%d/%m/%Y %H:%M')})
+                    else:
+                        if wins_strike >= top5[-1]['Wins strike']:
+                            del top5[-1]
+                            top5.append({'Wins strike': wins_strike, 'score': score, 'player': playing_user.username,
+                                         'date': datetime.strftime(datetime.now(), '%d/%m/%Y %H:%M')})
                 except IndexError:
                     top5.append({'Wins strike': wins_strike, 'score': score, 'player': playing_user.username,
                                  'date': datetime.strftime(datetime.now(), '%d/%m/%Y %H:%M')})
-
                 json_data_funcs.write_data_to_games_database(games)
 
+            #
             print(f"\nSession's score: {score}.")
             print(f"\nCurrent's session results: {current_game_results}.")
             print(f"\nYour wallet's status: {playing_user.wallet}.")
 
             next_input = input("\n\nDo you want to play again? Enter E to exit or any other character to play "
                                "again.\n\n")
-            if not next_input.lower() == "e":
-                continue
-            else:
+
+            if next_input.lower() == "e":
+
                 if score >= 0:
                     print(f'\nYou won {abs(score)}'
                           f' points in this session.\nCurrently in your wallet:\n{playing_user.wallet}')
 
-
                 else:
                     print(f'\nYou lost {abs(score)} '
                           f'points in this session.\nCurrently in your wallet:\n{playing_user.wallet}')
+                break
 
-                if isinstance(playing_user, User):
-
-                    self.saving_users_score(playing_user)
+            else:
+                continue
 
         print("Coming back to the previous menu...")
         time.sleep(5)
-
         MenuNode.current_node()
 
     # In the database we are looking for playing_user.games_history['CoinFlip']

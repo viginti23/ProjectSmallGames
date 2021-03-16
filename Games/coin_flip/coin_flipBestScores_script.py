@@ -5,7 +5,8 @@ from structures.menu_Node import MenuNode
 
 def show():
     try:
-        top5 = json_data_funcs.read_data_from_games_database()['games']["Coin FLip"]['top5']
+        games = json_data_funcs.read_data_from_games_database()
+        top5 = games['games']["Coin FLip"]['top5']
         t = top5.sort(key=lambda x: x["Wins strike"])
         c = 1
         for result in t:

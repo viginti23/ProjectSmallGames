@@ -5,8 +5,8 @@ import re
 import time
 import getpass
 from structures.menu_Node import MenuNode
-from structures.user_class import User
-from json_data_funcs import read_data_from_users_database
+from structures.user_class import User, Admin
+from json_data_funcs import read_data_from_users_database, write_data_to_users_database
 
 users = read_data_from_users_database()
 
@@ -161,19 +161,25 @@ def register_script():
 
     valid_salt, valid_key = password_prompt(valid_username)
 
-    new_user = User(email=valid_email,
-                    username=valid_username, key=valid_key.hex(),
-                    salt=valid_salt.hex())
+    adm = getpass.getpass("\nPress enter to continue or type the admin access password to gain admin powers and "
+                          "permissions.\n")
 
-    adm = input("Admin?")
-    if adm == 'adminadmin':  # TODO hash and database export/import
-        new_user.is_admin = True
+    if adm == 'admin':  # TODO hash and database export/import?
+        new_admin = Admin(email=valid_email, username=valid_username, key=valid_key.hex(),
+                         salt=valid_salt.hex())
 
-    new_user_dictionary = new_user.__dict__
-    users['users'].append(new_user_dictionary)
-    with open('database/users.json', 'w', encoding='utf8') as usr_file:
-        json.dump(users, usr_file, indent=4)
-    User.n += 1
+        print("\nYou are the admin now.\n")
+
+        new_admin_dictionary = new_admin.__dict__
+        users['admins'].append(new_admin_dictionary)
+
+    else:
+        new_user = User(email=valid_email, username=valid_username, key=valid_key.hex(), salt=valid_salt.hex())
+        User.n += 1
+
+        new_user_dictionary = new_user.__dict__
+        users['users'].append(new_user_dictionary)
+        write_data_to_users_database(users)
     # # TODO sending email to confirm the account
     print("You can now log in.")
     print(f"Returning the the main menu in:")

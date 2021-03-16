@@ -7,14 +7,16 @@ import os
 def read_data_from_users_database():
     with open("database/users.json") as data:
         try:
-            if os.stat('database/users.json').st_size != 0:
+            if os.stat("database/users.json").st_size != 0:
                 return json.load(data)
-            # else:
-            #     print("Database is empty.\nCreating new JSON users database template...")
-            #     users = {'users': []}
+            else:
+                print("Database is empty.\nCreating new JSON users database template...")
+                return {'users': [],
+                        'admins': []}
         except JSONDecodeError:
             print("The JSON database is invalid!\nCreating new JSON users database template...")
-            return {'users': []}
+            return {'users': [],
+                    'admins': []}
 
 
 def write_data_to_users_database(users_dictionary):

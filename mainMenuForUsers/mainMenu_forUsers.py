@@ -7,5 +7,5 @@ from mainMenuForUsers.myAccount.my_Account import MyAccount
 
 main_menu_for_logged_in = {}
 
-MainMenuForUsers = MenuNode("User's Main Menu", main_menu_for_logged_in)
+MainMenuForUsers = MenuNode("User's Main Menu", main_menu_for_logged_in, main_menu=True)
 MainMenuForUsers.add_options(ChooseGameMenu, MyAccount)

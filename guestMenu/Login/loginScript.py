@@ -1,6 +1,7 @@
 from structures.menu_Node import MenuNode
 from structures.user_class import User
 from mainMenuForUsers.mainMenu_forUsers import MainMenuForUsers
+from adminMenu.admin_menu import admin_Menu
 import time
 import getpass
 import hashlib
@@ -63,7 +64,7 @@ def login_script():
         if not identified_user:
             print("\nThis user does not exist. Try different username or register instead.")
             time.sleep(2)
-            login_script()
+            continue
 
     # Verifying password
     count = 0
@@ -88,13 +89,23 @@ def login_script():
             print('\nPassword incorrect. Try again.\n')
             count += 1
 
-    if count >= 3:
+    if count > 3:
         print("\nToo many tries. Please use 'Forget password' to regain access to your account.\n")
         print("\nResetting password...\n")
         # password_reset(identified_user)
         print(f'Returning to {MenuNode.default_node.name} in:')
         stop_watch_to_default_node(3)
     else:
-        MenuNode.default_node = MainMenuForUsers
-        MenuNode.current_node = MainMenuForUsers
+        if identified_user.is_admin:
+            MenuNode.default_node = admin_Menu
+            MenuNode.current_node = admin_Menu
+
+        else:
+            MenuNode.default_node = MainMenuForUsers
+            MenuNode.current_node = MainMenuForUsers
+
         MenuNode.current_node()
+
+
+if __name__ == '__main__':
+    login_script()

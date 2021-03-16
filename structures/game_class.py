@@ -18,16 +18,10 @@ class Game:
     def __init__(self, name, user):
         self.name = name
         self.user = user
-        Game.games_list.append(self) # TODO check if it appends all instances or just when we add new games
+        Game.games_list.append(self)  # TODO check if it appends all instances or just when we add new games
 
     def __repr__(self):
         return self.name
-
-    def show_best_scores(self):
-        games = read_data_from_games_database()
-        for game in games['games']:
-            if game['name'] == self.name:
-                return game['top5']
 
     @staticmethod
     def settingUser():
@@ -44,16 +38,6 @@ class Game:
 
         # Assigning database's data to playing user class object.
         return User(dictionary=usr_dict)
-
-    @staticmethod
-    def saving_users_score(usr):
-        users = read_data_from_users_database()
-        playing_user_dict = usr.__dict__
-        for u in users['users']:
-            if u['username'] == playing_user_dict['username']:
-                users['users'].append(playing_user_dict)
-                del u
-        write_data_to_users_database(users)
 
     @staticmethod
     def settingGuestUser():
@@ -82,3 +66,16 @@ class Game:
             except ValueError:
                 print("Please enter valid number.")
                 continue
+
+    def get_top5(self):
+        top5 = None
+        if User.user_logged:
+            top5 = []
+            games = read_data_from_games_database()
+            if games['games']:
+                for g in games['games']:
+                    if g['name'] == f'{self.name}':
+                        top5 = g['top5']
+            else:
+                top5 = []
+        return top5

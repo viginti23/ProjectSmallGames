@@ -10,7 +10,7 @@ class MenuNode:
     current_node = None
     previous_node = None
 
-    def __init__(self, name, content=None, options=None):
+    def __init__(self, name, content=None, options=None, main_menu=False):
         self.name = name
 
         self.content = content
@@ -21,6 +21,7 @@ class MenuNode:
         if not options:
             self.options = {}
 
+        self.main_menu = main_menu
         # if MenuNode.current_node:
         #
         # self.parent_up = parent_up
@@ -62,9 +63,10 @@ class MenuNode:
         self.options['Q'] = sys.exit
 
     def adding_back_module_leading_to_previously_visited_menu(self):
-        if MenuNode.previous_node:
-            self.content['B'] = '|B| Back'
-            self.options['B'] = MenuNode.previous_node
+        if not self.main_menu:
+            if MenuNode.previous_node:
+                self.content['B'] = '|B| Back'
+                self.options['B'] = MenuNode.previous_node
         # Back menu is a temporary state, it alters after each change of nodes (going through the menu).
 
     def saving_previous_node_and_updating_current_node(self):
@@ -73,8 +75,12 @@ class MenuNode:
 
     def printing_menu_view(self):
         # If any user is logged in, we are displaying their username on the top of each menu view.
-        if User.user_logged:
-            print(f'\n\n\nUser: {User.user_logged.username}\n')
+        usr = User.user_logged
+        if usr:
+            if usr.is_admin:
+                print(f'\n\n\nAdmin: {User.user_logged.username}\n')
+            else:
+                print(f'\n\n\nUser: {User.user_logged.username}\n')
             print(f"{MenuNode.current_node.name}")
         # Current's node name
         else:

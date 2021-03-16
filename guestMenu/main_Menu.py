@@ -6,7 +6,7 @@ from structures.menu_Node import MenuNode
 
 main_menu = {}
 
-MainMenu = MenuNode("Main Menu", main_menu)
+MainMenu = MenuNode("Main Menu", main_menu, main_menu=True)
 MainMenu.add_options(PlayAsAGuest, LoginMenu, RegisterMenu, BestScores)
 MenuNode.default_node = MainMenu
 MenuNode.current_node = MainMenu

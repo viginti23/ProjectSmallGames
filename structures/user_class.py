@@ -44,7 +44,7 @@ class User:
     def clear_notifications(self):
         self.notifications = []
 
-    def get_refill_request(self):
+    def create_refill_request(self):
         if len(Admin.admins) > 0:
             while True:
                 try:
@@ -57,6 +57,9 @@ class User:
                 except ValueError:
                     print("Enter a valid number.")
                     continue
+        else:
+            print("There are currently no admins.")
+            return
 
     def send_refill_request_to_admins(self, request):
         print("\nSending your request to administrators...\n")
@@ -76,16 +79,15 @@ class User:
 class Admin(User):
     admins = []
 
-    def __init__(self, email, username, key, salt, dictionary, wallet, is_admin=True):
-        self.requests_box = []  # list of dicts
-        super().__init__(email, username, key, salt, dictionary, wallet, is_admin)
-        if len(Admin.admins) < 2:
-            Admin.admins.append(self)
+    def __init__(self, email, username, key, salt):
+        self.requests_box = []  # list of dict objects
+        super().__init__(email, username, key, salt, is_admin=True)
+        Admin.admins.append(self)
 
-    # suma wszystkich wygranych gier przez komputer (bank systemu)
+    # suma wszystkich wygranych gier przez komputer (bank system access)
     def requests_queue(self):
         for req in self.requests_box:
-            print(req + '\n')
+            print(f"------> {req['username']}\t{req.amount}\n")
 
     def pending_requests_check(self):
         for req in self.requests_box:
