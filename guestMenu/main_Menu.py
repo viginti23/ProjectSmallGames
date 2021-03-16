@@ -4,9 +4,9 @@ from guestMenu.bestScores.best_scores import BestScores
 from guestMenu.playAsGuest.playAsGuestMenu import PlayAsAGuest
 from structures.menu_Node import MenuNode
 
-main_menu = {}
+content = {}
 
-MainMenu = MenuNode("Main Menu", main_menu, main_menu=True)
+MainMenu = MenuNode("Main Menu", content, main_menu=True)
 MainMenu.add_options(PlayAsAGuest, LoginMenu, RegisterMenu, BestScores)
 MenuNode.default_node = MainMenu
 MenuNode.current_node = MainMenu

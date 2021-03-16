@@ -24,9 +24,9 @@ class MenuNode:
         self.main_menu = main_menu
         # if MenuNode.current_node:
         #
-        # self.parent_up = parent_up
-        # if self.parent_up is None:
-        self.parent_up = None
+        # self.parents_up = parents_up
+        # if self.parents_up is None:
+        self.parents_up = None
 
     def __repr__(self):
         return self.name
@@ -43,15 +43,16 @@ class MenuNode:
     def add_options(self, *new_func_or_node):
         for func_or_menu_node in new_func_or_node:
             self.options[str(len(self.options) + 1)] = func_or_menu_node
-            self.content[str(len(self.content) + 1)] = f'|{str(len(self.content) + 1)}| {func_or_menu_node.name}\n'
-            func_or_menu_node.parent_up = self
+            self.content[str(len(self.content) + )] = f'|{str(len(self.content) + 1)}| {func_or_menu_node.name}\n'
+            func_or_menu_node.parents_up = self
 
     def adding_up_module_leading_to_parent_menu(self):
         # Adding "Up" module to given menu, if there is a path to go back to, by choosing "0".
-        if self.parent_up:
+        if self.parents_up:
+            # for par in self.parents_up:
             self.content['0'] = "|0| Up"
-        # The very first menu-node in self.options is always a parent_up.
-            self.options['0'] = self.parent_up
+        # The very first menu-node in self.options is always a parents_up.
+            self.options['0'] = self.parents_up
         # Back (previous) menu is more structural, general state of the system just as current_node and
         # default_node are, and might be needed in global scope use. Also every node's mandatory argument
         # for instantiation is parent_node argument, except for MainMenu and MainMenuForUsers
@@ -78,9 +79,9 @@ class MenuNode:
         usr = User.user_logged
         if usr:
             if usr.is_admin:
-                print(f'\n\n\nAdmin: {User.user_logged.username}\n')
+                print(f'\n\n\nAdmin: {usr.username}\n')
             else:
-                print(f'\n\n\nUser: {User.user_logged.username}\n')
+                print(f'\n\n\nUser: {usr.username}\n')
             print(f"{MenuNode.current_node.name}")
         # Current's node name
         else:

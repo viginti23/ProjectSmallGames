@@ -1,0 +1,29 @@
+{
+    "users": [
+        {
+            "username": "karolina",
+            "key": "f5faf1d1897d108b3961fe652dfa03f2070fe03ac0bcd270b6e881aca8159e28",
+            "salt": "e4f84144b7b3e30c28cc9070cb0c9b9e989597df5c217968b72c7e171f11f67f",
+            "email": "karolina@gmail.com",
+            "wallet": 0,
+            "id": 0,
+            "is_admin": false,
+            "sent_request_box": [],
+            "notifications": []
+        }
+    ],
+    "admins": [
+        {
+            "requests_box": [],
+            "username": "viginti",
+            "key": "030f0150b62b8cea7395aa5d1c1b964e7a2449f6f9f6dc082c28713cbd499f5f",
+            "salt": "83070a08728e3dd134267fb0d723de14faf3bfa11417dacdc1f0e6c766369b8f",
+            "email": "zarodm@gmail.com",
+            "wallet": 0,
+            "id": 0,
+            "is_admin": true,
+            "sent_request_box": [],
+            "notifications": []
+        }
+    ]
+}

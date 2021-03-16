@@ -52,7 +52,14 @@ def login_script():
         username_input = input('\nEnter your username or e-mail:\n')
         if username_input.lower() == 'r':
             MenuNode.current_node()
-        for user in users['users']:
+
+        all_users = []
+        for adm in users['admins']:
+            all_users.append(adm)
+        for usr in users['users']:
+            all_users.append(usr)
+
+        for user in all_users:
             if username_input == user['username'] or username_input == user['email']:
                 identified_user = User(dictionary=user)  # Our currently most used user is in Python class type.
                 # if not dict_: ---> ---> identified_user.dictionary
@@ -105,7 +112,3 @@ def login_script():
             MenuNode.current_node = MainMenuForUsers
 
         MenuNode.current_node()
-
-
-if __name__ == '__main__':
-    login_script()

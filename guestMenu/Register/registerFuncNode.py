@@ -1,6 +1,6 @@
 from structures.func_Node import FuncNode
-from guestMenu.Register.registerScript import register_script
-# from guestMenu import MainMenu
+from guestMenu.Register.registerScript import RegisterScript
 
-func = register_script
+
+func = RegisterScript.register_script
 RegisterMenu = FuncNode("Register", func)

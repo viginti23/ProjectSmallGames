@@ -5,18 +5,16 @@ import os
 
 # User class functions
 def read_data_from_users_database():
-    with open("database/users.json") as data:
-        try:
-            if os.stat("database/users.json").st_size != 0:
-                return json.load(data)
-            else:
-                print("Database is empty.\nCreating new JSON users database template...")
-                return {'users': [],
-                        'admins': []}
-        except JSONDecodeError:
-            print("The JSON database is invalid!\nCreating new JSON users database template...")
-            return {'users': [],
-                    'admins': []}
+    # while True:
+    try:
+        with open("database/users.json") as data:
+            return json.load(data)
+    except JSONDecodeError:
+        print("The JSON database is invalid!\nCreating new JSON users database template...")
+        with open("database/users.json", "w") as data:
+            template = {'users': [], 'admins': []}
+            json.dump(template, data, indent=4)
+            return template
 
 
 def write_data_to_users_database(users_dictionary):
@@ -31,7 +29,7 @@ def read_data_from_games_database():
             if os.stat('database/games.json').st_size != 0:
                 return json.load(data)
             else:
-                print("Database is empty.\nCreating new JSON games database template...")
+                print("Games database is empty.\nCreating new JSON games database template...")
                 return {'games': []}
         except JSONDecodeError:
             print("The JSON database is invalid!\nCreating new JSON games database template...")

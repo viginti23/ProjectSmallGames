@@ -109,11 +109,13 @@ class CoinF(Game):
             if isinstance(playing_user, User):
 
                 users = json_data_funcs.read_data_from_users_database()
-                usr_dict = None
-                for u in users['users']:
-                    if u['username'] == playing_user.username:
-                        usr_dict = u
+                usr_dict = playing_user.__dict__
                 usr_dict['wallet'] = playing_user.wallet
+
+                for u in users['users']:
+                    if u['username'] == usr_dict['username']:
+                        del u
+                users['users'].append(usr_dict)
                 json_data_funcs.write_data_to_users_database(users)
 
                 games = json_data_funcs.read_data_from_games_database()
@@ -131,7 +133,6 @@ class CoinF(Game):
                                  'date': datetime.strftime(datetime.now(), '%d/%m/%Y %H:%M')})
                 json_data_funcs.write_data_to_games_database(games)
 
-            #
             print(f"\nSession's score: {score}.")
             print(f"\nCurrent's session results: {current_game_results}.")
             print(f"\nYour wallet's status: {playing_user.wallet}.")

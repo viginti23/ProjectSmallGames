@@ -1,9 +1,7 @@
-import json
 from datetime import datetime
 import time
-from json import JSONEncoder
-from types import SimpleNamespace as Namespace
-# from structures.game_class import Game
+
+from json_data_funcs import read_data_from_users_database
 
 
 class GuestUser:
@@ -14,6 +12,7 @@ class GuestUser:
         n += 1
         self.username = f"Guest{n}"
         self.wallet = GuestUser.default_wallet
+    # TODO database
 
 
 class User:
@@ -51,9 +50,8 @@ class User:
                     amount = int(input("\nHow much do you need?\n"))
                     datetime_details = datetime.now()
                     approved = False
-                    request = {'user': self, 'amount': amount, 'datetime_details': datetime_details,
-                               'approved': approved}
-                    return request
+                    return {'user': self, 'amount': amount, 'datetime_details': datetime_details,
+                            'approved': approved}
                 except ValueError:
                     print("Enter a valid number.")
                     continue
@@ -63,26 +61,33 @@ class User:
 
     def send_refill_request_to_admins(self, request):
         print("\nSending your request to administrators...\n")
-        self.sent_request_box.append(request[self])
+        self.sent_request_box.append(request)
         for admin in Admin.admins:
-            admin.requests_box.append(request)
-            admin.notifications.append(f"You have a new request from {self.username}.")
+            admin['requests_box'].append(request)
+            admin['notifications'].append(f"You have a new request from {self.username}.")
         time.sleep(1)
         print("\nYour request is now being evaluated.\nIf not denied in 30 minutes, all requests are accepted "
               "automatically.")
-
+        return
 
     # def adding_user(self):
     #     User.n += 1
 
 
 class Admin(User):
-    admins = []
+    all_users = read_data_from_users_database()
+    admins = None
+    try:
+        admins = all_users['admins']
+    except KeyError:
+        admins = []
 
     def __init__(self, email, username, key, salt):
         self.requests_box = []  # list of dict objects
         super().__init__(email, username, key, salt, is_admin=True)
-        Admin.admins.append(self)
+
+    def __repr__(self):
+        return self.username
 
     # suma wszystkich wygranych gier przez komputer (bank system access)
     def requests_queue(self):
@@ -98,7 +103,7 @@ class Admin(User):
                 req['approved'] = True
 
     def accept_all_requests(self):
-        # TODO password verification
+        # TODO double check password verification
         for req in self.requests_box:
             req["approved"] = True
 

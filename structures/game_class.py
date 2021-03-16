@@ -1,7 +1,6 @@
 import time
-from json_data_funcs import read_data_from_users_database, write_data_to_users_database
 from structures.user_class import User, GuestUser
-from json_data_funcs import read_data_from_games_database, write_data_to_games_database
+from json_data_funcs import read_data_from_games_database
 
 
 # Parent class for each game.
@@ -25,19 +24,11 @@ class Game:
 
     @staticmethod
     def settingUser():
-        users = read_data_from_users_database()
-
         # Setting the logged in user as playing user.
         player = User.user_logged
 
-        # Getting playing user's data from database.
-        usr_dict = None
-        for u in users['users']:
-            if u['username'] == player.username:
-                usr_dict = u
-
         # Assigning database's data to playing user class object.
-        return User(dictionary=usr_dict)
+        return player
 
     @staticmethod
     def settingGuestUser():
