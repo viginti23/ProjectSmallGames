@@ -1,6 +1,8 @@
 from structures.func_Node import FuncNode
-from logoutScript import logout
+from mainMenuForUsers.Logout.logoutScript import logout
 
 func = logout
 
 LogOut = FuncNode('Log Out', func)
+
+LogOut.default_node()

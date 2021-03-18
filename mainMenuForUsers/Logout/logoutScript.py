@@ -1,2 +1,6 @@
+from structures.user_class import User
+
+
 def logout():
-    pass
+    if User.user_logged:
+        User.user_logged = None

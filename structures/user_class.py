@@ -1,25 +1,21 @@
 from datetime import datetime
 import time
-
 from json_data_funcs import read_data_from_users_database
+from guestMenu.main_Menu import MainMenu
+from mainMenuForUsers.mainMenu_forUsers import MainMenuForUsers
+from adminMenu.admin_menu import admin_Menu
 
 
-class GuestUser:
-    m = 0
-    default_wallet = 10
-
-    def __init__(self, n=m):
-        n += 1
-        self.username = f"Guest{n}"
-        self.wallet = GuestUser.default_wallet
-    # TODO database
 
 
 class User:
     n = 0
     user_logged = None
+    if user_logged is None:
+        default_node = MainMenu
 
-    def __init__(self, email=None, username=None, key=None, salt=None, dictionary=None, wallet=None, is_admin=False):
+    def __init__(self, email=None, username=None, key=None, salt=None, dictionary=None, wallet=None,
+                 is_admin=False):
 
         # Register and login details
         self.username = username
@@ -74,9 +70,25 @@ class User:
     #     User.n += 1
 
 
+class GuestUser(User):
+    m = 0
+    default_wallet = 10
+    default_node = MainMenu
+
+    def __init__(self):
+        super().__init__()
+        GuestUser.m += 1
+        self.username = f"Guest{n}"
+        self.wallet = GuestUser.default_wallet
+    # TODO database
+
+
 class Admin(User):
     all_users = read_data_from_users_database()
     admins = None
+
+    default_node = admin_Menu
+
     try:
         admins = all_users['admins']
     except KeyError:

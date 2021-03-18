@@ -8,5 +8,4 @@ content = {}
 
 MainMenu = MenuNode("Main Menu", content, main_menu=True)
 MainMenu.add_options(PlayAsAGuest, LoginMenu, RegisterMenu, BestScores)
-MenuNode.default_node = MainMenu
 MenuNode.current_node = MainMenu
