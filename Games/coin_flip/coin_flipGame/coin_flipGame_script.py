@@ -15,7 +15,7 @@ class CoinF(Game):
     def __init__(self):
         self.game_id = CoinF.game_id
         CoinF.game_id += 1
-        super().__init__(name=CoinF.name, user=User.user_logged)
+        super().__init__(name=CoinF.name, user=User.logged)
 
     def start_game(self):
         # users_db_path = os.path.relpath("database/users.json")
@@ -25,7 +25,7 @@ class CoinF(Game):
         score = 0
         current_game_results = []
         n = 5
-        if User.user_logged:
+        if User.logged:
             playing_user = self.settingUser()
         else:
             playing_user = self.settingGuestUser()
@@ -103,8 +103,10 @@ class CoinF(Game):
                 # money countdown animation
 
             # Checks after each game if the wins strike is already good enough to be in best ones.
-            top5 = self.get_top5()
-            top5.sort(key=lambda x: x['Wins strike'])
+            top5 = None
+            if User.logged:
+                top5 = self.get_top5()
+                top5.sort(key=lambda x: x['Wins strike'])
 
             if isinstance(playing_user, User):
 
@@ -119,19 +121,20 @@ class CoinF(Game):
                 json_data_funcs.write_data_to_users_database(users)
 
                 games = json_data_funcs.read_data_from_games_database()
-                try:
-                    if len(top5) <= 4:
-                        top5.append({'Wins strike': wins_strike, 'score': score, 'player': playing_user.username,
-                                     'date': datetime.strftime(datetime.now(), '%d/%m/%Y %H:%M')})
-                    else:
-                        if wins_strike >= top5[-1]['Wins strike']:
-                            del top5[-1]
+                if User.logged:
+                    try:
+                        if len(top5) <= 4:
                             top5.append({'Wins strike': wins_strike, 'score': score, 'player': playing_user.username,
                                          'date': datetime.strftime(datetime.now(), '%d/%m/%Y %H:%M')})
-                except IndexError:
-                    top5.append({'Wins strike': wins_strike, 'score': score, 'player': playing_user.username,
-                                 'date': datetime.strftime(datetime.now(), '%d/%m/%Y %H:%M')})
-                json_data_funcs.write_data_to_games_database(games)
+                        else:
+                            if wins_strike >= top5[-1]['Wins strike']:
+                                del top5[-1]
+                                top5.append({'Wins strike': wins_strike, 'score': score, 'player': playing_user.username,
+                                             'date': datetime.strftime(datetime.now(), '%d/%m/%Y %H:%M')})
+                    except IndexError:
+                        top5.append({'Wins strike': wins_strike, 'score': score, 'player': playing_user.username,
+                                     'date': datetime.strftime(datetime.now(), '%d/%m/%Y %H:%M')})
+                    json_data_funcs.write_data_to_games_database(games)
 
             print(f"\nSession's score: {score}.")
             print(f"\nCurrent's session results: {current_game_results}.")
@@ -156,7 +159,7 @@ class CoinF(Game):
 
         print("Coming back to the previous menu...")
         time.sleep(5)
-        MenuNode.current_node()
+        return MenuNode.current_node()
 
     # In the database we are looking for playing_user.games_history['CoinFlip']
     # users['users']
@@ -169,9 +172,9 @@ class CoinF(Game):
     # coin_flip_top_5_scores = None
 
     # # Checking if User has played this game and storing up to 10 games in memory.
-    # if User.user_logged:
-    #     if User.user_logged.games_history.get("FlippingCoin") is None:
-    #         User.user_logged.games_history["FlippingCoin"] = []
+    # if User.logged:
+    #     if User.logged.games_history.get("FlippingCoin") is None:
+    #         User.logged.games_history["FlippingCoin"] = []
     #     else:
     #         if len(user.games_history["FlippingCoin"]) < 10:
     #             user.games_history["FlippingCoin"].append(result)

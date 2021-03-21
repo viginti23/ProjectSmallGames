@@ -1,21 +1,14 @@
 from datetime import datetime
 import time
-from json_data_funcs import read_data_from_users_database
-from guestMenu.main_Menu import MainMenu
-from mainMenuForUsers.mainMenu_forUsers import MainMenuForUsers
-from adminMenu.admin_menu import admin_Menu
-
-
+from json_data_funcs import read_data_from_games_database, write_data_to_games_database
+from json_data_funcs import read_data_from_users_database, write_data_to_users_database, json_serial
 
 
 class User:
     n = 0
-    user_logged = None
-    if user_logged is None:
-        default_node = MainMenu
+    logged = None
 
-    def __init__(self, email=None, username=None, key=None, salt=None, dictionary=None, wallet=None,
-                 is_admin=False):
+    def __init__(self, email=None, username=None, key=None, salt=None, dictionary=None, wallet=None):
 
         # Register and login details
         self.username = username
@@ -26,7 +19,7 @@ class User:
             self.wallet = 0
         # self.games_history = {f'{g.name}': [] for g in Game.games_list}  # [users_top_score, datetime, game_id]
         self.id = User.n
-        self.is_admin = is_admin
+        self.is_admin = False
         self.sent_request_box = []
         self.notifications = []
         if dictionary:
@@ -40,31 +33,39 @@ class User:
         self.notifications = []
 
     def create_refill_request(self):
-        if len(Admin.admins) > 0:
+        all_users = read_data_from_users_database()
+        administrators = all_users['admins']
+        if len(administrators) > 0:
             while True:
                 try:
                     amount = int(input("\nHow much do you need?\n"))
                     datetime_details = datetime.now()
+                    datetime_details = json_serial(datetime_details)
                     approved = False
-                    return {'user': self, 'amount': amount, 'datetime_details': datetime_details,
+                    return {'user': self.username, 'amount': amount, 'datetime_details': datetime_details,
                             'approved': approved}
                 except ValueError:
-                    print("Enter a valid number.")
+                    print("\nEnter a valid number.\n")
                     continue
         else:
-            print("There are currently no admins.")
+            print("\nThere are currently no admins.\n")
             return
 
-    def send_refill_request_to_admins(self, request):
-        print("\nSending your request to administrators...\n")
-        self.sent_request_box.append(request)
-        for admin in Admin.admins:
-            admin['requests_box'].append(request)
-            admin['notifications'].append(f"You have a new request from {self.username}.")
-        time.sleep(1)
-        print("\nYour request is now being evaluated.\nIf not denied in 30 minutes, all requests are accepted "
-              "automatically.")
-        return
+    @staticmethod
+    def send_refill_request_to_admins(request):
+        if request:
+            # self.sent_request_box.append(request) TODO
+            print("\nSending your request to administrators...\n")
+            all_users = read_data_from_users_database()
+            administrators = all_users['admins']
+            for admin in administrators:
+                admin['requests_box'].append(request)
+                admin['notifications'].append(f"You have a new request from {request['user']}.")
+            time.sleep(1)
+            write_data_to_users_database(all_users)
+            print("\nYour request is now being evaluated.\nIf not denied in 30 minutes, all requests are accepted "
+                  "automatically.")
+            return
 
     # def adding_user(self):
     #     User.n += 1
@@ -73,38 +74,65 @@ class User:
 class GuestUser(User):
     m = 0
     default_wallet = 10
-    default_node = MainMenu
 
     def __init__(self):
         super().__init__()
         GuestUser.m += 1
-        self.username = f"Guest{n}"
+        self.username = f"Guest{GuestUser.m}"
         self.wallet = GuestUser.default_wallet
-    # TODO database
+    # TODO database2
 
 
 class Admin(User):
     all_users = read_data_from_users_database()
     admins = None
-
-    default_node = admin_Menu
+    requests_box = None
 
     try:
         admins = all_users['admins']
+        requests_box = admins[0]['requests_box']
+
     except KeyError:
         admins = []
+        requests_box = []
 
-    def __init__(self, email, username, key, salt):
-        self.requests_box = []  # list of dict objects
-        super().__init__(email, username, key, salt, is_admin=True)
+    def __init__(self, email, username, key, salt, is_admin=True):
+
+        # Both containers need to updated every time the admin class is run.
+
+        self.requests_box = []  # List of dict objects.
+        self.notifications = []
+
+        all_users = read_data_from_users_database()
+        admins = all_users['admins']
+        for ad in admins:
+            if ad['username'] == username:
+                for req in ad['requests_box']:
+                    self.requests_box.append(req)
+                for notif in ad['notifications']:
+                    self.notifications.append(notif)
+        # TODO write to database
+        super().__init__(email, username, key, salt, is_admin)
+        write_data_to_users_database(admins)
+
 
     def __repr__(self):
         return self.username
 
-    # suma wszystkich wygranych gier przez komputer (bank system access)
-    def requests_queue(self):
+    def system_wallet(self):
+        if self.logged.is_admin:
+            games = read_data_from_games_database()
+            total = 0
+            try:
+                for game in games:
+                    total += game['register']
+            except KeyError:
+                print("There are no games yet.")
+            return total
+
+    def req_1_by_1(self):
         for req in self.requests_box:
-            print(f"------> {req['username']}\t{req.amount}\n")
+            print(req)
 
     def pending_requests_check(self):
         for req in self.requests_box:

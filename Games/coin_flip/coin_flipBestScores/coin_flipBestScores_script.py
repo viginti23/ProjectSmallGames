@@ -1,5 +1,4 @@
 import json_data_funcs
-from Games.coin_flip.coin_flipGame_script import CoinF
 from structures.menu_Node import MenuNode
 
 
@@ -16,7 +15,7 @@ def show():
         print("\nThere are no records yet!\n")
 
     p = input("\nEnter any key to go back.\n")
-    MenuNode.current_node()
+    return MenuNode.current_node()
 
 
 

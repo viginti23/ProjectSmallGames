@@ -1,17 +1,17 @@
 import time
 from structures.user_class import User, GuestUser
-from json_data_funcs import read_data_from_games_database
+from json_data_funcs import read_data_from_games_database, write_data_to_games_database
 
 
 # Parent class for each game.
 class Game:
+
     games_list = []  # TODO adding new games functionality
 
     # Total system's register status.
     total_register = 0
     for game in games_list:
-        total_register += game.game_register
-
+        total_register += game.game_register  # TODO save to database
     game_id = len(games_list)
 
     def __init__(self, name, user):
@@ -25,7 +25,7 @@ class Game:
     @staticmethod
     def settingUser():
         # Setting the logged in user as playing user.
-        player = User.user_logged
+        player = User.logged
 
         # Assigning database's data to playing user class object.
         return player
@@ -60,7 +60,7 @@ class Game:
 
     def get_top5(self):
         top5 = None
-        if User.user_logged:
+        if User.logged:
             top5 = []
             games = read_data_from_games_database()
             if games['games']:

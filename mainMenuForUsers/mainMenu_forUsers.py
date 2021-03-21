@@ -9,3 +9,4 @@ content = {}
 
 MainMenuForUsers = MenuNode("User's Main Menu", content, main_menu=True)
 MainMenuForUsers.add_options(ChooseGameMenu, MyAccount, LogOut)
+MenuNode.default_node = MainMenuForUsers

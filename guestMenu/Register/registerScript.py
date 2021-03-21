@@ -58,8 +58,13 @@ class RegisterScript:
     def username_prompt(cls):
         # Username prompt
         while True:
+            print("\nEnter B to go back.\n")
+
             username = input("\nEnter your username:\n")
-            if cls.username_is_valid(username):
+
+            if username.lower() == 'b':
+                MenuNode.previous_node()
+            elif cls.username_is_valid(username):
                 return username
             else:
                 print("Please enter a new username.\n")
@@ -76,7 +81,8 @@ class RegisterScript:
     def email_in_database(cls, email_address):
         # Checking the database for existing user with this email address.
         users = read_data_from_users_database()
-        for user in users['users']:
+        all_users = users['admins'] + users['users']
+        for user in all_users:
             if email_address.lower() == user['email']:
                 return True
         return False
@@ -174,7 +180,7 @@ class RegisterScript:
             new_admin = Admin(email=valid_email, username=valid_username, key=valid_key.hex(),
                               salt=valid_salt.hex())
 
-            print("\nYou are the admin now.\n")
+            print("\nYou are an admin now.\n")
 
             new_admin_dictionary = new_admin.__dict__
             users['admins'].append(new_admin_dictionary)
@@ -192,6 +198,6 @@ class RegisterScript:
         print(f"Returning the the main menu in:")
         cls.stop_watch_to_main_menu(3)
         print('\n')
-        MenuNode.default_node()
+        return MenuNode.default_node()
 
 # RegisterScript.register_script()

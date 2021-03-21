@@ -1,11 +1,110 @@
 {
     "users": [
         {
-            "username": "karolina",
-            "key": "f5faf1d1897d108b3961fe652dfa03f2070fe03ac0bcd270b6e881aca8159e28",
-            "salt": "e4f84144b7b3e30c28cc9070cb0c9b9e989597df5c217968b72c7e171f11f67f",
-            "email": "karolina@gmail.com",
+            "username": "mihau",
+            "key": "41bcbd0c6cdceb717d96d20966efe65f905fcc651021fa6b5ae60082107baec6",
+            "salt": "c1e1a7925b6a64ca935621f5f980609ebe75b6fbc4ff95ea9b1ee0879138f167",
+            "email": "mihau@gmail.com",
             "wallet": 0,
+            "id": 0,
+            "is_admin": false,
+            "sent_request_box": [],
+            "notifications": []
+        },
+        {
+            "username": "karolina",
+            "key": "5d94d9ce624a4c32d0e55defdeb7b0e7af0192fe1574fb7f8f25e3ce09bb297b",
+            "salt": "96435bed0aaa39dc618b1efe8a82dbdd4ef62b19860db36a8034b7dc271f1e47",
+            "email": "karolina@karolina.pl",
+            "wallet": 0,
+            "id": 0,
+            "is_admin": false,
+            "sent_request_box": [],
+            "notifications": []
+        },
+        {
+            "username": "Guest1",
+            "key": null,
+            "salt": null,
+            "email": null,
+            "wallet": 0,
+            "id": 0,
+            "is_admin": false,
+            "sent_request_box": [],
+            "notifications": []
+        },
+        {
+            "username": "Guest1",
+            "key": null,
+            "salt": null,
+            "email": null,
+            "wallet": 0,
+            "id": 0,
+            "is_admin": false,
+            "sent_request_box": [],
+            "notifications": []
+        },
+        {
+            "username": "Guest1",
+            "key": null,
+            "salt": null,
+            "email": null,
+            "wallet": 0,
+            "id": 0,
+            "is_admin": false,
+            "sent_request_box": [],
+            "notifications": []
+        },
+        {
+            "username": "Guest2",
+            "key": null,
+            "salt": null,
+            "email": null,
+            "wallet": 0,
+            "id": 0,
+            "is_admin": false,
+            "sent_request_box": [],
+            "notifications": []
+        },
+        {
+            "username": "Guest1",
+            "key": null,
+            "salt": null,
+            "email": null,
+            "wallet": 20,
+            "id": 0,
+            "is_admin": false,
+            "sent_request_box": [],
+            "notifications": []
+        },
+        {
+            "username": "Guest1",
+            "key": null,
+            "salt": null,
+            "email": null,
+            "wallet": 0,
+            "id": 0,
+            "is_admin": false,
+            "sent_request_box": [],
+            "notifications": []
+        },
+        {
+            "username": "Guest2",
+            "key": null,
+            "salt": null,
+            "email": null,
+            "wallet": 0,
+            "id": 0,
+            "is_admin": false,
+            "sent_request_box": [],
+            "notifications": []
+        },
+        {
+            "username": "Guest3",
+            "key": null,
+            "salt": null,
+            "email": null,
+            "wallet": 15,
             "id": 0,
             "is_admin": false,
             "sent_request_box": [],
@@ -14,16 +113,39 @@
     ],
     "admins": [
         {
-            "requests_box": [],
+            "requests_box": [
+                {
+                    "user": "mihau",
+                    "amount": 1000,
+                    "datetime_details": "2021-03-19T12:58:15.896348",
+                    "approved": false
+                },
+                {
+                    "user": "karolina",
+                    "amount": 1000,
+                    "datetime_details": "2021-03-19T13:00:10.742250",
+                    "approved": false
+                },
+                {
+                    "user": "karolina",
+                    "amount": 10000,
+                    "datetime_details": "2021-03-19T15:46:04.869762",
+                    "approved": false
+                }
+            ],
+            "notifications": [
+                "You have a new request from mihau.",
+                "You have a new request from karolina.",
+                "You have a new request from karolina."
+            ],
             "username": "viginti",
-            "key": "030f0150b62b8cea7395aa5d1c1b964e7a2449f6f9f6dc082c28713cbd499f5f",
-            "salt": "83070a08728e3dd134267fb0d723de14faf3bfa11417dacdc1f0e6c766369b8f",
+            "key": "cc7ad2c86056956b6c689244856275a83cb8bfcc18f9c5af6ad710cbce04daa5",
+            "salt": "aeba04fd417f9afad61060d491126cf1297c4bac8b1895bc55bb79a835afe016",
             "email": "zarodm@gmail.com",
             "wallet": 0,
             "id": 0,
             "is_admin": true,
-            "sent_request_box": [],
-            "notifications": []
+            "sent_request_box": []
         }
     ]
 }

@@ -3,7 +3,7 @@ from structures.menu_Node import MenuNode
 
 
 def wallet_status():
-    user = User.user_logged
+    user = User.logged
     print(f'\nYou have {user.wallet} points in your wallet.\n')
     inp = input("Enter any key to go back.")
-    MenuNode.current_node()
+    return MenuNode.current_node()

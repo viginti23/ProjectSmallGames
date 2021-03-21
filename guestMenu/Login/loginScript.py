@@ -1,5 +1,5 @@
 from structures.menu_Node import MenuNode
-from structures.user_class import User
+from structures.user_class import User, Admin
 from mainMenuForUsers.mainMenu_forUsers import MainMenuForUsers
 from adminMenu.admin_menu import admin_Menu
 import time
@@ -87,10 +87,11 @@ def login_script():
                                       100000)
         if new_key.hex() == identified_user.key:
             print("\nPassword correct.\n")
-            User.user_logged = identified_user
+            if identified_user.is_admin:
+                Admin.logged = identified_user
+            elif not identified_user.is_admin:
+                User.logged = identified_user
             time.sleep(1)
-            if len(identified_user.notifications) > 0:
-                print(f"You have {len(identified_user.notifications)} new notifications!")
             break
         else:
             print('\nPassword incorrect. Try again.\n')
@@ -104,11 +105,13 @@ def login_script():
         stop_watch_to_default_node(3)
     else:
         if identified_user.is_admin:
+            User.logged = identified_user
             MenuNode.default_node = admin_Menu
             MenuNode.current_node = admin_Menu
 
         else:
+            User.logged = identified_user
             MenuNode.default_node = MainMenuForUsers
             MenuNode.current_node = MainMenuForUsers
 
-        MenuNode.current_node()
+        return MenuNode.current_node()

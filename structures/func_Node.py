@@ -1,3 +1,5 @@
+
+import time
 from structures.menu_Node import MenuNode
 
 
@@ -6,11 +8,17 @@ from structures.menu_Node import MenuNode
 # FuncNodes are callable and they return their function call.
 
 class FuncNode(MenuNode):
+
     def __init__(self, name, func):
         super().__init__(name)
         self.func = func
 
     def __call__(self):
-        return self.func()
+        try:
+            return self.func()
+        except TypeError:
+            print("Admins only.")
+            time.sleep(3)
+            FuncNode.default_node()
 
 

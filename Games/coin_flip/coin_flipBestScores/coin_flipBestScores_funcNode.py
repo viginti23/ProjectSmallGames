@@ -1,4 +1,4 @@
-from Games.coin_flip.coin_flipBestScores_script import show
+from Games.coin_flip.coin_flipBestScores.coin_flipBestScores_script import show
 from structures.func_Node import FuncNode
 
 func = show

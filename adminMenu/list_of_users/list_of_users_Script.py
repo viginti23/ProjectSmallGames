@@ -1,5 +1,4 @@
 import json_data_funcs
-from structures.user_class import User
 from structures.menu_Node import MenuNode
 
 
@@ -9,7 +8,7 @@ def list_users():
         print("\nThere are no users yet!\n")
     n = 1
     for user in users['users']:
-        print(f"\n----->|{n}| {user['username']} ----- {user['email']}\n----------> {user['wallet']}\n\n")
+        print(f"\n----->|{n}| {user['username']} ----- {user['email']}\n----------> Wallet status: {user['wallet']}\n\n")
         n += 1
     inp = input("Press enter to go back.")
-    MenuNode.current_node()
+    return MenuNode.current_node()

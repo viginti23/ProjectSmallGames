@@ -1,5 +1,4 @@
-import sys
-import time
+import sys, os, time
 from structures.user_class import User
 
 
@@ -34,6 +33,12 @@ class MenuNode:
     def __call__(self):
         return self.run()
 
+    @staticmethod
+    def user_err():
+        print("Nothing to see here.\nOnly admins access.")
+        time.sleep(5)
+        MenuNode.default_node()
+
     def get_options(self):
         return self.options
 
@@ -49,10 +54,11 @@ class MenuNode:
     def adding_up_module_leading_to_parent_menu(self):
         # Adding "Up" module to given menu, if there is a path to go back to, by choosing "0".
         if self.parents_up:
+            if not self.main_menu:
             # for par in self.parents_up:
-            self.content['0'] = "|0| Up"
+                self.content['0'] = "|0| Up"
         # The very first menu-node in self.options is always a parents_up.
-            self.options['0'] = self.parents_up
+                self.options['0'] = self.parents_up
         # Back (previous) menu is more structural, general state of the system just as current_node and
         # default_node are, and might be needed in global scope use. Also every node's mandatory argument
         # for instantiation is parent_node argument, except for MainMenu and MainMenuForUsers
@@ -76,9 +82,16 @@ class MenuNode:
 
     def printing_menu_view(self):
         # If any user is logged in, we are displaying their username on the top of each menu view.
-        usr = User.user_logged
+        usr = User.logged
         if usr:
+
             if usr.is_admin:
+                c = 0
+                if c < 3:
+                    print(f"\n\n{25 * '-'}")
+                    print(f"You have {len(usr.notifications)} new requests!")
+                    print(f"{25 * '-'}")
+                    c += 1
                 print(f'\n\n\nAdmin: {usr.username}\n')
             else:
                 print(f'\n\n\nUser: {usr.username}\n')
@@ -93,11 +106,9 @@ class MenuNode:
         print(f"{25 * '-'}")
 
     def get_users_choice_prompt(self):
-
-        # current = MenuNode.current_node
-
+        os.system('clear')
         self.adding_up_module_leading_to_parent_menu()
-        self.adding_back_module_leading_to_previously_visited_menu()
+        # self.adding_back_module_leading_to_previously_visited_menu()
         self.saving_previous_node_and_updating_current_node()
         self.adding_exit_module()
         self.printing_menu_view()
@@ -111,16 +122,25 @@ class MenuNode:
                 ans = input("\nAre you sure you are leaving?\nEnter Y or N.\n")
                 if ans.lower() == "y":
                     self.options["Q"]()
+                    return
                     # sys.exit()
                 else:
                     continue
 
-            elif choice.lower() == 'b':
-                self.options["B"]()
+            # elif choice.lower() == 'b':
+            #     if not self.main_menu:
+            #         self.options["B"]()
+            #     else:
+            #         print("Please enter a valid option.")
+            #         continue
 
             elif choice.lower() == '0':
-                self.options['0']()
-
+                if not self.main_menu:
+                    self.options['0']()
+                    return
+                else:
+                    print("Please enter a valid option.")
+                    continue
             else:
                 print("Please enter a valid option.")
                 continue
@@ -132,8 +152,9 @@ class MenuNode:
 
         # Getting user's choice
         choice = self.get_users_choice_prompt()
-        try:
-            chosen_option = self.options[choice]
-            chosen_option()
-        except KeyError:
-            print("Please choose only from available options.")
+        # try:
+        chosen_option = self.options[choice]
+        chosen_option()
+        return
+        # except KeyError:
+        #     print("Please choose only from available options.")

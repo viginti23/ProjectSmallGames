@@ -5,4 +5,3 @@ func = logout
 
 LogOut = FuncNode('Log Out', func)
 
-LogOut.default_node()
