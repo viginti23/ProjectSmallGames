@@ -3,6 +3,6 @@ from Games.coin_flip.coin_flipGame.coin_flipGame_FuncNode import coin_flipGame
 from Games.coin_flip.coin_flipBestScores.coin_flipBestScores_funcNode import coinFlipBestScores
 
 content = {}
+options = [coin_flipGame, coinFlipBestScores]
 
-CoinFlip = MenuNode("Coin Flip", content)
-CoinFlip.add_options(coin_flipGame, coinFlipBestScores)
+CoinFlip = MenuNode("Coin Flip", content, options=options)

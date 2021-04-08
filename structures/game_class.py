@@ -25,10 +25,7 @@ class Game:
     @staticmethod
     def settingUser():
         # Setting the logged in user as playing user.
-        player = User.logged
-
-        # Assigning database's data to playing user class object.
-        return player
+        return User.logged
 
     @staticmethod
     def settingGuestUser():

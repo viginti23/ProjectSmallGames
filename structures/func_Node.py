@@ -1,4 +1,4 @@
-
+from structures.game_class import Game
 import time
 from structures.menu_Node import MenuNode
 
@@ -14,11 +14,5 @@ class FuncNode(MenuNode):
         self.func = func
 
     def __call__(self):
-        try:
-            return self.func()
-        except TypeError:
-            print("Admins only.")
-            time.sleep(3)
-            FuncNode.default_node()
-
+        return self.func()
 

@@ -17,6 +17,9 @@ class CoinF(Game):
         CoinF.game_id += 1
         super().__init__(name=CoinF.name, user=User.logged)
 
+    def __call__(self):
+        return self.start_game()
+
     def start_game(self):
         # users_db_path = os.path.relpath("database/users.json")
         # games_db_path = os.path.relpath('database/games.json')
@@ -72,8 +75,8 @@ class CoinF(Game):
                     print("TAILS!")
                 time.sleep(1)
 
-                wins_strike = 0
-                loses_strike = 0
+            wins_strike = 0
+            loses_strike = 0
 
             if players_choice.lower() == drawn_value.lower():
                 print("You won!!!")
@@ -102,7 +105,7 @@ class CoinF(Game):
                      f"Date: {datetime.strftime(datetime.now(), '%d.%m.%Y, %H:%M')}"])
                 # money countdown animation
 
-            # Checks after each game if the wins strike is already good enough to be in best ones.
+            # Checks after each game if the wins strike or score is already good enough to be in best ones.
             top5 = None
             if User.logged:
                 top5 = self.get_top5()
@@ -110,31 +113,32 @@ class CoinF(Game):
 
             if isinstance(playing_user, User):
 
-                users = json_data_funcs.read_data_from_users_database()
+                all_users = json_data_funcs.read_data_from_users_database()
                 usr_dict = playing_user.__dict__
-                usr_dict['wallet'] = playing_user.wallet
+                # usr_dict['wallet'] = playing_user.wallet
 
-                for u in users['users']:
-                    if u['username'] == usr_dict['username']:
-                        del u
-                users['users'].append(usr_dict)
-                json_data_funcs.write_data_to_users_database(users)
+                for u in range(len(all_users['users'])):
+                    if all_users['users'][u]['username'] == usr_dict['username']:
+                        del all_users['users'][u]
+                        break
+                all_users['users'].append(usr_dict)
+                json_data_funcs.write_data_to_users_database(all_users)
 
-                games = json_data_funcs.read_data_from_games_database()
-                if User.logged:
-                    try:
-                        if len(top5) <= 4:
-                            top5.append({'Wins strike': wins_strike, 'score': score, 'player': playing_user.username,
-                                         'date': datetime.strftime(datetime.now(), '%d/%m/%Y %H:%M')})
-                        else:
-                            if wins_strike >= top5[-1]['Wins strike']:
-                                del top5[-1]
-                                top5.append({'Wins strike': wins_strike, 'score': score, 'player': playing_user.username,
-                                             'date': datetime.strftime(datetime.now(), '%d/%m/%Y %H:%M')})
-                    except IndexError:
+            games = json_data_funcs.read_data_from_games_database()
+            if User.logged:
+                try:
+                    if len(top5) <= 4:
                         top5.append({'Wins strike': wins_strike, 'score': score, 'player': playing_user.username,
                                      'date': datetime.strftime(datetime.now(), '%d/%m/%Y %H:%M')})
-                    json_data_funcs.write_data_to_games_database(games)
+                    else:
+                        if wins_strike >= top5[-1]['Wins strike']:
+                            del top5[-1]
+                            top5.append({'Wins strike': wins_strike, 'score': score, 'player': playing_user.username,
+                                         'date': datetime.strftime(datetime.now(), '%d/%m/%Y %H:%M')})
+                except IndexError:
+                    top5.append({'Wins strike': wins_strike, 'score': score, 'player': playing_user.username,
+                                 'date': datetime.strftime(datetime.now(), '%d/%m/%Y %H:%M')})
+                json_data_funcs.write_data_to_games_database(games)
 
             print(f"\nSession's score: {score}.")
             print(f"\nCurrent's session results: {current_game_results}.")

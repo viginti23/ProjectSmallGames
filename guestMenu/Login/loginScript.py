@@ -45,14 +45,16 @@ def password_reset(usr):
 
 def login_script():
     # Searching for user in database
-    users = read_data_from_users_database()
+
     identified_user = None
     while not identified_user:
         print('\n\nEnter R to return to main menu.')
         username_input = input('\nEnter your username or e-mail:\n')
+
         if username_input.lower() == 'r':
             MenuNode.current_node()
 
+        users = read_data_from_users_database()
         all_users = []
         for adm in users['admins']:
             all_users.append(adm)
@@ -61,7 +63,7 @@ def login_script():
 
         for user in all_users:
             if username_input == user['username'] or username_input == user['email']:
-                identified_user = User(dictionary=user)  # Our currently most used user is in Python class type.
+                identified_user = User(dictionary=user)
                 # if not dict_: ---> ---> identified_user.dictionary
                 #     dict_ = user
                 # print(type(user))
@@ -104,6 +106,8 @@ def login_script():
         print(f'Returning to {MenuNode.default_node.name} in:')
         stop_watch_to_default_node(3)
     else:
+        # RefRequest.pending_requests_check()
+
         if identified_user.is_admin:
             User.logged = identified_user
             MenuNode.default_node = admin_Menu

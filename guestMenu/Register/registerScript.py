@@ -91,11 +91,11 @@ class RegisterScript:
     def password_prompt(cls, valid_username):
         while True:
             print('''Your password:
-                                        - should be longer than 6 characters;
-                                        - should contain at least one digit;
-                                        - should not contain the word "password" in any case;
-                                        - should not be the same as your username;
-                                        - should contain at least 3 different characters.
+                    - should be longer than 6 characters;
+                    - should contain at least one digit;
+                    - should not contain the word "password" in any case;
+                    - should not be the same as your username;
+                    - should contain at least 3 different characters.
         ''')
 
             password1 = getpass.getpass("Please enter your password:\n")
@@ -175,7 +175,7 @@ class RegisterScript:
         adm = getpass.getpass("\nPress enter to continue or type the admin access password to gain admin powers and "
                               "permissions.\n")
 
-        users = read_data_from_users_database()
+        all_users = read_data_from_users_database()
         if adm == 'admin':  # TODO hash and database export/import?
             new_admin = Admin(email=valid_email, username=valid_username, key=valid_key.hex(),
                               salt=valid_salt.hex())
@@ -183,15 +183,14 @@ class RegisterScript:
             print("\nYou are an admin now.\n")
 
             new_admin_dictionary = new_admin.__dict__
-            users['admins'].append(new_admin_dictionary)
+            all_users['admins'].append(new_admin_dictionary)
 
         else:
             new_user = User(email=valid_email, username=valid_username, key=valid_key.hex(), salt=valid_salt.hex())
-            User.n += 1
             new_user_dictionary = new_user.__dict__
-            users['users'].append(new_user_dictionary)
+            all_users['users'].append(new_user_dictionary)
 
-        write_data_to_users_database(users)
+        write_data_to_users_database(all_users)
 
         # TODO sending email to confirm the account
         print("You can now log in.")

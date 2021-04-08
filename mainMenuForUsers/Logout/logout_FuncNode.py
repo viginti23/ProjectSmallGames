@@ -3,5 +3,5 @@ from mainMenuForUsers.Logout.logoutScript import logout
 
 func = logout
 
-LogOut = FuncNode('Log Out', func)
-
+logOut_FuncNode = FuncNode('Log Out', func)
+logOut_FuncNode()

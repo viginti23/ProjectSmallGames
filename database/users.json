@@ -1,111 +1,461 @@
 {
     "users": [
         {
-            "username": "mihau",
-            "key": "41bcbd0c6cdceb717d96d20966efe65f905fcc651021fa6b5ae60082107baec6",
-            "salt": "c1e1a7925b6a64ca935621f5f980609ebe75b6fbc4ff95ea9b1ee0879138f167",
-            "email": "mihau@gmail.com",
-            "wallet": 0,
-            "id": 0,
+            "username": "zfer",
+            "key": "28112b95da368024c8ab7d16f4c51f94e3ce288e89d4742f6e52af36d96a4eb8",
+            "salt": "bec619db5bc2331ea0d32be97ab9f8514a725ca787c5cb1ef9e83dc66bd51cfa",
+            "email": "zarodm@wp.pl",
+            "wallet": 22799,
+            "user_id": 1,
             "is_admin": false,
             "sent_request_box": [],
-            "notifications": []
+            "notifications": [
+                "Your request for 10000 points has been accepted.",
+                "Your request for 10000 points has been accepted."
+            ],
+            "dictionary": {
+                "username": "zfer",
+                "key": "28112b95da368024c8ab7d16f4c51f94e3ce288e89d4742f6e52af36d96a4eb8",
+                "salt": "bec619db5bc2331ea0d32be97ab9f8514a725ca787c5cb1ef9e83dc66bd51cfa",
+                "email": "zarodm@wp.pl",
+                "wallet": 20000,
+                "user_id": 1,
+                "is_admin": false,
+                "sent_request_box": [],
+                "notifications": [
+                    "Your request for 10000 points has been accepted.",
+                    "Your request for 10000 points has been accepted."
+                ]
+            }
         },
         {
-            "username": "karolina",
-            "key": "5d94d9ce624a4c32d0e55defdeb7b0e7af0192fe1574fb7f8f25e3ce09bb297b",
-            "salt": "96435bed0aaa39dc618b1efe8a82dbdd4ef62b19860db36a8034b7dc271f1e47",
-            "email": "karolina@karolina.pl",
-            "wallet": 0,
-            "id": 0,
+            "username": "zfer",
+            "key": "28112b95da368024c8ab7d16f4c51f94e3ce288e89d4742f6e52af36d96a4eb8",
+            "salt": "bec619db5bc2331ea0d32be97ab9f8514a725ca787c5cb1ef9e83dc66bd51cfa",
+            "email": "zarodm@wp.pl",
+            "wallet": 18000,
+            "user_id": 1,
             "is_admin": false,
             "sent_request_box": [],
-            "notifications": []
+            "notifications": [
+                "Your request for 10000 points has been accepted.",
+                "Your request for 10000 points has been accepted."
+            ],
+            "dictionary": {
+                "username": "zfer",
+                "key": "28112b95da368024c8ab7d16f4c51f94e3ce288e89d4742f6e52af36d96a4eb8",
+                "salt": "bec619db5bc2331ea0d32be97ab9f8514a725ca787c5cb1ef9e83dc66bd51cfa",
+                "email": "zarodm@wp.pl",
+                "wallet": 20000,
+                "user_id": 1,
+                "is_admin": false,
+                "sent_request_box": [],
+                "notifications": [
+                    "Your request for 10000 points has been accepted.",
+                    "Your request for 10000 points has been accepted."
+                ]
+            }
+        },
+        {
+            "username": "zfer",
+            "key": "28112b95da368024c8ab7d16f4c51f94e3ce288e89d4742f6e52af36d96a4eb8",
+            "salt": "bec619db5bc2331ea0d32be97ab9f8514a725ca787c5cb1ef9e83dc66bd51cfa",
+            "email": "zarodm@wp.pl",
+            "wallet": 17900,
+            "user_id": 1,
+            "is_admin": false,
+            "sent_request_box": [],
+            "notifications": [
+                "Your request for 10000 points has been accepted.",
+                "Your request for 10000 points has been accepted."
+            ],
+            "dictionary": {
+                "username": "zfer",
+                "key": "28112b95da368024c8ab7d16f4c51f94e3ce288e89d4742f6e52af36d96a4eb8",
+                "salt": "bec619db5bc2331ea0d32be97ab9f8514a725ca787c5cb1ef9e83dc66bd51cfa",
+                "email": "zarodm@wp.pl",
+                "wallet": 20000,
+                "user_id": 1,
+                "is_admin": false,
+                "sent_request_box": [],
+                "notifications": [
+                    "Your request for 10000 points has been accepted.",
+                    "Your request for 10000 points has been accepted."
+                ]
+            }
+        },
+        {
+            "username": "zfer",
+            "key": "28112b95da368024c8ab7d16f4c51f94e3ce288e89d4742f6e52af36d96a4eb8",
+            "salt": "bec619db5bc2331ea0d32be97ab9f8514a725ca787c5cb1ef9e83dc66bd51cfa",
+            "email": "zarodm@wp.pl",
+            "wallet": 7900,
+            "user_id": 1,
+            "is_admin": false,
+            "sent_request_box": [],
+            "notifications": [
+                "Your request for 10000 points has been accepted.",
+                "Your request for 10000 points has been accepted."
+            ],
+            "dictionary": {
+                "username": "zfer",
+                "key": "28112b95da368024c8ab7d16f4c51f94e3ce288e89d4742f6e52af36d96a4eb8",
+                "salt": "bec619db5bc2331ea0d32be97ab9f8514a725ca787c5cb1ef9e83dc66bd51cfa",
+                "email": "zarodm@wp.pl",
+                "wallet": 20000,
+                "user_id": 1,
+                "is_admin": false,
+                "sent_request_box": [],
+                "notifications": [
+                    "Your request for 10000 points has been accepted.",
+                    "Your request for 10000 points has been accepted."
+                ]
+            }
+        },
+        {
+            "username": "zfer",
+            "key": "28112b95da368024c8ab7d16f4c51f94e3ce288e89d4742f6e52af36d96a4eb8",
+            "salt": "bec619db5bc2331ea0d32be97ab9f8514a725ca787c5cb1ef9e83dc66bd51cfa",
+            "email": "zarodm@wp.pl",
+            "wallet": 40000,
+            "user_id": 1,
+            "is_admin": false,
+            "sent_request_box": [
+                {
+                    "request_id": 1,
+                    "user": "zfer",
+                    "amount": 10000,
+                    "datetime_details": "2021-04-06T21:51:25.451600",
+                    "approved": false
+                }
+            ],
+            "notifications": [
+                "Your request for 10000 points has been accepted.",
+                "Your request for 10000 points has been accepted.",
+                "Your request for 10000 points has been accepted."
+            ],
+            "dictionary": {
+                "username": "zfer",
+                "key": "28112b95da368024c8ab7d16f4c51f94e3ce288e89d4742f6e52af36d96a4eb8",
+                "salt": "bec619db5bc2331ea0d32be97ab9f8514a725ca787c5cb1ef9e83dc66bd51cfa",
+                "email": "zarodm@wp.pl",
+                "wallet": 20000,
+                "user_id": 1,
+                "is_admin": false,
+                "sent_request_box": [
+                    {
+                        "request_id": 1,
+                        "user": "zfer",
+                        "amount": 10000,
+                        "datetime_details": "2021-04-06T21:51:25.451600",
+                        "approved": false
+                    }
+                ],
+                "notifications": [
+                    "Your request for 10000 points has been accepted.",
+                    "Your request for 10000 points has been accepted."
+                ]
+            }
+        },
+        {
+            "username": "zfer",
+            "key": "28112b95da368024c8ab7d16f4c51f94e3ce288e89d4742f6e52af36d96a4eb8",
+            "salt": "bec619db5bc2331ea0d32be97ab9f8514a725ca787c5cb1ef9e83dc66bd51cfa",
+            "email": "zarodm@wp.pl",
+            "wallet": 270000,
+            "user_id": 1,
+            "is_admin": false,
+            "sent_request_box": [
+                {
+                    "request_id": 1,
+                    "user": "zfer",
+                    "amount": 10003213,
+                    "datetime_details": "2021-04-06T23:53:27.302990",
+                    "approved": false
+                }
+            ],
+            "notifications": [
+                "Your request for 10000 points has been accepted.",
+                "Your request for 10000 points has been accepted.",
+                "Your request for 10000 points has been accepted.",
+                "Your request for 10000 points has been accepted.",
+                "Your request for 10000 points has been accepted.",
+                "Your request for 10000 points has been accepted.",
+                "Your request for 10000 points has been accepted.",
+                "Your request for 10000 points has been accepted.",
+                "Your request for 10000 points has been accepted.",
+                "Your request for 10000 points has been accepted.",
+                "Your request for 10000 points has been accepted.",
+                "Your request for 10000 points has been accepted.",
+                "Your request for 10000 points has been accepted.",
+                "Your request for 10000 points has been accepted.",
+                "Your request for 10000 points has been accepted.",
+                "Your request for 10000 points has been accepted.",
+                "Your request for 10000 points has been accepted."
+            ],
+            "dictionary": {
+                "username": "zfer",
+                "key": "28112b95da368024c8ab7d16f4c51f94e3ce288e89d4742f6e52af36d96a4eb8",
+                "salt": "bec619db5bc2331ea0d32be97ab9f8514a725ca787c5cb1ef9e83dc66bd51cfa",
+                "email": "zarodm@wp.pl",
+                "wallet": 170000,
+                "user_id": 1,
+                "is_admin": false,
+                "sent_request_box": [
+                    {
+                        "request_id": 1,
+                        "user": "zfer",
+                        "amount": 10003213,
+                        "datetime_details": "2021-04-06T23:53:27.302990",
+                        "approved": false
+                    }
+                ],
+                "notifications": [
+                    "Your request for 10000 points has been accepted.",
+                    "Your request for 10000 points has been accepted.",
+                    "Your request for 10000 points has been accepted.",
+                    "Your request for 10000 points has been accepted.",
+                    "Your request for 10000 points has been accepted.",
+                    "Your request for 10000 points has been accepted.",
+                    "Your request for 10000 points has been accepted.",
+                    "Your request for 10000 points has been accepted.",
+                    "Your request for 10000 points has been accepted.",
+                    "Your request for 10000 points has been accepted.",
+                    "Your request for 10000 points has been accepted.",
+                    "Your request for 10000 points has been accepted.",
+                    "Your request for 10000 points has been accepted.",
+                    "Your request for 10000 points has been accepted.",
+                    "Your request for 10000 points has been accepted.",
+                    "Your request for 10000 points has been accepted.",
+                    "Your request for 10000 points has been accepted."
+                ]
+            }
+        },
+        {
+            "username": "zfer",
+            "key": "28112b95da368024c8ab7d16f4c51f94e3ce288e89d4742f6e52af36d96a4eb8",
+            "salt": "bec619db5bc2331ea0d32be97ab9f8514a725ca787c5cb1ef9e83dc66bd51cfa",
+            "email": "zarodm@wp.pl",
+            "wallet": 270002,
+            "user_id": 1,
+            "is_admin": false,
+            "sent_request_box": [
+                {
+                    "request_id": 1,
+                    "user": "zfer",
+                    "amount": 10003213,
+                    "datetime_details": "2021-04-06T23:53:27.302990",
+                    "approved": false
+                }
+            ],
+            "notifications": [
+                "Your request for 10000 points has been accepted.",
+                "Your request for 10000 points has been accepted.",
+                "Your request for 10000 points has been accepted.",
+                "Your request for 10000 points has been accepted.",
+                "Your request for 10000 points has been accepted.",
+                "Your request for 10000 points has been accepted.",
+                "Your request for 10000 points has been accepted.",
+                "Your request for 10000 points has been accepted.",
+                "Your request for 10000 points has been accepted.",
+                "Your request for 10000 points has been accepted.",
+                "Your request for 10000 points has been accepted.",
+                "Your request for 10000 points has been accepted.",
+                "Your request for 10000 points has been accepted.",
+                "Your request for 10000 points has been accepted.",
+                "Your request for 10000 points has been accepted.",
+                "Your request for 10000 points has been accepted.",
+                "Your request for 10000 points has been accepted."
+            ],
+            "dictionary": {
+                "username": "zfer",
+                "key": "28112b95da368024c8ab7d16f4c51f94e3ce288e89d4742f6e52af36d96a4eb8",
+                "salt": "bec619db5bc2331ea0d32be97ab9f8514a725ca787c5cb1ef9e83dc66bd51cfa",
+                "email": "zarodm@wp.pl",
+                "wallet": 170000,
+                "user_id": 1,
+                "is_admin": false,
+                "sent_request_box": [
+                    {
+                        "request_id": 1,
+                        "user": "zfer",
+                        "amount": 10003213,
+                        "datetime_details": "2021-04-06T23:53:27.302990",
+                        "approved": false
+                    }
+                ],
+                "notifications": [
+                    "Your request for 10000 points has been accepted.",
+                    "Your request for 10000 points has been accepted.",
+                    "Your request for 10000 points has been accepted.",
+                    "Your request for 10000 points has been accepted.",
+                    "Your request for 10000 points has been accepted.",
+                    "Your request for 10000 points has been accepted.",
+                    "Your request for 10000 points has been accepted.",
+                    "Your request for 10000 points has been accepted.",
+                    "Your request for 10000 points has been accepted.",
+                    "Your request for 10000 points has been accepted.",
+                    "Your request for 10000 points has been accepted.",
+                    "Your request for 10000 points has been accepted.",
+                    "Your request for 10000 points has been accepted.",
+                    "Your request for 10000 points has been accepted.",
+                    "Your request for 10000 points has been accepted.",
+                    "Your request for 10000 points has been accepted.",
+                    "Your request for 10000 points has been accepted."
+                ]
+            }
+        },
+        {
+            "username": "zfer",
+            "key": "28112b95da368024c8ab7d16f4c51f94e3ce288e89d4742f6e52af36d96a4eb8",
+            "salt": "bec619db5bc2331ea0d32be97ab9f8514a725ca787c5cb1ef9e83dc66bd51cfa",
+            "email": "zarodm@wp.pl",
+            "wallet": 170010,
+            "user_id": 1,
+            "is_admin": false,
+            "sent_request_box": [],
+            "notifications": [
+                "Your request for 10000 points has been accepted.",
+                "Your request for 10000 points has been accepted.",
+                "Your request for 10000 points has been accepted.",
+                "Your request for 10000 points has been accepted.",
+                "Your request for 10000 points has been accepted.",
+                "Your request for 10000 points has been accepted.",
+                "Your request for 10000 points has been accepted.",
+                "Your request for 10000 points has been accepted.",
+                "Your request for 10000 points has been accepted.",
+                "Your request for 10000 points has been accepted.",
+                "Your request for 10000 points has been accepted.",
+                "Your request for 10000 points has been accepted.",
+                "Your request for 10000 points has been accepted.",
+                "Your request for 10000 points has been accepted.",
+                "Your request for 10000 points has been accepted.",
+                "Your request for 10000 points has been accepted.",
+                "Your request for 10000 points has been accepted."
+            ],
+            "dictionary": {
+                "username": "zfer",
+                "key": "28112b95da368024c8ab7d16f4c51f94e3ce288e89d4742f6e52af36d96a4eb8",
+                "salt": "bec619db5bc2331ea0d32be97ab9f8514a725ca787c5cb1ef9e83dc66bd51cfa",
+                "email": "zarodm@wp.pl",
+                "wallet": 170000,
+                "user_id": 1,
+                "is_admin": false,
+                "sent_request_box": [],
+                "notifications": [
+                    "Your request for 10000 points has been accepted.",
+                    "Your request for 10000 points has been accepted.",
+                    "Your request for 10000 points has been accepted.",
+                    "Your request for 10000 points has been accepted.",
+                    "Your request for 10000 points has been accepted.",
+                    "Your request for 10000 points has been accepted.",
+                    "Your request for 10000 points has been accepted.",
+                    "Your request for 10000 points has been accepted.",
+                    "Your request for 10000 points has been accepted.",
+                    "Your request for 10000 points has been accepted.",
+                    "Your request for 10000 points has been accepted.",
+                    "Your request for 10000 points has been accepted.",
+                    "Your request for 10000 points has been accepted.",
+                    "Your request for 10000 points has been accepted.",
+                    "Your request for 10000 points has been accepted.",
+                    "Your request for 10000 points has been accepted.",
+                    "Your request for 10000 points has been accepted."
+                ]
+            }
+        },
+        {
+            "username": "zfer",
+            "key": "28112b95da368024c8ab7d16f4c51f94e3ce288e89d4742f6e52af36d96a4eb8",
+            "salt": "bec619db5bc2331ea0d32be97ab9f8514a725ca787c5cb1ef9e83dc66bd51cfa",
+            "email": "zarodm@wp.pl",
+            "wallet": 168899,
+            "user_id": 1,
+            "is_admin": false,
+            "sent_request_box": [],
+            "notifications": [
+                "Your request for 10000 points has been accepted.",
+                "Your request for 10000 points has been accepted.",
+                "Your request for 10000 points has been accepted.",
+                "Your request for 10000 points has been accepted.",
+                "Your request for 10000 points has been accepted.",
+                "Your request for 10000 points has been accepted.",
+                "Your request for 10000 points has been accepted.",
+                "Your request for 10000 points has been accepted.",
+                "Your request for 10000 points has been accepted.",
+                "Your request for 10000 points has been accepted.",
+                "Your request for 10000 points has been accepted.",
+                "Your request for 10000 points has been accepted.",
+                "Your request for 10000 points has been accepted.",
+                "Your request for 10000 points has been accepted.",
+                "Your request for 10000 points has been accepted.",
+                "Your request for 10000 points has been accepted.",
+                "Your request for 10000 points has been accepted."
+            ],
+            "dictionary": {
+                "username": "zfer",
+                "key": "28112b95da368024c8ab7d16f4c51f94e3ce288e89d4742f6e52af36d96a4eb8",
+                "salt": "bec619db5bc2331ea0d32be97ab9f8514a725ca787c5cb1ef9e83dc66bd51cfa",
+                "email": "zarodm@wp.pl",
+                "wallet": 170000,
+                "user_id": 1,
+                "is_admin": false,
+                "sent_request_box": [],
+                "notifications": [
+                    "Your request for 10000 points has been accepted.",
+                    "Your request for 10000 points has been accepted.",
+                    "Your request for 10000 points has been accepted.",
+                    "Your request for 10000 points has been accepted.",
+                    "Your request for 10000 points has been accepted.",
+                    "Your request for 10000 points has been accepted.",
+                    "Your request for 10000 points has been accepted.",
+                    "Your request for 10000 points has been accepted.",
+                    "Your request for 10000 points has been accepted.",
+                    "Your request for 10000 points has been accepted.",
+                    "Your request for 10000 points has been accepted.",
+                    "Your request for 10000 points has been accepted.",
+                    "Your request for 10000 points has been accepted.",
+                    "Your request for 10000 points has been accepted.",
+                    "Your request for 10000 points has been accepted.",
+                    "Your request for 10000 points has been accepted.",
+                    "Your request for 10000 points has been accepted."
+                ]
+            }
+        },
+        {
+            "username": "zfer",
+            "key": "28112b95da368024c8ab7d16f4c51f94e3ce288e89d4742f6e52af36d96a4eb8",
+            "salt": "bec619db5bc2331ea0d32be97ab9f8514a725ca787c5cb1ef9e83dc66bd51cfa",
+            "email": "zarodm@wp.pl",
+            "wallet": 43199,
+            "user_id": 1,
+            "is_admin": false,
+            "sent_request_box": [],
+            "notifications": [
+                "Your request for 10000 points has been accepted.",
+                "Your request for 10000 points has been accepted."
+            ],
+            "dictionary": {
+                "username": "zfer",
+                "key": "28112b95da368024c8ab7d16f4c51f94e3ce288e89d4742f6e52af36d96a4eb8",
+                "salt": "bec619db5bc2331ea0d32be97ab9f8514a725ca787c5cb1ef9e83dc66bd51cfa",
+                "email": "zarodm@wp.pl",
+                "wallet": 20000,
+                "user_id": 1,
+                "is_admin": false,
+                "sent_request_box": [],
+                "notifications": [
+                    "Your request for 10000 points has been accepted.",
+                    "Your request for 10000 points has been accepted."
+                ]
+            }
         },
         {
             "username": "Guest1",
             "key": null,
             "salt": null,
             "email": null,
-            "wallet": 0,
-            "id": 0,
-            "is_admin": false,
-            "sent_request_box": [],
-            "notifications": []
-        },
-        {
-            "username": "Guest1",
-            "key": null,
-            "salt": null,
-            "email": null,
-            "wallet": 0,
-            "id": 0,
-            "is_admin": false,
-            "sent_request_box": [],
-            "notifications": []
-        },
-        {
-            "username": "Guest1",
-            "key": null,
-            "salt": null,
-            "email": null,
-            "wallet": 0,
-            "id": 0,
-            "is_admin": false,
-            "sent_request_box": [],
-            "notifications": []
-        },
-        {
-            "username": "Guest2",
-            "key": null,
-            "salt": null,
-            "email": null,
-            "wallet": 0,
-            "id": 0,
-            "is_admin": false,
-            "sent_request_box": [],
-            "notifications": []
-        },
-        {
-            "username": "Guest1",
-            "key": null,
-            "salt": null,
-            "email": null,
-            "wallet": 20,
-            "id": 0,
-            "is_admin": false,
-            "sent_request_box": [],
-            "notifications": []
-        },
-        {
-            "username": "Guest1",
-            "key": null,
-            "salt": null,
-            "email": null,
-            "wallet": 0,
-            "id": 0,
-            "is_admin": false,
-            "sent_request_box": [],
-            "notifications": []
-        },
-        {
-            "username": "Guest2",
-            "key": null,
-            "salt": null,
-            "email": null,
-            "wallet": 0,
-            "id": 0,
-            "is_admin": false,
-            "sent_request_box": [],
-            "notifications": []
-        },
-        {
-            "username": "Guest3",
-            "key": null,
-            "salt": null,
-            "email": null,
-            "wallet": 15,
-            "id": 0,
+            "wallet": 8,
+            "user_id": 11,
             "is_admin": false,
             "sent_request_box": [],
             "notifications": []
@@ -113,39 +463,29 @@
     ],
     "admins": [
         {
-            "requests_box": [
-                {
-                    "user": "mihau",
-                    "amount": 1000,
-                    "datetime_details": "2021-03-19T12:58:15.896348",
-                    "approved": false
-                },
-                {
-                    "user": "karolina",
-                    "amount": 1000,
-                    "datetime_details": "2021-03-19T13:00:10.742250",
-                    "approved": false
-                },
-                {
-                    "user": "karolina",
-                    "amount": 10000,
-                    "datetime_details": "2021-03-19T15:46:04.869762",
-                    "approved": false
-                }
-            ],
-            "notifications": [
-                "You have a new request from mihau.",
-                "You have a new request from karolina.",
-                "You have a new request from karolina."
-            ],
             "username": "viginti",
-            "key": "cc7ad2c86056956b6c689244856275a83cb8bfcc18f9c5af6ad710cbce04daa5",
-            "salt": "aeba04fd417f9afad61060d491126cf1297c4bac8b1895bc55bb79a835afe016",
+            "key": "92d771010ddebc33bef3a4adc1469f027250fb84b00d97ed7c06b2295125f3e4",
+            "salt": "4f37d10b0881c0ebd16535ff5976eef0b16afe33d8cefee8345ddf1c865503a0",
             "email": "zarodm@gmail.com",
             "wallet": 0,
-            "id": 0,
+            "user_id": 1,
             "is_admin": true,
-            "sent_request_box": []
+            "sent_request_box": [],
+            "notifications": [
+                "You have a new request from zfer."
+            ],
+            "requests_box": [
+                {
+                    "request_id": 1,
+                    "user": "zfer",
+                    "amount": 1444000,
+                    "datetime_details": "2021-04-08T01:49:58.325735",
+                    "approved": false,
+                    "datte": "2021-04-08",
+                    "ttime": "01:49:58",
+                    "position": 1
+                }
+            ]
         }
     ]
 }
