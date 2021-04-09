@@ -4,4 +4,4 @@ from mainMenuForUsers.Logout.logoutScript import logout
 func = logout
 
 logOut_FuncNode = FuncNode('Log Out', func)
-logOut_FuncNode()
+# logOut_FuncNode()

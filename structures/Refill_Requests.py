@@ -51,7 +51,7 @@ class RefRequest:
                 admin['notifications'].append(f"You have a new request from {request['user']}.")
             time.sleep(1)
             write_data_to_users_database(all_users)
-            print("\nYour request is now being evaluated.\nIf not denied in 30 minutes, all requests are accepted "
+            print("\nYour request is now being evaluated.\nIf not denied in 120 seconds, all requests are accepted "
                   "automatically.")
             return
 
@@ -76,6 +76,7 @@ class RefRequest:
         except IndexError:
             pass
             # print("There are no admins.")
+        return
 
     @classmethod
     def executing_pending_requests(cls):
@@ -176,9 +177,11 @@ class RefRequest:
                     elif inp.lower() == 'a':
                         chosen_req['approved'] = True
                         RefRequest.execute_request(chosen_req)
+                        adm.requests_box.remove(chosen_req)
+                        write_data_to_users_database(all_users)
                         return FuncNode.current_node()
                     elif inp.lower() == 'r':
-                        del chosen_req
+                        adm.requests_box.remove(chosen_req)
                         write_data_to_users_database(all_users)
                         return FuncNode.current_node()
                     else:
@@ -190,12 +193,15 @@ class RefRequest:
                 if choice.lower() == "r":
                     for req in adm.requests_box:
                         req['approved'] = False
-                        del req
+                        adm.requests_box.remove(req)
+                        write_data_to_users_database(all_users)
                     print("Requests deleted.")
                 elif choice.lower() == "a":
                     for req in adm.requests_box:
                         req['approved'] = True
                         RefRequest.execute_request(req)
+                        adm.requests_box.remove(req)
+                        write_data_to_users_database(all_users)
                     print("Requests accepted and executed.")
                 for ad in all_users['admins']:
                     ad['requests_box'] = adm.requests_box
@@ -203,7 +209,6 @@ class RefRequest:
                 if choice.lower() == "b":
                     return FuncNode.current_node()
 
-        else:
-            print("\nThere are no new requests.")
-            inp = input("\nPress Enter to continue.")
+        print("\nThere are no new requests.")
+        inp = input("\nPress Enter to continue.")
         return FuncNode.current_node()

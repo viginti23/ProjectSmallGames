@@ -106,8 +106,6 @@ def login_script():
         print(f'Returning to {MenuNode.default_node.name} in:')
         stop_watch_to_default_node(3)
     else:
-        # RefRequest.pending_requests_check()
-
         if identified_user.is_admin:
             User.logged = identified_user
             MenuNode.default_node = admin_Menu
@@ -118,4 +116,4 @@ def login_script():
             MenuNode.default_node = MainMenuForUsers
             MenuNode.current_node = MainMenuForUsers
 
-        return MenuNode.current_node()
+    return MenuNode.current_node()

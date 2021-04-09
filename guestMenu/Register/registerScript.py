@@ -20,7 +20,7 @@ class RegisterScript:
             print("Enter B to go back.")
             email_input = input("Enter your e-mail:\n")
             if email_input.lower() == 'b':
-                MenuNode.previous_node()
+                return MenuNode.current_node()
             if cls.email_is_valid(email_input):
                 if cls.email_in_database(email_input):
                     print("\nUser associated with this e-mail address already exists!\n")
@@ -33,7 +33,7 @@ class RegisterScript:
                             """)
 
                     if decision.lower() == "m":
-                        MenuNode.default_node()
+                        return MenuNode.default_node()
                     elif decision.lower() == "e":
                         continue
                 else:
@@ -63,7 +63,7 @@ class RegisterScript:
             username = input("\nEnter your username:\n")
 
             if username.lower() == 'b':
-                MenuNode.previous_node()
+                return MenuNode.previous_node()
             elif cls.username_is_valid(username):
                 return username
             else:

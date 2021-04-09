@@ -1,6 +1,7 @@
 import sys, os
 import shutil
-from structures.user_class import User
+from structures.user_class import User, Admin
+import json_data_funcs
 
 
 class MenuNode:
@@ -47,6 +48,7 @@ class MenuNode:
                 self.installed_options[str(len(self.installed_options) + 1)] = func_or_menu_node
                 self.content[str(len(self.content) + 1)] = f'|{str(len(self.content) + 1)}| {func_or_menu_node}\n'
                 func_or_menu_node.parent_up = self  # todo for games it is easy to lost track and give them more than 1 parent!
+        return
 
     def adding_up_module_leading_to_parent_menu(self):
         # Adding "Up" module to given menu, if there is a path to go back to, by choosing "0".
@@ -67,31 +69,49 @@ class MenuNode:
         self.content['Q'] = '|Q| Exit'
         self.installed_options['Q'] = sys.exit
 
+    def updating_current_node(self):
+        MenuNode.current_node = self
+
+
     def adding_back_module_leading_to_previously_visited_menu(self):
         if not self.main_menu:
             if MenuNode.previous_node:
                 self.content['B'] = '|B| Back'
                 self.installed_options['B'] = MenuNode.previous_node
+        return
         # Back menu is a temporary state, it alters after each change of nodes (going through the menu).
-
-    def saving_previous_node_and_updating_current_node(self):
-        MenuNode.previous_node = MenuNode.current_node
-        MenuNode.current_node = self
 
     def printing_menu_view(self):
         # If any user is logged in, we are displaying their username on the top of each menu view.
-        usr = User.logged
-        if usr:
-            if usr.is_admin:
-                c = 0
-                if c < 1:
-                    print(f"\n\n{25 * '-'}")
-                    print(f"You have {len(usr.notifications)} new requests!")
-                    print(f"{25 * '-'}")
-                    c += 1
-                print(f'\n\n\nAdmin: {usr.username}\n')
+        all_users = json_data_funcs.read_data_from_users_database()
+        from structures.user_class import User, Admin
+        current_usr = None
+
+        if User.logged:
+            current_usr = User.logged
+            if User.logged.is_admin:
+                current_usr = Admin.logged
+
+        if current_usr:
+            all_usrs = []
+            for u in all_users['admins']:
+                all_usrs.append(u)
+            for u in all_users['users']:
+                all_usrs.append(u)
+
+            if len(all_usrs) > 0:
+                for us in all_usrs:
+                    if us['username'] != current_usr.username:
+                        continue
+                    current_usr = User(dictionary=us)
+
+            if current_usr.is_admin:
+                print(f"\n\n{25 * '-'}")
+                print(f"You have {len(current_usr.requests_box)} new requests!")
+                print(f"{25 * '-'}")
+                print(f'\n\n\nAdmin: {current_usr.username}\n')
             else:
-                print(f'\n\n\nUser: {usr.username}\n')
+                print(f'\n\n\nUser: {current_usr.username}\n')
             print(f"{MenuNode.current_node.name}")
             # Current's node name
         else:
@@ -101,6 +121,8 @@ class MenuNode:
         for key in self.content.keys():
             print(self.content[key])
         print(f"{25 * '-'}")
+        json_data_funcs.write_data_to_users_database(all_users)
+        return
 
     def get_users_choice_prompt(self):
         os.system('clear')
@@ -116,12 +138,12 @@ class MenuNode:
         self.adding_up_module_leading_to_parent_menu()
         self.adding_exit_module()
 
-        self.saving_previous_node_and_updating_current_node()
+        self.updating_current_node()
         self.printing_menu_view()
 
         while True:
             choice = input("\nEnter characters to choose an option:\n")
-            if choice in self.content.keys():
+            if choice in self.installed_options.keys():
                 return choice
 
             elif choice.lower() == 'q':
@@ -141,7 +163,7 @@ class MenuNode:
 
             elif choice.lower() == '0':
                 if not self.main_menu:
-                    self.installed_options['0']()
+                    return self.installed_options['0']()
                 else:
                     print("Please enter a valid option.")
                     continue
@@ -158,7 +180,8 @@ class MenuNode:
         choice = self.get_users_choice_prompt()
         # try:
         chosen_option = self.installed_options[choice]
-        chosen_option()
-            # return
+        return chosen_option()
+
         # except KeyError:
         #     print("Please choose only from available options.")
+
