@@ -263,7 +263,7 @@ class RefRequest:
                 then = datetime.strptime(created, '%Y-%m-%d %H:%M:%S.%f')  # '2021-03-25T19:41:54.083887'
                 now = datetime.now()
                 diff = now - then
-                if diff >= timedelta(seconds=30):
+                if diff >= timedelta(seconds=120):
                     print("\nApproving...\n")
                     rq_box[i]['approved'] = True
                     print(".")
@@ -280,11 +280,13 @@ class RefRequest:
                                 del admins['admins_inf']['notifications'][i]
                                 write_data_to_users_database(users)
                                 write_data_to_admins_database(admins)
+                                break
                         except IndexError:
                             print("The request has been handled automatically.")
                             time.sleep(2)
+                            break
                 continue
 
 #
-# if __name__ == '__main__':
-#     RefRequest.print_all_requests()
+if __name__ == '__main__':
+    RefRequest.checking_pending_requests()

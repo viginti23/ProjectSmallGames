@@ -7,22 +7,33 @@
             "key": "60d261234c1a943018b72a460e2cb4415f28643cec306de01ecd47e50d3a36cb",
             "salt": "5938659ea2da20462a54f12c4be51b09bafba3f111287b21b959f7dbc9f8087f",
             "email": "zfer@wp.pl",
-            "wallet": 1011111111113344444623905987551,
+            "wallet": 1011111111113344444623905996654,
             "is_admin": false,
             "sent_request_box": []
         },
         {
-            "user_id": 0,
-            "notifications": [
-                "Your request for 1515 points has been accepted."
-            ],
+            "notifications": [],
             "username": "karolcia",
             "key": "74af1e416c9bba629f141e5e214dd69f3d3d4dab510c33bc7fdfd8833d29320e",
             "salt": "7df1b65d3f19ce4e2e8c291f9c356a5de72e2eaf373a4515dd5d7524aed741ce",
             "email": "karol@wp.pl",
-            "wallet": 55597580748240,
+            "wallet": 55900474945219,
             "is_admin": false,
-            "sent_request_box": []
+            "sent_request_box": [],
+            "dictionary": {
+                "user_id": 0,
+                "notifications": [
+                    "Your request for 1515 points has been accepted."
+                ],
+                "username": "karolcia",
+                "key": "74af1e416c9bba629f141e5e214dd69f3d3d4dab510c33bc7fdfd8833d29320e",
+                "salt": "7df1b65d3f19ce4e2e8c291f9c356a5de72e2eaf373a4515dd5d7524aed741ce",
+                "email": "karol@wp.pl",
+                "wallet": 55597580748240,
+                "is_admin": false,
+                "sent_request_box": []
+            },
+            "user_id": 0
         }
     ],
     "users_inf": {}
