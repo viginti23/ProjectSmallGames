@@ -1,8 +1,9 @@
 from structures.menu_Node import MenuNode
-from adminMenu.refill_requests.refill_Requests_MenuNode import refillRequests_MenuNode
+from adminMenu.refill_requests.refill_Requests_FuncNode import refillRequests_FuncNode
 from mainMenuForUsers.Logout.logout_FuncNode import logOut_FuncNode
-from structures.user_class import Admin
+from adminMenu.total_register.total_registerFuncNode import total_system_register
+
 content = {}
-options = [refillRequests_MenuNode, logOut_FuncNode]
+options = [refillRequests_FuncNode, logOut_FuncNode, total_system_register]
 admin_Menu = MenuNode("Admin menu", content, main_menu=True, options=options)
 MenuNode.default_node = admin_Menu

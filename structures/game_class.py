@@ -17,10 +17,17 @@ class Game:
     def __init__(self, name, user):
         self.name = name
         self.user = user
+        self.game_register = 0
         Game.games_list.append(self)  # TODO check if it appends all instances or just when we add new games
 
     def __repr__(self):
         return self.name
+
+    @staticmethod
+    def system_wallet():
+        if User.logged.is_admin:
+            return Game.total_register
+            # print each game separately
 
     @staticmethod
     def settingUser():

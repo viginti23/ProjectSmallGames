@@ -7,6 +7,7 @@ import getpass
 import hashlib
 import random
 from json_data_funcs import read_data_from_users_database, write_data_to_users_database
+from json_data_funcs import read_data_from_admins_database, write_data_to_admins_database
 
 
 def stop_watch_to_default_node(sec):
@@ -16,7 +17,7 @@ def stop_watch_to_default_node(sec):
         print(timer, end='\r')
         time.sleep(1)
         sec -= 1
-    MenuNode.default_node()
+    return MenuNode.default_node()
 
 
 def password_reset(usr):
@@ -52,11 +53,12 @@ def login_script():
         username_input = input('\nEnter your username or e-mail:\n')
 
         if username_input.lower() == 'r':
-            MenuNode.current_node()
+            return MenuNode.current_node()
 
         users = read_data_from_users_database()
+        admins = read_data_from_admins_database()
         all_users = []
-        for adm in users['admins']:
+        for adm in admins['admins']:
             all_users.append(adm)
         for usr in users['users']:
             all_users.append(usr)
@@ -81,7 +83,7 @@ def login_script():
         print('\n\nEnter R to return to main menu.')
         password_to_check = getpass.getpass("\nEnter your password:\n")
         if password_to_check.lower() == 'r':
-            MenuNode.current_node()
+            return MenuNode.current_node()
         salt = bytes.fromhex(identified_user.salt)
         new_key = hashlib.pbkdf2_hmac('sha256',
                                       password_to_check.encode('utf-8'),
@@ -116,4 +118,4 @@ def login_script():
             MenuNode.default_node = MainMenuForUsers
             MenuNode.current_node = MainMenuForUsers
 
-    return MenuNode.current_node()
+    return MenuNode.default_node()

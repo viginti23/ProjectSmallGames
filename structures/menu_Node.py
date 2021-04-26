@@ -1,6 +1,4 @@
 import sys, os
-import shutil
-from structures.user_class import User, Admin
 import json_data_funcs
 
 
@@ -72,18 +70,18 @@ class MenuNode:
     def updating_current_node(self):
         MenuNode.current_node = self
 
-
     def adding_back_module_leading_to_previously_visited_menu(self):
         if not self.main_menu:
-            if MenuNode.previous_node:
+            if self.parent_up:
                 self.content['B'] = '|B| Back'
-                self.installed_options['B'] = MenuNode.previous_node
+                self.installed_options['B'] = self.parent_up
         return
         # Back menu is a temporary state, it alters after each change of nodes (going through the menu).
 
     def printing_menu_view(self):
         # If any user is logged in, we are displaying their username on the top of each menu view.
-        all_users = json_data_funcs.read_data_from_users_database()
+        users = json_data_funcs.read_data_from_users_database()
+        admins = json_data_funcs.read_data_from_admins_database()
         from structures.user_class import User, Admin
         current_usr = None
 
@@ -92,28 +90,38 @@ class MenuNode:
             if User.logged.is_admin:
                 current_usr = Admin.logged
 
+        all_users = []
+        for a in admins['admins']:
+            all_users.append(a)
+        for u in users['users']:
+            all_users.append(u)
+
         if current_usr:
-            all_usrs = []
-            for u in all_users['admins']:
-                all_usrs.append(u)
-            for u in all_users['users']:
-                all_usrs.append(u)
 
-            if len(all_usrs) > 0:
-                for us in all_usrs:
-                    if us['username'] != current_usr.username:
-                        continue
-                    current_usr = User(dictionary=us)
+            if len(all_users) > 0:
+                for user in all_users:
+                    name = user['username']
+                    if current_usr.username == name:
+                        current_usr = user
+                        break
 
-            if current_usr.is_admin:
+            if current_usr['is_admin']:
                 print(f"\n\n{25 * '-'}")
-                print(f"You have {len(current_usr.requests_box)} new requests!")
+                print(f"You have {len(admins['admins_inf']['requests_box'])} new requests!")
                 print(f"{25 * '-'}")
-                print(f'\n\n\nAdmin: {current_usr.username}\n')
+                print(f"\n\n\nAdmin: {current_usr['username']}\n")
             else:
-                print(f'\n\n\nUser: {current_usr.username}\n')
+                if len(current_usr['notifications']) > 0:
+                    print(f"You have {len(current_usr['notifications'])} notifications:")
+                    for notif in current_usr['notifications']:
+                        print(f"\n\n{notif}")
+                    current_usr['notifications'] = []
+                else:
+                    print("\nNo news.\n")
+                print(f"\n\n\nUser: {current_usr['username']}\n")
             print(f"{MenuNode.current_node.name}")
-            # Current's node name
+
+            # Current node's name
         else:
             print(f'\n\t{MenuNode.current_node.name}\n{25 * "-"}')
 
@@ -121,7 +129,8 @@ class MenuNode:
         for key in self.content.keys():
             print(self.content[key])
         print(f"{25 * '-'}")
-        json_data_funcs.write_data_to_users_database(all_users)
+        json_data_funcs.write_data_to_users_database(users)
+        json_data_funcs.write_data_to_admins_database(admins)
         return
 
     def get_users_choice_prompt(self):
@@ -129,8 +138,7 @@ class MenuNode:
         # self.check_logged_user()
         # self.adding_back_module_leading_to_previously_visited_menu()
         from structures.Refill_Requests import RefRequest
-        RefRequest.pending_requests_check()
-        RefRequest.executing_pending_requests()
+        RefRequest.checking_pending_requests()
 
         os.system('clear')
 

@@ -6,10 +6,10 @@ import time
 
 def wallet_refill():
 
-    player = User.logged
+    # player = User.logged
     # usr_dict = player.__dict__
-    req = RefRequest.create_refill_request(player)
-    RefRequest.send_refill_request_to_admins(player, req)
+    req = RefRequest()
+    req.save_request_in_reqs_box()
     time.sleep(5)
     return MenuNode.current_node()
 

@@ -12,4 +12,4 @@ def logout():
     from guestMenu.main_Menu import MainMenu
     MenuNode.default_node = MainMenu
     MenuNode.current_node = MainMenu
-    return
+    return MenuNode.default_node()

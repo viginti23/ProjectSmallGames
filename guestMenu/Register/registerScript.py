@@ -6,6 +6,7 @@ import getpass
 from structures.menu_Node import MenuNode
 from structures.user_class import User, Admin
 from json_data_funcs import read_data_from_users_database, write_data_to_users_database
+from json_data_funcs import read_data_from_admins_database, write_data_to_admins_database
 
 
 class RegisterScript:
@@ -46,7 +47,8 @@ class RegisterScript:
     def username_is_valid(cls, username):
         # Checking the database for existing user with this username.
         users = read_data_from_users_database()
-        all_users = users['users'] + users['admins']
+        admins = read_data_from_admins_database()
+        all_users = users['users'] + admins['admins']
         for user in all_users:
             if user['username'] == username:
                 print("\nUser with this username already exists!\n")
@@ -63,7 +65,7 @@ class RegisterScript:
             username = input("\nEnter your username:\n")
 
             if username.lower() == 'b':
-                return MenuNode.previous_node()
+                return MenuNode.current_node()
             elif cls.username_is_valid(username):
                 return username
             else:
@@ -81,7 +83,8 @@ class RegisterScript:
     def email_in_database(cls, email_address):
         # Checking the database for existing user with this email address.
         users = read_data_from_users_database()
-        all_users = users['admins'] + users['users']
+        admins = read_data_from_admins_database()
+        all_users = users['users'] + admins['admins']
         for user in all_users:
             if email_address.lower() == user['email']:
                 return True
@@ -95,8 +98,7 @@ class RegisterScript:
                     - should contain at least one digit;
                     - should not contain the word "password" in any case;
                     - should not be the same as your username;
-                    - should contain at least 3 different characters.
-        ''')
+                    - should contain at least 3 different characters.''')
 
             password1 = getpass.getpass("Please enter your password:\n")
             if cls.is_acceptable_password(valid_username, password1):
@@ -166,6 +168,9 @@ class RegisterScript:
         # time.sleep(1)
         valid_email = cls.email_prompt()
         valid_username = cls.username_prompt()
+
+        os.system('clear')
+
         print(f'''
                             \nWelcome {valid_username}!\n
         ''')
@@ -175,22 +180,25 @@ class RegisterScript:
         adm = getpass.getpass("\nPress enter to continue or type the admin access password to gain admin powers and "
                               "permissions.\n")
 
-        all_users = read_data_from_users_database()
-        if adm == 'admin':  # TODO hash and database export/import?
+        users = read_data_from_users_database()
+        admins = read_data_from_admins_database()
+
+        if adm == 'admin':  # TODO hash and database export?
             new_admin = Admin(email=valid_email, username=valid_username, key=valid_key.hex(),
                               salt=valid_salt.hex())
 
             print("\nYou are an admin now.\n")
 
             new_admin_dictionary = new_admin.__dict__
-            all_users['admins'].append(new_admin_dictionary)
+            admins['admins'].append(new_admin_dictionary)
 
         else:
             new_user = User(email=valid_email, username=valid_username, key=valid_key.hex(), salt=valid_salt.hex())
             new_user_dictionary = new_user.__dict__
-            all_users['users'].append(new_user_dictionary)
+            users['users'].append(new_user_dictionary)
 
-        write_data_to_users_database(all_users)
+        write_data_to_users_database(users)
+        write_data_to_admins_database(admins)
 
         # TODO sending email to confirm the account
         print("You can now log in.")

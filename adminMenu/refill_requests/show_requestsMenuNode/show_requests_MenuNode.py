@@ -3,4 +3,4 @@ from structures.Refill_Requests import RefRequest
 
 func = RefRequest.show_reqs
 
-show_reqs_FuncNode = FuncNode("Show requests", func)
+refillRequests_FuncNode = FuncNode("Show requests", func)

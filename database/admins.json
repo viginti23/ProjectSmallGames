@@ -1,0 +1,34 @@
+{
+    "admins": [
+        {
+            "user_id": 0,
+            "notifications": [],
+            "username": "viginti",
+            "key": "e7814e213c7d541e109f7b6bbb0eb1c7815ec02cc95d584431160082413eed8c",
+            "salt": "018b88cd70ddec04aa7987e698d4d46b77eb83b898f9370b5724a7daae355b9c",
+            "email": "zarodm@gmail.com",
+            "wallet": 0,
+            "is_admin": true,
+            "sent_request_box": []
+        },
+        {
+            "user_id": 0,
+            "notifications": [],
+            "username": "viginti1",
+            "key": "508e73ede1291732db598ac8d2f0acc8537c4dda542ee8ef1fa727216d072f59",
+            "salt": "a1d64cde0c2d0f1b4061ce8e65e491a7f4d2fd797a1c80bd9b04f7920b54249a",
+            "email": "zarodm@gmail.pl",
+            "wallet": 0,
+            "is_admin": true,
+            "sent_request_box": []
+        }
+    ],
+    "admins_inf": {
+        "requests_box": [],
+        "request_id": 51,
+        "total_sys": 0,
+        "user_id": 0,
+        "guest_id": 0,
+        "notifications": []
+    }
+}
