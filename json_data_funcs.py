@@ -47,7 +47,8 @@ def read_data_from_admins_database():
                              'total_sys': 0,
                              'user_id': 0,
                              'guest_id': 0,
-                             'notifications': []
+                             'notifications': [],
+                             'guest_wallet': 10
                              }}
             json.dump(template, data, indent=4)
             return template
@@ -56,21 +57,24 @@ def read_data_from_admins_database():
 def write_data_to_admins_database(admins_dictionary):
     with open("database/admins.json", "w") as data:
         json.dump(admins_dictionary, data, indent=4)
-#
 
 
 # Games class functions
 def read_data_from_games_database():
-    with open("database/games.json") as data:
-        try:
-            if os.stat('database/games.json').st_size != 0:
-                return json.load(data)
-            else:
-                print("Games database is empty.\nCreating new JSON games database template...")
-                return {'games': [], 'games_inf': {}}
-        except JSONDecodeError:
-            print("The JSON database is invalid!\nCreating new JSON games database template...")
-            return {'games': [], 'games_inf': {}}
+
+    try:
+        with open("database/games.json") as data:
+            return json.load(data)
+    except JSONDecodeError:
+        print("Games database is empty.\nCreating new JSON games database template...")
+        with open("database/games.json", "w") as data:
+            template = {'games': {},
+                        'games_inf':
+                            {'game_id': 0,
+                             'registers': {}
+                             }}
+            json.dump(template, data, indent=4)
+            return template
 
 
 def write_data_to_games_database(games_dictionary):

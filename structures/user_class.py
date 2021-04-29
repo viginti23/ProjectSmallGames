@@ -57,10 +57,10 @@ class GuestUser(User):
             self.guest_id = admins['admins_inf']['guest_id']
 
         try:
-            self.default_wallet = admins['admins_inf']['wallet']
+            self.default_wallet = admins['admins_inf']['guest_wallet']
         except KeyError:
             users['users_inf']['wallet'] = 10
-            self.guest_id = admins['admins_inf']['wallet']
+            self.guest_id = admins['admins_inf']['guest_wallet']
 
         super().__init__()
         admins['admins_inf']['guest_id'] += 1

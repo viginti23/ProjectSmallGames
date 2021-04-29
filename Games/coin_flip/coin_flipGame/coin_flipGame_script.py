@@ -8,14 +8,22 @@ import json_data_funcs
 
 
 class CoinF(Game):
-    game_id = 0
-    game_register = 0
+    games = json_data_funcs.read_data_from_games_database()
+    try:
+        game_register = games['games_inf']['registers']['coin_flip']
+    except KeyError:
+        games['games_inf']['registers']['coin_flip'] = 0
+        game_register = games['games_inf']['registers']['coin_flip']
+
     name = 'Coin Flip'
+    # admins = json_data_funcs.read_data_from_admins_database()
+    users = json_data_funcs.read_data_from_users_database()
 
     def __init__(self):
-        self.game_id = CoinF.game_id
-        CoinF.game_id += 1
-        super().__init__(name=CoinF.name, user=User.logged)
+        games = json_data_funcs.read_data_from_games_database()
+        self.game_id = Game.game_id + 1
+        games['games_inf']['game_id'] += 1
+        super().__init__(name=CoinF.name)
 
     def __call__(self):
         return self.start_game()
@@ -26,8 +34,7 @@ class CoinF(Game):
 
         choices = ["h", "t"]
         score = 0
-        current_game_results = []
-        n = 5
+        current_session_results = []
         if User.logged:
             playing_user = self.settingUser()
         else:
@@ -35,10 +42,9 @@ class CoinF(Game):
 
         while True:
             if playing_user.wallet == 0:
-                for sec in range(n):
-                    print("You have no money in your wallet. Please refill your wallet or sit and just watch the menu.")
-                    time.sleep(n)
-                    MenuNode.current_node()
+                print("You have no money in your wallet. Please refill your wallet or sit and just watch the menu.")
+                time.sleep(3)
+                MenuNode.current_node()
 
             # Choosing randomly ("H", "T").
             drawn_value = random.choice(choices)
@@ -70,9 +76,9 @@ class CoinF(Game):
                 time.sleep(0.5)
                 print("\n.\n")
                 if drawn_value.lower() == "h":
-                    print("HEADS!")
+                    print("HEADS!\n")
                 elif drawn_value.lower() == "t":
-                    print("TAILS!")
+                    print("TAILS!\n")
                 time.sleep(1)
 
             wins_strike = 0
@@ -83,7 +89,7 @@ class CoinF(Game):
                 loses_strike = 0
                 wins_strike += 1
                 time.sleep(1)
-                current_game_results.append(
+                current_session_results.append(
                     ['W', f"Money bet: {players_money_bet}",
                      f"Date: {datetime.strftime(datetime.now(), '%d.%m.%Y, %H:%M')}"])
                 playing_user.wallet += players_money_bet
@@ -100,48 +106,58 @@ class CoinF(Game):
                 if isinstance(playing_user, User):
                     CoinF.game_register += players_money_bet
                 score -= players_money_bet
-                current_game_results.append(
+                current_session_results.append(
                     ['L', f"Money bet: {players_money_bet}",
                      f"Date: {datetime.strftime(datetime.now(), '%d.%m.%Y, %H:%M')}"])
                 # money countdown animation
 
-            # Checks after each game if the wins strike or score is already good enough to be in best ones.
-            top5 = None
-            if User.logged:
-                top5 = self.get_top5()
-                top5.sort(key=lambda x: x['Wins strike'])
-
-            if isinstance(playing_user, User):
-
-                all_users = json_data_funcs.read_data_from_users_database()
-                usr_dict = playing_user.__dict__
-                # usr_dict['wallet'] = playing_user.wallet
-
-                for u in range(len(all_users['users'])):
-                    if all_users['users'][u]['username'] == usr_dict['username']:
-                        del all_users['users'][u]
-                        break
-                all_users['users'].append(usr_dict)
-                json_data_funcs.write_data_to_users_database(all_users)
-
+            users = json_data_funcs.read_data_from_users_database()
             games = json_data_funcs.read_data_from_games_database()
-            if User.logged:
-                try:
-                    if len(top5) <= 4:
-                        top5.append({'Wins strike': wins_strike, 'score': score, 'player': playing_user.username,
-                                     'date': datetime.strftime(datetime.now(), '%d/%m/%Y %H:%M')})
-                    else:
-                        if wins_strike >= top5[-1]['Wins strike']:
-                            del top5[-1]
-                            top5.append({'Wins strike': wins_strike, 'score': score, 'player': playing_user.username,
-                                         'date': datetime.strftime(datetime.now(), '%d/%m/%Y %H:%M')})
-                except IndexError:
-                    top5.append({'Wins strike': wins_strike, 'score': score, 'player': playing_user.username,
-                                 'date': datetime.strftime(datetime.now(), '%d/%m/%Y %H:%M')})
-                json_data_funcs.write_data_to_games_database(games)
+            admins = json_data_funcs.read_data_from_admins_database()
+
+            try:
+                top5 = games['games'][self.name]['top5']
+            except KeyError:
+                games['games'][self.name]['top5'] = []
+                top5 = games['games'][self.name]['top5']
+
+            # Checks after each game if the wins strike or score is already good enough to be in best ones.
+            # top5 = None
+            # if User.logged:
+            #     top5 = self.get_top5()
+            #     top5.sort(key=lambda x: x['Wins strike'])
+            #
+            # if isinstance(playing_user, User):
+            #
+            #     all_users = json_data_funcs.read_data_from_users_database()
+            #     usr_dict = playing_user.__dict__
+            #     # usr_dict['wallet'] = playing_user.wallet
+            #
+            #     for u in range(len(all_users['users'])):
+            #         if all_users['users'][u]['username'] == usr_dict['username']:
+            #             del all_users['users'][u]
+            #             break
+            #     all_users['users'].append(usr_dict)
+            #     json_data_funcs.write_data_to_users_database(all_users)
+
+            # games = json_data_funcs.read_data_from_games_database()
+            # if User.logged:
+            #     try:
+            #         if len(top5) <= 4:
+            #             top5.append({'Wins strike': wins_strike, 'score': score, 'player': playing_user.username,
+            #                          'date': datetime.strftime(datetime.now(), '%d/%m/%Y %H:%M')})
+            #         else:
+            #             if wins_strike >= top5[-1]['Wins strike']:
+            #                 del top5[-1]
+            #                 top5.append({'Wins strike': wins_strike, 'score': score, 'player': playing_user.username,
+            #                              'date': datetime.strftime(datetime.now(), '%d/%m/%Y %H:%M')})
+            #     except IndexError:
+            #         top5.append({'Wins strike': wins_strike, 'score': score, 'player': playing_user.username,
+            #                      'date': datetime.strftime(datetime.now(), '%d/%m/%Y %H:%M')})
+            #     json_data_funcs.write_data_to_games_database(games)
 
             print(f"\nSession's score: {score}.")
-            print(f"\nCurrent's session results: {current_game_results}.")
+            print(f"\nCurrent's session results: {current_session_results}.")
             print(f"\nYour wallet's status: {playing_user.wallet}.")
 
             next_input = input("\n\nDo you want to play again? Enter E to exit or any other character to play "

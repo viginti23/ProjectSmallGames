@@ -1,23 +1,23 @@
 {
     "admins": [
         {
-            "user_id": 0,
+            "user_id": 1,
             "notifications": [],
-            "username": "viginti",
-            "key": "e7814e213c7d541e109f7b6bbb0eb1c7815ec02cc95d584431160082413eed8c",
-            "salt": "018b88cd70ddec04aa7987e698d4d46b77eb83b898f9370b5724a7daae355b9c",
-            "email": "zarodm@gmail.com",
+            "username": "viginti2",
+            "key": "ae6b86e9538b30a248169a2811952de68ec577ec870b015493935660d383e51f",
+            "salt": "3efd71fa8f72a9f5c3ff6242f1c1733d3f3f2c09ea0d5a8149a46d99c950638c",
+            "email": "viag@wp.pl",
             "wallet": 0,
             "is_admin": true,
             "sent_request_box": []
         },
         {
-            "user_id": 0,
+            "user_id": 1,
             "notifications": [],
-            "username": "viginti1",
-            "key": "508e73ede1291732db598ac8d2f0acc8537c4dda542ee8ef1fa727216d072f59",
-            "salt": "a1d64cde0c2d0f1b4061ce8e65e491a7f4d2fd797a1c80bd9b04f7920b54249a",
-            "email": "zarodm@gmail.pl",
+            "username": "viginti",
+            "key": "1dc80fe77daa72274affa7628a4bf0b18c14b48a78976d422ac97f8b948cbc8c",
+            "salt": "1d01287c176a952891b8f9570a26c747db4e876ebbd906095af987fea6bbe1e2",
+            "email": "zarodm@gmail.com",
             "wallet": 0,
             "is_admin": true,
             "sent_request_box": []
@@ -25,10 +25,11 @@
     ],
     "admins_inf": {
         "requests_box": [],
-        "request_id": 60,
+        "request_id": 7,
         "total_sys": 0,
-        "user_id": 0,
+        "user_id": 9,
         "guest_id": 0,
-        "notifications": []
+        "notifications": [],
+        "guest_wallet": 10
     }
 }

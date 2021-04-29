@@ -61,11 +61,11 @@ class RefRequest:
         print("\nSending your request to administrators...\n")
         admins = read_data_from_admins_database()
         try:
-            print(f"Request number {self.request_id}.")
+            print(f"Request ID: {self.request_id}.")
         except AttributeError:
             admins['admins_inf']['request_id'] += 1
             self.request_id = admins['admins_inf']['request_id']
-            print(f"Request number {self.request_id}.")
+            print(f"Request ID: {self.request_id}.")
         admins['admins_inf']['requests_box'].append(self.__dict__)
         # Notifications
         admins['admins_inf']['notifications'].append(f"You have a new request from {self.username}.")
@@ -288,5 +288,5 @@ class RefRequest:
                 continue
 
 #
-if __name__ == '__main__':
-    RefRequest.checking_pending_requests()
+# if __name__ == '__main__':
+#     RefRequest.checking_pending_requests()

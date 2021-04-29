@@ -1,27 +1,42 @@
 import time
 from structures.user_class import User, GuestUser
-from json_data_funcs import read_data_from_games_database, write_data_to_games_database
+from json_data_funcs import read_data_from_games_database, write_data_to_games_database, read_data_from_admins_database, write_data_to_admins_database
 
 
 # Parent class for each game.
 class Game:
-
-    games_list = []  # TODO adding new games functionality
-
+    games = read_data_from_games_database()
     # Total system's register status.
-    total_register = 0
-    for game in games_list:
-        total_register += game.game_register  # TODO save to database
-    game_id = len(games_list)
+    try:
+        total_register = games['games_inf']['total_register']
+    except KeyError:
+        games['games_inf']['total_register'] = 0
+        total_register = games['games_inf']['total_register']
 
-    def __init__(self, name, user):
+    try:
+        game_id = games['games_inf']['game_id']
+    except KeyError:
+        games['games_inf']['game_id'] = 0
+        game_id = games['games_inf']['game_id']
+    write_data_to_games_database(games)
+
+    def __init__(self, name):
         self.name = name
-        self.user = user
-        self.game_register = 0
-        Game.games_list.append(self)  # TODO check if it appends all instances or just when we add new games
+        games = read_data_from_games_database()
+
+        if self not in games['games']:
+            games['games'][self.name] = self.__dict__
+            write_data_to_games_database(games)
+        self.game_id = games['games_inf']['game_id'] + 1
+        games['games_inf']['game_id'] += 1
+        write_data_to_games_database(games)
 
     def __repr__(self):
         return self.name
+
+    def __str__(self):
+        return self.name
+
 
     @staticmethod
     def system_wallet():

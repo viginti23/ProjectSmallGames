@@ -1,4 +1,17 @@
 {
-    "games": [],
-    "games_inf": {}
+    "games": {
+        "Coin Flip": {
+            "game_id": 39,
+            "name": "Coin Flip"
+        },
+        "Turtle Race": {
+            "game_id": 40,
+            "name": "Turtle Race"
+        }
+    },
+    "games_inf": {
+        "game_id": 40,
+        "registers": {},
+        "total_register": 0
+    }
 }

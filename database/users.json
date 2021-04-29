@@ -7,7 +7,7 @@
             "key": "60d261234c1a943018b72a460e2cb4415f28643cec306de01ecd47e50d3a36cb",
             "salt": "5938659ea2da20462a54f12c4be51b09bafba3f111287b21b959f7dbc9f8087f",
             "email": "zfer@wp.pl",
-            "wallet": 1011111111113344444623905996654,
+            "wallet": 1011111111113344444623905998242,
             "is_admin": false,
             "sent_request_box": []
         },
@@ -34,6 +34,30 @@
                 "sent_request_box": []
             },
             "user_id": 0
+        },
+        {
+            "user_id": 3,
+            "notifications": [],
+            "username": "patryk",
+            "key": "5ae74e7c733d41d7d82c96ca5ffc3c05b6b7e2166fc62cf2b7bb774089a9a096",
+            "salt": "287cdfb2d8233481fdd6c5e479b9837205e64644c75a219e9513e0f8659836c2",
+            "email": "kkk@wp.pl",
+            "wallet": 20000,
+            "is_admin": false,
+            "sent_request_box": []
+        },
+        {
+            "user_id": 1,
+            "notifications": [
+                "Your request for 500 points has been accepted."
+            ],
+            "username": "papryk",
+            "key": "8cff6e74f2c0003c00cbd8794c06ef5846fbf52886f7526fb2372b1687703bcc",
+            "salt": "6ae167c45f1bdf758ea6e35aecc931e31acf72b721845b2f0bdad4eb1829e85f",
+            "email": "pat@wp.pl",
+            "wallet": 1011502,
+            "is_admin": false,
+            "sent_request_box": []
         }
     ],
     "users_inf": {}
