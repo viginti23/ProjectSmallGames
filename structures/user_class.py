@@ -34,6 +34,7 @@ class User:
         self.is_admin = is_admin
         self.sent_request_box = []
 
+        self.my_best = {}
         if dictionary:
             self.dictionary = dictionary
             for k in self.dictionary.keys():

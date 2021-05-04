@@ -1,7 +1,7 @@
 from structures.menu_Node import MenuNode
 from mainMenuForUsers.myAccount.myWallet.myWallet import MyWallet
-from mainMenuForUsers.myAccount.myBest import MyBest
+# from mainMenuForUsers.myAccount.myBest import MyBest
 my_account = {}
-options = [MyWallet, MyBest]
+options = [MyWallet]
 
 MyAccount = MenuNode("My Account", my_account, options=options)

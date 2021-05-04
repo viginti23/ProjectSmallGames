@@ -25,6 +25,7 @@ class RefRequest:
 
         self.datetime_details = json_serial(datetime_details)
         self.approved = False
+        self.request_id = 0
 
         date_details = self.datetime_details.split("T")
         self.ddate = None
@@ -60,12 +61,11 @@ class RefRequest:
 
         print("\nSending your request to administrators...\n")
         admins = read_data_from_admins_database()
-        try:
-            print(f"Request ID: {self.request_id}.")
-        except AttributeError:
-            admins['admins_inf']['request_id'] += 1
-            self.request_id = admins['admins_inf']['request_id']
-            print(f"Request ID: {self.request_id}.")
+
+        self.request_id = admins['admins_inf']['request_id']
+        admins['admins_inf']['request_id'] += 1
+        print(f"Request ID: {self.request_id}.")
+
         admins['admins_inf']['requests_box'].append(self.__dict__)
         # Notifications
         admins['admins_inf']['notifications'].append(f"You have a new request from {self.username}.")
@@ -258,23 +258,24 @@ class RefRequest:
         rq_box = admins['admins_inf']['requests_box']
         if len(rq_box) > 0:
             print("Checking pending requests...")
-            for i in range(len(rq_box)):
-                created = rq_box[i]["datetime_details"].replace("T", " ")
+            for i, req in enumerate(rq_box):
+                created = req["datetime_details"].replace("T", " ")
                 then = datetime.strptime(created, '%Y-%m-%d %H:%M:%S.%f')  # '2021-03-25T19:41:54.083887'
                 now = datetime.now()
                 diff = now - then
-                if diff >= timedelta(seconds=120):
+                waiting_time = timedelta(seconds=200)
+                if diff >= waiting_time:
                     print("\nApproving...\n")
-                    rq_box[i]['approved'] = True
+                    req['approved'] = True
                     print(".")
                     time.sleep(0.25)
                     users = read_data_from_users_database()
                     for user in users['users']:
                         try:
-                            if rq_box[i]['username'] == user['username']:
-                                if rq_box[i]["approved"]:
-                                    user["wallet"] += rq_box[i]["amount"]
-                                    user["notifications"].append(f"Your request for {rq_box[i]['amount']} points has been accepted.")
+                            if req['username'] == user['username']:
+                                if req["approved"]:
+                                    user["wallet"] += req["amount"]
+                                    user["notifications"].append(f"Your request for {req['amount']} points has been accepted.")
                                     print("\nExecuting...\n")
                                 del admins['admins_inf']['requests_box'][i]
                                 del admins['admins_inf']['notifications'][i]

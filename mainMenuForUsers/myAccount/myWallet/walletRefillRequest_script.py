@@ -10,6 +10,6 @@ def wallet_refill():
     # usr_dict = player.__dict__
     req = RefRequest()
     req.save_request_in_reqs_box()
-    time.sleep(5)
+    time.sleep(3)
     return MenuNode.current_node()
 

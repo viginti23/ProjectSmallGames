@@ -21,7 +21,7 @@ def read_data_from_users_database():
     except JSONDecodeError:
         print("The JSON database is invalid!\nCreating new JSON users database template...")
         with open("database/users.json", "w") as data:
-            template = {'users': [],
+            template = {'users': {},
                         'users_inf': {}}
             json.dump(template, data, indent=4)
             return template
@@ -71,8 +71,8 @@ def read_data_from_games_database():
             template = {'games': {},
                         'games_inf':
                             {'game_id': 0,
-                             'registers': {}
-                             }}
+                             'total_register': 0}
+                        }
             json.dump(template, data, indent=4)
             return template
 

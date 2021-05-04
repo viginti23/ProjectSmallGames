@@ -1,6 +1,7 @@
-from Games.coin_flip.coin_flipBestScores.coin_flipBestScores_script import show
 from structures.func_Node import FuncNode
+from structures.game_class import Game
 
-func = show
+Game.current_game = "Coin Flip"
+func = Game.display_top_n
 
 coinFlipBestScores = FuncNode("Best scores", func)

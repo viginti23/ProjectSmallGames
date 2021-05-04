@@ -4,60 +4,49 @@
             "user_id": 0,
             "notifications": [],
             "username": "zfer",
-            "key": "60d261234c1a943018b72a460e2cb4415f28643cec306de01ecd47e50d3a36cb",
-            "salt": "5938659ea2da20462a54f12c4be51b09bafba3f111287b21b959f7dbc9f8087f",
+            "key": "6599b4cae99ddc1e4a3b07c9b78f6d300297ba1d0ce8df3447d9955a941edc60",
+            "salt": "d9521f113ab882687eba0ab6323f42ca22106f105894a342bd97f20497f9493e",
             "email": "zfer@wp.pl",
-            "wallet": 1011111111113344444623905998242,
-            "is_admin": false,
-            "sent_request_box": []
-        },
-        {
-            "notifications": [],
-            "username": "karolcia",
-            "key": "74af1e416c9bba629f141e5e214dd69f3d3d4dab510c33bc7fdfd8833d29320e",
-            "salt": "7df1b65d3f19ce4e2e8c291f9c356a5de72e2eaf373a4515dd5d7524aed741ce",
-            "email": "karol@wp.pl",
-            "wallet": 55900474945219,
+            "wallet": 27779,
             "is_admin": false,
             "sent_request_box": [],
-            "dictionary": {
-                "user_id": 0,
-                "notifications": [
-                    "Your request for 1515 points has been accepted."
-                ],
-                "username": "karolcia",
-                "key": "74af1e416c9bba629f141e5e214dd69f3d3d4dab510c33bc7fdfd8833d29320e",
-                "salt": "7df1b65d3f19ce4e2e8c291f9c356a5de72e2eaf373a4515dd5d7524aed741ce",
-                "email": "karol@wp.pl",
-                "wallet": 55597580748240,
-                "is_admin": false,
-                "sent_request_box": []
-            },
-            "user_id": 0
+            "my_best": {
+                "Coin Flip": {
+                    "username": "zfer",
+                    "score": 4000,
+                    "datetime_details": "04-05-2021 13:25"
+                }
+            }
         },
         {
-            "user_id": 3,
+            "user_id": 0,
             "notifications": [],
-            "username": "patryk",
-            "key": "5ae74e7c733d41d7d82c96ca5ffc3c05b6b7e2166fc62cf2b7bb774089a9a096",
-            "salt": "287cdfb2d8233481fdd6c5e479b9837205e64644c75a219e9513e0f8659836c2",
-            "email": "kkk@wp.pl",
-            "wallet": 20000,
+            "username": "olga",
+            "key": "851152a3cef5706058c9316122916663883f09d6eaf5f5f81f05c1c1c4783abb",
+            "salt": "f5d73317a35841beeff3dbded85c34ae205e907880704a800fca65dfe4d13146",
+            "email": "olga@wp.pl",
+            "wallet": 1010014,
             "is_admin": false,
-            "sent_request_box": []
+            "sent_request_box": [],
+            "my_best": {
+                "Coin Flip": {
+                    "username": "olga",
+                    "score": 10000,
+                    "datetime_details": "04-05-2021 13:38"
+                }
+            }
         },
         {
             "user_id": 1,
-            "notifications": [
-                "Your request for 500 points has been accepted."
-            ],
-            "username": "papryk",
-            "key": "8cff6e74f2c0003c00cbd8794c06ef5846fbf52886f7526fb2372b1687703bcc",
-            "salt": "6ae167c45f1bdf758ea6e35aecc931e31acf72b721845b2f0bdad4eb1829e85f",
-            "email": "pat@wp.pl",
-            "wallet": 1011502,
+            "notifications": [],
+            "username": "user",
+            "key": "023cc8b0a0495dd70a4977cda38837c5cae6f3b646c26fd2ee2128bb3829b056",
+            "salt": "47c936100e11c03c52206a5022e64872b35caa7eb6b12be49e0efd5683b29e96",
+            "email": "user@user.pl",
+            "wallet": 0,
             "is_admin": false,
-            "sent_request_box": []
+            "sent_request_box": [],
+            "top_5": {}
         }
     ],
     "users_inf": {}

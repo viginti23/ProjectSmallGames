@@ -4,5 +4,4 @@ from Games.coin_flip.coin_flipBestScores.coin_flipBestScores_funcNode import coi
 
 content = {}
 options = [coin_flipGame, coinFlipBestScores]
-
 CoinFlip = MenuNode("Coin Flip", content, options=options)
