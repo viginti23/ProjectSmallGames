@@ -1,9 +1,12 @@
 from structures.func_Node import FuncNode
 from structures.game_class import Game
 
+from structures.func_Node import FuncNode
+from structures.game_class import Game
+
 
 def return_func():
-    gamename = "Coin Flip"
+    gamename = "Turtle Race"
 
     def wrapper():
         Game.display_top_n(gamename)
@@ -13,4 +16,4 @@ def return_func():
 
 func = return_func
 
-coinFlipBestScores = FuncNode("Coin Flip", func)
+turtle_raceBestScores = FuncNode("Turtle Race", func)

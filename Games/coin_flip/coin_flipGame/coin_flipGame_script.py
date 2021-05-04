@@ -25,7 +25,7 @@ class CoinF(Game):
             playing_user = self.settingGuestUser()
 
         while True:
-            if playing_user.wallet == 0:
+            if playing_user.wallet <= 0:
                 print("You have no money in your wallet. Please refill your wallet or sit and just watch the menu.")
                 time.sleep(3)
                 return MenuNode.current_node()

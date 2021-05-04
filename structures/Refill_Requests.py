@@ -257,7 +257,7 @@ class RefRequest:
         admins = read_data_from_admins_database()
         rq_box = admins['admins_inf']['requests_box']
         if len(rq_box) > 0:
-            print("Checking pending requests...")
+            print("Checking requests...")
             for i, req in enumerate(rq_box):
                 created = req["datetime_details"].replace("T", " ")
                 then = datetime.strptime(created, '%Y-%m-%d %H:%M:%S.%f')  # '2021-03-25T19:41:54.083887'

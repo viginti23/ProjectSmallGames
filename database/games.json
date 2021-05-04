@@ -3,14 +3,7 @@
         "Coin Flip": {
             "name": "Coin Flip",
             "game_id": 0,
-            "register": 0,
-            "top5": [
-                {
-                    "username": "zfer",
-                    "score": 1600,
-                    "datetime_details": "04-05-2021 15:19"
-                }
-            ]
+            "register": 0
         },
         "Turtle Race": {
             "name": "Turtle Race",

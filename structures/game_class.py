@@ -66,10 +66,9 @@ class Game:
         write_data_to_games_database(games)
 
     @staticmethod
-    def display_top_n(n=5):
+    def display_top_n(gamename, n=5):
         os.system('clear')
         games = read_data_from_games_database()
-        gamename = Game.current_game
         try:
             top5 = games['games'][gamename]['top5']
         except KeyError:
@@ -85,6 +84,24 @@ class Game:
                 print(f"{i+1}| {result['username']} | {result['score']} | {result['datetime_details']}\n")
 
         inp = input('\nPress Enter to continue.\n')
+        return MenuNode.current_node()
+
+    @staticmethod
+    def display_personal_best(gamename):
+        users = read_data_from_users_database()
+        from structures.user_class import User
+        playing_user = User.logged
+        for user in users['users']:
+            if user['username'] == playing_user.username:
+                try:
+                    game_best = user['my_best'][gamename]
+                except KeyError:
+                    user['my_best'] = {}
+                    user['my_best'][gamename] = 0
+                    game_best = user['my_best'][gamename]
+                write_data_to_users_database(users)
+                print(f"\n{game_best}\n")
+        inp = input("\nPress Enter to continue.\n")
         return MenuNode.current_node()
 
     def check_personal_best(self, score):

@@ -45,7 +45,7 @@ class MenuNode:
             if func_or_menu_node not in self.installed_options.values():
                 self.installed_options[str(len(self.installed_options) + 1)] = func_or_menu_node
                 self.content[str(len(self.content) + 1)] = f'|{str(len(self.content) + 1)}| {func_or_menu_node.name}\n'
-                func_or_menu_node.parent_up = self  # todo for games it is easy to lost track and give them more than 1 parent!
+                func_or_menu_node.parent_up = self
         return
 
     def adding_up_module_leading_to_parent_menu(self):

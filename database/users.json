@@ -4,49 +4,15 @@
             "user_id": 0,
             "notifications": [],
             "username": "zfer",
-            "key": "6599b4cae99ddc1e4a3b07c9b78f6d300297ba1d0ce8df3447d9955a941edc60",
-            "salt": "d9521f113ab882687eba0ab6323f42ca22106f105894a342bd97f20497f9493e",
-            "email": "zfer@wp.pl",
-            "wallet": 27779,
+            "key": "0471e9fb65f643942ab9d0870474721d509f1d8179161e1a7648a444b8fa4960",
+            "salt": "1638704b53447c3164ede85fcb704eebc6ff071b332e46a6d53253ee92c22526",
+            "email": "zardom@wp.pl",
+            "wallet": 1000000,
             "is_admin": false,
             "sent_request_box": [],
             "my_best": {
-                "Coin Flip": {
-                    "username": "zfer",
-                    "score": 4000,
-                    "datetime_details": "04-05-2021 13:25"
-                }
+                "Turtle Race": 0
             }
-        },
-        {
-            "user_id": 0,
-            "notifications": [],
-            "username": "olga",
-            "key": "851152a3cef5706058c9316122916663883f09d6eaf5f5f81f05c1c1c4783abb",
-            "salt": "f5d73317a35841beeff3dbded85c34ae205e907880704a800fca65dfe4d13146",
-            "email": "olga@wp.pl",
-            "wallet": 1010014,
-            "is_admin": false,
-            "sent_request_box": [],
-            "my_best": {
-                "Coin Flip": {
-                    "username": "olga",
-                    "score": 10000,
-                    "datetime_details": "04-05-2021 13:38"
-                }
-            }
-        },
-        {
-            "user_id": 1,
-            "notifications": [],
-            "username": "user",
-            "key": "023cc8b0a0495dd70a4977cda38837c5cae6f3b646c26fd2ee2128bb3829b056",
-            "salt": "47c936100e11c03c52206a5022e64872b35caa7eb6b12be49e0efd5683b29e96",
-            "email": "user@user.pl",
-            "wallet": 0,
-            "is_admin": false,
-            "sent_request_box": [],
-            "top_5": {}
         }
     ],
     "users_inf": {}

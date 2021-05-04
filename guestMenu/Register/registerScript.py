@@ -177,7 +177,7 @@ class RegisterScript:
 
         valid_salt, valid_key = cls.password_prompt(valid_username)
 
-        adm = getpass.getpass("\nPress enter to continue or type the admin access password to gain admin powers and "
+        adm = getpass.getpass("\nPress Enter to continue or type the admin access password to gain admin powers and "
                               "permissions.\n")
 
         users = read_data_from_users_database()
