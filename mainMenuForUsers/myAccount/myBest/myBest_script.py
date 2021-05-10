@@ -13,7 +13,7 @@ def return_funcTurtle():
 
 
 func1 = return_funcTurtle
-my_bestCoinFlip = FuncNode("Coin Flip", func=func1)
+my_bestCoinFlip = FuncNode("Turtle Race", func=func1)
 
 
 def return_funcCoinFlip():
@@ -26,4 +26,4 @@ def return_funcCoinFlip():
 
 
 func2 = return_funcCoinFlip
-my_bestTurtleRace = FuncNode("Turtle Race", func=func2)
+my_bestTurtleRace = FuncNode("Coin Flip", func=func2)

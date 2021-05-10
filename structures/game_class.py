@@ -3,7 +3,8 @@ from datetime import datetime
 import os
 from structures.user_class import User, GuestUser
 from structures.menu_Node import MenuNode
-from json_data_funcs import read_data_from_games_database, write_data_to_games_database, read_data_from_admins_database, write_data_to_admins_database, read_data_from_users_database, write_data_to_users_database
+from json_data_funcs import read_data_from_games_database, write_data_to_games_database, read_data_from_users_database,\
+    write_data_to_users_database
 
 
 # Parent class for each game.
@@ -31,6 +32,12 @@ class Game:
             games['games'][self.name]['register'] = 0
             self.register = games['games'][self.name]['register']
 
+        try:
+            self.top5 = games['games'][self.name]['top5']
+        except KeyError:
+            games['games'][self.name]['top5'] = []
+            self.top5 = games['games'][self.name]['top5']
+
         write_data_to_games_database(games)
 
     def __repr__(self):
@@ -39,7 +46,8 @@ class Game:
     def __str__(self):
         return self.name
 
-    def get_result_obj(self, score, playing_user):
+    @staticmethod
+    def get_result_obj(score, playing_user):
         return {'username': playing_user.username,
                 'score': score,
                 'datetime_details': datetime.strftime(datetime.now(), '%d-%m-%Y %H:%M')}
@@ -72,8 +80,10 @@ class Game:
         try:
             top5 = games['games'][gamename]['top5']
         except KeyError:
+            games['games'][gamename] = {}
             games['games'][gamename]['top5'] = []
             top5 = games['games'][gamename]['top5']
+
         if len(top5) == 0:
             print('\nThere are no records yet!\n')
         else:
@@ -81,7 +91,7 @@ class Game:
             top5 = top5[:n]
             print('\n\n\n')
             for i, result in enumerate(top5):
-                print(f"{i+1}| {result['username']} | {result['score']} | {result['datetime_details']}\n")
+                print(f"{i + 1}| {result['username']} | {result['score']} | {result['datetime_details']}\n")
 
         inp = input('\nPress Enter to continue.\n')
         return MenuNode.current_node()
@@ -89,37 +99,42 @@ class Game:
     @staticmethod
     def display_personal_best(gamename):
         users = read_data_from_users_database()
-        from structures.user_class import User
         playing_user = User.logged
         for user in users['users']:
             if user['username'] == playing_user.username:
                 try:
                     game_best = user['my_best'][gamename]
                 except KeyError:
-                    user['my_best'] = {}
-                    user['my_best'][gamename] = 0
+                    user['my_best'][gamename] = {}
+                    user['my_best'][gamename]['score'] = 0
                     game_best = user['my_best'][gamename]
                 write_data_to_users_database(users)
-                print(f"\n{game_best}\n")
+                print(f"\nYour personal best in {gamename} is:\n"
+                      f"\t\t\t{game_best['score']} points.\n")
         inp = input("\nPress Enter to continue.\n")
         return MenuNode.current_node()
 
     def check_personal_best(self, score):
         users = read_data_from_users_database()
+
         from structures.user_class import User
         playing_user = User.logged
+
         curr_result = self.get_result_obj(score, playing_user)
+
         for user in users['users']:
-            if user['username'] == playing_user.username:
+            if user['username'] == curr_result['username']:
+
                 try:
                     game_best = user['my_best'][self.name]
+                    if curr_result['score'] > game_best['score']:
+                        user['my_best'][self.name] = curr_result
+                        print("\n\n\nNEW PERSONAL BEST!\n\n\n")
+
                 except KeyError:
-                    user['my_best'] = {}
                     user['my_best'][self.name] = curr_result
                     game_best = user['my_best'][self.name]
-                if score > game_best['score']:
-                    user['my_best'][self.name] = curr_result
-                    print("\n\n\nNEW PERSONAL BEST!\n\n\n")
+
         write_data_to_users_database(users)
 
     def round_end(self, score, playing_user):
@@ -137,26 +152,36 @@ class Game:
                 print(f'\nYou lost {abs(score)} '
                       f'points in this session.\nCurrently in your wallet:\n{playing_user.wallet}')
             # Checking if the score is high enough to get to top 5 results of the game or to the personal best.
-            self.check_top_n(score)
-            self.check_personal_best(score)
+            if not isinstance(playing_user, GuestUser):
+                self.check_top_n(score)
+                self.check_personal_best(score)
             return True
         else:
             return False
 
     @staticmethod
     def system_wallet():
+        games = read_data_from_games_database()
+        total_register = games['games_inf']['total_register']
+
+        for gamename in games['games']:
+            print(f"\n{gamename}: {games['games'][gamename]['register']}\n")
+            total_register += games['games'][gamename]['register']
+        write_data_to_games_database(games)
+        from structures.user_class import User
         if User.logged.is_admin:
-            return Game.total_register
+            print(f"Total number of points in the system:\n{total_register}\n")
+            inp = input("Press Enter to continue.")
+            return MenuNode.current_node()
             # print each game separately
 
     @staticmethod
-    def settingUser():
-        # Setting the logged in user as playing user.
-        return User.logged
-
-    @staticmethod
-    def settingGuestUser():
-        return GuestUser()
+    def setting_player():
+        from structures.user_class import User
+        if User.logged:
+            return User.logged
+        else:
+            return GuestUser()
 
     @staticmethod
     def getting_players_bet(player):
@@ -171,11 +196,10 @@ class Game:
                     print("\nYou must enter a positive number.")
                     time.sleep(2)
                     continue
-                if isinstance(player, User):
-                    if players_money_bet > player.wallet:
-                        print("\nYou don't have that much money in your wallet!")
-                        time.sleep(2)
-                        continue
+                if players_money_bet > player.wallet:
+                    print("\nYou don't have that much money in your wallet!")
+                    time.sleep(2)
+                    continue
                 return players_money_bet
 
             except ValueError:
@@ -194,3 +218,45 @@ class Game:
             else:
                 top5 = []
         return top5
+
+    @staticmethod
+    def not_enough_money(wallet):
+        if wallet <= 0:
+            print("You have no money in your wallet. Please refill your wallet or sit and just watch the menu.")
+            time.sleep(3)
+            return MenuNode.current_node()
+
+    @staticmethod
+    def start_game(game):
+
+        playing_user = game.setting_player()
+        while True:
+
+            players_choice, drawn_value, players_money_bet = game.game(playing_user)
+            game.evaluating_results(players_choice, drawn_value, players_money_bet, playing_user)
+
+            print(f"\nSession's score: {game.score}.")
+            print(f"\nCurrent's session results: {game.current_session_results}.")
+            print(f"\nYour wallet's status: {playing_user.wallet}.")
+
+            # Updating user's wallet in the database
+            if User.logged:
+                users = read_data_from_users_database()
+                for user in users['users']:
+                    if user['username'] == playing_user.username:
+                        user['wallet'] += game.score
+                write_data_to_users_database(users)
+
+            # Updating game's register in the database.
+            games = read_data_from_games_database()
+            games['games'][game.name]['register'] += -game.score
+            write_data_to_games_database(games)
+
+            rnd = game.round_end(game.score, playing_user)
+            if rnd:
+                break
+            else:
+                continue
+        print("Coming back to the previous menu...")
+        time.sleep(5)
+        return MenuNode.current_node()

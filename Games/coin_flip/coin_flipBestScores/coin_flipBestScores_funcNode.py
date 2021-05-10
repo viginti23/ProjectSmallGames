@@ -8,9 +8,10 @@ def return_func():
     def wrapper():
         Game.display_top_n(gamename)
 
+    wrapper()
     return wrapper()
 
 
 func = return_func
 
-coinFlipBestScores = FuncNode("Coin Flip", func)
+coinFlipBestScores = FuncNode("Coin Flip Records", func)

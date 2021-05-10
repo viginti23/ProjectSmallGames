@@ -16,4 +16,4 @@ def return_func():
 
 func = return_func
 
-turtle_raceBestScores = FuncNode("Turtle Race", func)
+turtle_raceBestScores = FuncNode("Turtle Race Records", func)

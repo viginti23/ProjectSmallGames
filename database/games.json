@@ -3,12 +3,56 @@
         "Coin Flip": {
             "name": "Coin Flip",
             "game_id": 0,
-            "register": 0
+            "register": 1008577,
+            "top5": [
+                {
+                    "username": "zfer",
+                    "score": 967,
+                    "datetime_details": "07-05-2021 23:49"
+                },
+                {
+                    "username": "zfer",
+                    "score": -9700,
+                    "datetime_details": "08-05-2021 13:45"
+                },
+                {
+                    "username": "zfer",
+                    "score": -1000000,
+                    "datetime_details": "07-05-2021 23:48"
+                }
+            ]
         },
         "Turtle Race": {
             "name": "Turtle Race",
             "game_id": 1,
-            "register": 0
+            "register": -76574,
+            "top5": [
+                {
+                    "username": "zfer",
+                    "score": 288888,
+                    "datetime_details": "07-05-2021 23:48"
+                },
+                {
+                    "username": "zfer",
+                    "score": 10000,
+                    "datetime_details": "08-05-2021 14:15"
+                },
+                {
+                    "username": "zfer",
+                    "score": -140,
+                    "datetime_details": "08-05-2021 13:57"
+                },
+                {
+                    "username": "zfer",
+                    "score": -1000,
+                    "datetime_details": "08-05-2021 13:46"
+                },
+                {
+                    "username": "zfer",
+                    "score": -10000,
+                    "datetime_details": "08-05-2021 14:13"
+                }
+            ]
         }
     },
     "games_inf": {

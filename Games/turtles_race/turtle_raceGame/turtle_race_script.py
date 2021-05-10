@@ -1,3 +1,4 @@
+import os
 import random
 import time
 import turtle
@@ -9,15 +10,18 @@ import json_data_funcs
 
 
 class TurtleRace(Game):
+
     games = json_data_funcs.read_data_from_games_database()
 
     users = json_data_funcs.read_data_from_users_database()
-
+    racers = 0
     # Window setup variables
     WIDTH, HEIGHT = 700, 700
 
     def __init__(self):
         super().__init__(name='Turtle Race')
+        self.score = 0
+        self.current_session_results = []
 
     def how_many_turtles(self):
         while True:
@@ -26,6 +30,7 @@ class TurtleRace(Game):
                         "Your bet is multiplied by the racers number.\n")
             try:
                 num = int(num)
+                TurtleRace.racers = num
             except ValueError:
                 print("Enter valid input.")
                 continue
@@ -38,8 +43,9 @@ class TurtleRace(Game):
 
     def screen_setup(self):
         screen = turtle.Screen()
-        screen.setup(self.WIDTH, self.HEIGHT)
+        screen.setup(self.WIDTH, self.HEIGHT, startx=0, starty=0)
         screen.title("Turtles Race!")
+        turtle.TurtleScreen._RUNNING = True
 
     def create_turtles(self, colors):
         turtles = []
@@ -68,79 +74,75 @@ class TurtleRace(Game):
                 if y >= self.HEIGHT // 2 - 10:  # Finish line at +190
                     return colors[i]
 
-    def start_game(self):
-        score = 0
-        current_session_results = []
+    def evaluating_results(self, players_choice, drawn_value, players_money_bet, playing_user):
+        if players_choice.lower() == drawn_value.lower():
+            print(f'The winner is {drawn_value}!\n'
+                  f'You won!!!\n')
+            self.current_session_results.append(
+                ['W', f"Money bet: {players_money_bet}",
+                 f"Date: {datetime.strftime(datetime.now(), '%d.%m.%Y, %H:%M')}"])
+            playing_user.wallet += (TurtleRace.racers * players_money_bet) - players_money_bet
+            self.register -= (TurtleRace.racers * players_money_bet) - players_money_bet
+            self.score += (TurtleRace.racers * players_money_bet) - players_money_bet
 
-        if User.logged:
-            playing_user = self.settingUser()
         else:
-            playing_user = self.settingGuestUser()
+            print(f'The winner is {drawn_value}!\n'
+                  f'You lost! :( \n')
 
+            playing_user.wallet -= players_money_bet
+            self.register += players_money_bet
+            self.score -= players_money_bet
+            self.current_session_results.append(
+                ['L', f"Money bet: {players_money_bet}",
+                 f"Date: {datetime.strftime(datetime.now(), '%d.%m.%Y, %H:%M')}"])
+
+    def game(self, playing_user):
+
+        # while True:
+        self.not_enough_money(playing_user.wallet)
+
+        # Getting player's points bet
+        players_money_bet = self.getting_players_bet(playing_user)
+
+        # Ten different colors referring to max number of racers.
+        COLORS = ['red', 'blue', 'green', 'yellow', 'black', 'cyan', 'pink', 'purple', 'orange', 'brown']
+        random.shuffle(COLORS)
+
+        # Creating the racers.
+        racers = self.how_many_turtles()
+
+        colors = COLORS[:int(racers)]
+
+        chosen_turtle = ''
         while True:
-            if playing_user.wallet == 0:
-                print("You have no money in your wallet. Please refill your wallet or sit and just watch the menu.")
-                time.sleep(3)
-                return MenuNode.current_node()
+            for i, color in enumerate(colors):
+                print(f"\n{i+1}| {color}\n")
 
-            players_money_bet = self.getting_players_bet(playing_user)
-            racers = self.how_many_turtles()
-            COLORS = ['red', 'blue', 'green', 'yellow', 'black', 'cyan', 'pink', 'purple', 'orange', 'brown']
-            random.shuffle(COLORS)
-            colors = COLORS[:int(racers)]
-            for color in colors:
-                print(f"\n{color}\n")
-            while True:
-                inp = input("\n\nWhich turtle will win the race?\nEnter your type now!\n\n")
-                if inp not in colors:
-                    print("Invalid type!")
+            try:
+                players_choice = input("\n\nWhich turtle will win the race?\nEnter your type number now!\n\n")
+                players_choice = int(players_choice)
+                try:
+                    chosen_turtle = colors[players_choice-1]
+                    break
+                except IndexError:
+                    print("\nInvalid input, try typing numbers in the correct range.\n")
+                    time.sleep(1)
                     continue
-                break
-            turtle.Screen().clear()
-
-            self.screen_setup()
-
-            winner = self.race(colors)
-            if inp.lower() == winner.lower():
-                print(f'The winner is {winner}!\n'
-                      f'You won!!!\n')
-                current_session_results.append(
-                    ['W', f"Money bet: {players_money_bet}",
-                     f"Date: {datetime.strftime(datetime.now(), '%d.%m.%Y, %H:%M')}"])
-                playing_user.wallet += len(colors) * players_money_bet
-                self.register -= len(colors) * players_money_bet
-                score += len(colors) * players_money_bet
-
-            else:
-                print(f'The winner is {winner}!\n'
-                      f'You lost! :( \n')
-
-                playing_user.wallet -= players_money_bet
-                self.register += players_money_bet
-                score -= players_money_bet
-                current_session_results.append(
-                    ['L', f"Money bet: {players_money_bet}",
-                     f"Date: {datetime.strftime(datetime.now(), '%d.%m.%Y, %H:%M')}"])
-
-            print(f"\nSession's score: {score}.")
-            print(f"\nCurrent's session results: {current_session_results}.")
-            print(f"\nYour wallet's status: {playing_user.wallet}.")
-            time.sleep(5)
-            turtle.Screen().bye()
-
-            users = json_data_funcs.read_data_from_users_database()
-            for user in users['users']:
-                if user['username'] == playing_user.username:
-                    user['wallet'] += score
-            json_data_funcs.write_data_to_users_database(users)
-
-            rnd = self.round_end(score, playing_user)
-            if rnd:
-                break
-            else:
+            except ValueError:
+                print("\nInvalid input, try typing numbers.\n")
+                time.sleep(1)
                 continue
-        print("Coming back to the previous menu...")
-        time.sleep(5)
-        return MenuNode.current_node()
+        # turtle.Screen().clear()
 
+        self.screen_setup()
 
+        # Race itself.
+        winner = self.race(colors)
+        os.system('clear')
+
+        # Closing the race window.
+        inp = input("\n\n\t\t\tPress Enter to close the window.\n\n")
+        turtle.Screen().bye()
+        turtle.Screen._RUNNING = True
+
+        return chosen_turtle, winner, players_money_bet

@@ -4,8 +4,8 @@
             "user_id": 0,
             "notifications": [],
             "username": "viginti",
-            "key": "813ade800dd75e9d663bc652ae13fe92d49be9bb24e42a4ba2cc4706f6e6a4e0",
-            "salt": "2274d6d8fbd71bcb424ce1ae696bee4e302c1e1f6fe7afde9a41f0351a7732c6",
+            "key": "baeaf9d3c355152b1a780cbd808bd07437187e382a601551ad7619425fba21fc",
+            "salt": "f376e889f5199f88d1d3172b82aa2b52e237ee54dd0a7a3f4524e6d3196eb286",
             "email": "zarodm@gmail.com",
             "wallet": 0,
             "is_admin": true,
@@ -15,10 +15,10 @@
     ],
     "admins_inf": {
         "requests_box": [],
-        "request_id": 1,
+        "request_id": 3,
         "total_sys": 0,
-        "user_id": 0,
-        "guest_id": 0,
+        "user_id": 4,
+        "guest_id": 29,
         "notifications": [],
         "guest_wallet": 10
     }

@@ -13,8 +13,13 @@ class User:
         admins = read_data_from_admins_database()
 
         if dictionary is None:
-            self.user_id = admins['admins_inf']['user_id']
-            admins['admins_inf']['user_id'] += 1
+            if User.logged:
+                self.user_id = admins['admins_inf']['user_id']
+                admins['admins_inf']['user_id'] += 1
+            else:
+                self.guest_id = admins['admins_inf']['guest_id']
+                admins['admins_inf']['guest_id'] += 1
+
             write_data_to_admins_database(admins)
 
         self.notifications = []
@@ -51,11 +56,11 @@ class GuestUser(User):
     def __init__(self):
         admins = read_data_from_admins_database()
         users = read_data_from_users_database()
-        try:
-            self.guest_id = admins['admins_inf']['guest_id']
-        except KeyError:
-            users['admins_inf']['guest_id'] = 0
-            self.guest_id = admins['admins_inf']['guest_id']
+        # try:
+        #     self.guest_id = admins['admins_inf']['guest_id']
+        # except KeyError:
+        #     users['admins_inf']['guest_id'] = 0
+        #     self.guest_id = admins['admins_inf']['guest_id']
 
         try:
             self.default_wallet = admins['admins_inf']['guest_wallet']

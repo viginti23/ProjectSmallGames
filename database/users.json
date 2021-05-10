@@ -1,17 +1,26 @@
 {
     "users": [
         {
-            "user_id": 0,
+            "guest_id": 19,
             "notifications": [],
             "username": "zfer",
-            "key": "0471e9fb65f643942ab9d0870474721d509f1d8179161e1a7648a444b8fa4960",
-            "salt": "1638704b53447c3164ede85fcb704eebc6ff071b332e46a6d53253ee92c22526",
-            "email": "zardom@wp.pl",
-            "wallet": 1000000,
+            "key": "9f1acee57bdebb7d5047aa619cb05a3ade6e652181ce297cda08bedefe75b59d",
+            "salt": "2c12c3e30bb28914776a090f72d0c80403eb17880cfc75575397b8350b9b0d35",
+            "email": "zger@wp.pl",
+            "wallet": 67999,
             "is_admin": false,
             "sent_request_box": [],
             "my_best": {
-                "Turtle Race": 0
+                "Turtle Race": {
+                    "username": "zfer",
+                    "score": 288888,
+                    "datetime_details": "07-05-2021 23:48"
+                },
+                "Coin Flip": {
+                    "username": "zfer",
+                    "score": 967,
+                    "datetime_details": "07-05-2021 23:49"
+                }
             }
         }
     ],
