@@ -4,12 +4,12 @@
 
 You need to have Python3 installed (and preferably aliased to 'python').
 
-Open your terminal/command line.\
-Change directory to ProjectSmallGames folder.\
-Type in: _python startProgram.py_\
+Open your terminal/command line.
+Change directory to ProjectSmallGames folder.
+Type in: python startProgram.py
 Follow the instruction in the terminal/command line window.
 
-**Short description**\
+**Short description**
 
 The application shows how much money random games of chances can make.
 
